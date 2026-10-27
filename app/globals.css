@@ -1,0 +1,47 @@
+/* CSS do site do lume. Os tokens e a base layer vêm da registry; aqui só o
+   que é do site: a fonte display, o tema duplo do Shiki e a entrada de página. */
+@import "../registry/base-vega/styles/globals.css";
+@import "@fontsource-variable/host-grotesk";
+
+/* Display face (Host Grotesk) só em títulos de marketing e do próprio site;
+   o app fica em Inter. Consumidores instalam o item `font-display`. */
+@theme inline {
+  --font-display:
+    "Host Grotesk Variable", "Inter Variable", ui-sans-serif, system-ui,
+    sans-serif;
+}
+
+/* Shiki dual-theme (github-light / vesper). CodeBlock highlights with
+   defaultColor:false, so each token carries both --shiki-light and
+   --shiki-dark (+ *-bg); the .dark class selects which to use. */
+.shiki {
+  background-color: var(--shiki-light-bg);
+}
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+}
+.dark .shiki {
+  background-color: var(--shiki-dark-bg);
+}
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark);
+}
+
+/* Page entrance, opacity-only fade, played once per hard load (gated by a
+   module-scope flag at the call site, Linear-style): client-side navigations
+   back to the page render instantly. */
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.page-fade-in {
+  animation: page-fade-in 75ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-fade-in {
+    animation: none;
+  }
+}
