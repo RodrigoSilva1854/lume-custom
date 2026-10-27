@@ -1,10 +1,12 @@
 # Adoção
 
-Gerado por `bun scripts/build-skill.ts` a partir de `FRONTEND.md`, `docs/guia/11-receita.md`, `docs/adocao/*.md`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/joaodadas/lume; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
+Gerado por `bun scripts/build-skill.ts` a partir de `FRONTEND.md`, `docs/guia/11-receita.md`, `docs/adocao/*.md`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/RodrigoSilva1854/lume-custom; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
 
 ## Cabeçalho, origem, como ler
 
 <!-- mapa: 1, 20.10, 21.12 | regras 22, 23 -->
+
+> **lume-custom:** as exceções do layout LYX estão em [CUSTOM.md](https://github.com/RodrigoSilva1854/lume-custom/blob/main/CUSTOM.md) e vencem as regras abaixo nos pontos que elas citam.
 
 Regras para construir qualquer interface com o lume. Toda regra é dura salvo indicação em contrário: se um padrão não cabe, levante antes de contornar. O texto segue a regra praticada no código do Foglamp (github.com/foglamp-labs/foglamp, commit `2bc3bb5`, Apache 2.0), não o `FRONTEND.md` original dele; onde os dois divergem (tema padrão `dark`, `motion/react` em uso, borda aceita em linha de tabela, divisor e campo no dark, `QueryCache.onError` em `utils/trpc.ts`, nenhum `error.tsx`), vale o código. Adições próprias estão marcadas com "(adição do lume)". A leitura longa, com tabelas e valores, fica em `docs/guia`; os conceitos do craft (Gustavo Fior, MIT) em `docs/conceitos`; as decisões do repo em `docs/DECISOES.md`.
 

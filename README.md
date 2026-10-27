@@ -1,11 +1,18 @@
-# lume
+# lume-custom
 
-Design system público com a cara do [Foglamp](https://github.com/foglamp-labs/foglamp):
-tokens, 56 primitivos sobre Base UI, blocos de dashboard, gráficos, guia em
-pt-BR e uma skill de agente. Distribuído como registry do shadcn: você instala
-os arquivos no seu projeto e eles passam a ser seus.
+O design system do CRM Comercial LYX. É o [lume](https://github.com/joaodadas/lume)
+(que copia o [Foglamp](https://github.com/foglamp-labs/foglamp)) com o nosso layout
+por cima: tokens, primitivos sobre Base UI, blocos, gráficos, guia em pt-BR e uma
+skill de agente, distribuídos como registry do shadcn.
 
-Site e registry: https://lume-ashmont.vercel.app
+- Regras gerais: [FRONTEND.md](FRONTEND.md) (as do lume, intactas).
+- O que muda no layout LYX: [CUSTOM.md](CUSTOM.md). Onde os dois divergem, vale o CUSTOM.md.
+- Protótipo de referência: [docs/referencia/crm-prototipo.html](docs/referencia/crm-prototipo.html) (abra no navegador).
+
+Repositório privado: para instalar por `npx shadcn`, a máquina precisa de acesso ao
+GitHub com um token que leia este repositório (variável `GITHUB_TOKEN`).
+
+Site do lume original, para consultar os componentes: https://lume-ashmont.vercel.app
 
 ## Instalação em três comandos
 

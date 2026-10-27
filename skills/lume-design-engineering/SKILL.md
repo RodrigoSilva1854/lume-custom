@@ -3,14 +3,14 @@ name: lume-design-engineering
 description: 'Design engineering rules for interfaces with the Foglamp look (Gustavo Fior), served by the joaodadas/lume shadcn registry: grey oklch tokens, shadow instead of border, squircle radii, Base UI primitives, Tabler icons, inset shell, tables, dashboards, forms, dialogs, motion and loading states. Use when the user asks for the "cara do Foglamp" or the "padrão do DS", for polish, dark mode, cards, tabelas or dashboards, for a "migração 52W", Radix or Lucide to lume, or to review UI against FRONTEND.md.'
 metadata:
   author: joaodadas
-  source: https://github.com/joaodadas/lume
+  source: https://github.com/RodrigoSilva1854/lume-custom
   version: 0.1.1
   credits: Foglamp (Apache-2.0) e craft (MIT), Gustavo Fior
 ---
 
 # lume design engineering
 
-Gerado por `bun scripts/build-skill.ts`; não edite à mão. Fonte: `FRONTEND.md`, `docs/guia`, `docs/conceitos`, `docs/adocao` e `registry.json` de https://github.com/joaodadas/lume.
+Gerado por `bun scripts/build-skill.ts`; não edite à mão. Fonte: `FRONTEND.md`, `docs/guia`, `docs/conceitos`, `docs/adocao` e `registry.json` de https://github.com/RodrigoSilva1854/lume-custom.
 
 ## O que é e quando usar
 
@@ -18,6 +18,7 @@ O lume é uma registry shadcn (`base-vega` sobre `@base-ui/react`, Tailwind v4, 
 
 ## Como usar
 
+0. Neste repositório (lume-custom), leia também o `CUSTOM.md` de https://github.com/RodrigoSilva1854/lume-custom: as exceções do layout LYX vencem o `FRONTEND.md` nos pontos que citam, e cores e ícones de seção vêm de `lib/sections.ts`.
 1. Ache a seção no digest abaixo (uma linha por seção do `FRONTEND.md`) ou no índice de references.
 2. Leia a reference inteira antes de escrever código: ela traz as strings de classe exatas, os tokens e `arquivo:linha`.
 3. Use os valores exatos (tokens, pares de raio, sombras, durações, curvas de `lib/motion.ts`); não invente um cinza, uma sombra ou uma curva nova.

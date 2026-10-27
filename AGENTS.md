@@ -1,4 +1,8 @@
-# lume: regras para agentes
+# lume-custom: regras para agentes
+
+Este repo é o lume com o layout do CRM LYX por cima. Leia `FRONTEND.md` e
+depois `CUSTOM.md`; onde divergem, vale o `CUSTOM.md`. Cores e ícones de seção
+vêm só de `registry/base-vega/lib/sections.ts`.
 
 Registry shadcn + guia + skill com a cara do Foglamp (Apache-2.0, Gustavo Fior).
 Next 16 na raiz, bun, Biome, Tailwind 4, shadcn `base-vega` sobre

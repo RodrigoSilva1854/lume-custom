@@ -557,6 +557,7 @@ O lume é uma registry shadcn (\`base-vega\` sobre \`@base-ui/react\`, Tailwind 
 
 ## Como usar
 
+0. Neste repositório (lume-custom), leia também o \`CUSTOM.md\` de ${REPO_URL}: as exceções do layout LYX vencem o \`FRONTEND.md\` nos pontos que citam, e cores e ícones de seção vêm de \`lib/sections.ts\`.
 1. Ache a seção no digest abaixo (uma linha por seção do \`FRONTEND.md\`) ou no índice de references.
 2. Leia a reference inteira antes de escrever código: ela traz as strings de classe exatas, os tokens e \`arquivo:linha\`.
 3. Use os valores exatos (tokens, pares de raio, sombras, durações, curvas de \`lib/motion.ts\`); não invente um cinza, uma sombra ou uma curva nova.

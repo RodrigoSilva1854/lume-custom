@@ -1,8 +1,8 @@
 # Itens da registry
 
-Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/joaodadas/lume; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
+Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/RodrigoSilva1854/lume-custom; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
 
-109 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
+110 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
 
 ## Base (1)
 
@@ -17,13 +17,14 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `font-display` | Fonte display (Host Grotesk) | Host Grotesk via Fontsource como `font-display`, só para títulos de marketing. O app fica em Inter. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/font-display#v0.1.1` |
 | `guia` | Guia do lume | FRONTEND.md (regras Always/Never), o guia longo e os conceitos do craft, instalados em docs/lume/ de qualquer projeto. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/guia#v0.1.1` |
 
-## Lib (4)
+## Lib (5)
 
 | Item | Título | Descrição | Comando |
 |---|---|---|---|
 | `format` | Formatação pt-BR | formatCount, formatDuration, formatPercent, formatDateTime, formatRelative, formatDelta, formatMoney e formatCompact com LOCALE pt-BR, fuso de São Paulo e placeholder `sem dado`. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/format#v0.1.1` |
 | `motion` | Vocabulário de movimento | EASE [0.22,1,0.36,1], ENTRANCE_EASE, REVEAL_EASE, MORPH (spring 400/38), TOOLBAR_SPRING (520/44), COPY_SPRING e useReduce(): o vocabulário fechado de motion do sistema. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/motion#v0.1.1` |
 | `range` | Períodos | Presets de período em pt-BR (última hora, 24 horas, 7 dias, 30 dias, este mês...) e helpers de intervalo. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/range#v0.1.1` |
+| `sections` | Seções do CRM LYX | lume-custom: as seções do CRM (rótulo, ícone outline e filled, cor da seção como token --nav-*, rotas e submenu) e o helper sectionOf(pathname). | `npx shadcn@latest add RodrigoSilva1854/lume-custom/sections#v0.1.1` |
 | `utils` | cn() | clsx + tailwind-merge, a mesma assinatura do shadcn. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/utils#v0.1.1` |
 
 ## Hooks (5)

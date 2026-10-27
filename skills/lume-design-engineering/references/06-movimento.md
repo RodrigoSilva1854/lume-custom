@@ -1,6 +1,6 @@
 # Movimento
 
-Gerado por `bun scripts/build-skill.ts` a partir de `FRONTEND.md`, `docs/guia/09-movimento.md`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/joaodadas/lume; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
+Gerado por `bun scripts/build-skill.ts` a partir de `FRONTEND.md`, `docs/guia/09-movimento.md`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/RodrigoSilva1854/lume-custom; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
 
 ## Movimento
 

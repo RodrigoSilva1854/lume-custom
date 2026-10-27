@@ -1,6 +1,6 @@
 # Formulários e dialogs
 
-Gerado por `bun scripts/build-skill.ts` a partir de `FRONTEND.md`, `docs/guia/06-formularios-auth-settings.md`, `docs/guia/07-dialogs-e-wizards.md`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/joaodadas/lume; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
+Gerado por `bun scripts/build-skill.ts` a partir de `FRONTEND.md`, `docs/guia/06-formularios-auth-settings.md`, `docs/guia/07-dialogs-e-wizards.md`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/RodrigoSilva1854/lume-custom; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
 
 ## Campos e formulários
 

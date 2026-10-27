@@ -15,7 +15,8 @@
       "!build",
       "!public/r",
       "!registry.json",
-      "!scripts/upstream-map.json"
+      "!scripts/upstream-map.json",
+      "!docs/referencia"
     ]
   },
   "formatter": {
