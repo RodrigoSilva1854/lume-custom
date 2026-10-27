@@ -8,15 +8,15 @@
     "motion"
   ],
   "registryDependencies": [
-    "joaodadas/lume/button#v0.1.1",
-    "joaodadas/lume/format#v0.1.1",
-    "joaodadas/lume/header-slot#v0.1.1",
-    "joaodadas/lume/input#v0.1.1",
-    "joaodadas/lume/input-group#v0.1.1",
-    "joaodadas/lume/motion#v0.1.1",
-    "joaodadas/lume/select#v0.1.1",
-    "joaodadas/lume/table#v0.1.1",
-    "joaodadas/lume/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/button#v0.1.1",
+    "RodrigoSilva1854/lume-custom/format#v0.1.1",
+    "RodrigoSilva1854/lume-custom/header-slot#v0.1.1",
+    "RodrigoSilva1854/lume-custom/input#v0.1.1",
+    "RodrigoSilva1854/lume-custom/input-group#v0.1.1",
+    "RodrigoSilva1854/lume-custom/motion#v0.1.1",
+    "RodrigoSilva1854/lume-custom/select#v0.1.1",
+    "RodrigoSilva1854/lume-custom/table#v0.1.1",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
   ],
   "files": [
     {

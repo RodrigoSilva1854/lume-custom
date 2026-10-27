@@ -7,13 +7,13 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "joaodadas/lume/avatar#v0.1.1",
-    "joaodadas/lume/dropdown-menu#v0.1.1",
-    "joaodadas/lume/link#v0.1.1",
-    "joaodadas/lume/sidebar#v0.1.1",
-    "joaodadas/lume/theme-provider#v0.1.1",
-    "joaodadas/lume/theme-switcher#v0.1.1",
-    "joaodadas/lume/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/avatar#v0.1.1",
+    "RodrigoSilva1854/lume-custom/dropdown-menu#v0.1.1",
+    "RodrigoSilva1854/lume-custom/link#v0.1.1",
+    "RodrigoSilva1854/lume-custom/sidebar#v0.1.1",
+    "RodrigoSilva1854/lume-custom/theme-provider#v0.1.1",
+    "RodrigoSilva1854/lume-custom/theme-switcher#v0.1.1",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
   ],
   "files": [
     {

@@ -8,9 +8,9 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "joaodadas/lume/button#v0.1.1",
-    "joaodadas/lume/input-group#v0.1.1",
-    "joaodadas/lume/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/button#v0.1.1",
+    "RodrigoSilva1854/lume-custom/input-group#v0.1.1",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
   ],
   "files": [
     {

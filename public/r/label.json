@@ -4,7 +4,7 @@
   "title": "Label",
   "description": "Rótulo de campo.",
   "registryDependencies": [
-    "joaodadas/lume/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
   ],
   "files": [
     {

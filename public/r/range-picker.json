@@ -9,11 +9,11 @@
     "react-day-picker@^9.14.0"
   ],
   "registryDependencies": [
-    "joaodadas/lume/button#v0.1.1",
-    "joaodadas/lume/calendar#v0.1.1",
-    "joaodadas/lume/popover#v0.1.1",
-    "joaodadas/lume/range#v0.1.1",
-    "joaodadas/lume/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/button#v0.1.1",
+    "RodrigoSilva1854/lume-custom/calendar#v0.1.1",
+    "RodrigoSilva1854/lume-custom/popover#v0.1.1",
+    "RodrigoSilva1854/lume-custom/range#v0.1.1",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
   ],
   "files": [
     {

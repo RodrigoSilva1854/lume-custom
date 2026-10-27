@@ -42,6 +42,24 @@
       ],
       "cssVars": {
         "theme": {
+          "color-app-canvas": "var(--app-canvas)",
+          "color-rail-item": "var(--rail-item)",
+          "color-rail-item-hover": "var(--rail-item-hover)",
+          "color-nav-active": "var(--nav-active)",
+          "color-kanban-col": "var(--kanban-col)",
+          "color-nav-inicio": "var(--nav-inicio)",
+          "color-nav-inicio-2": "var(--nav-inicio-2)",
+          "color-nav-leads": "var(--nav-leads)",
+          "color-nav-pre-cadastros": "var(--nav-pre-cadastros)",
+          "color-nav-disponibilidade": "var(--nav-disponibilidade)",
+          "color-nav-reservas": "var(--nav-reservas)",
+          "color-nav-funis": "var(--nav-funis)",
+          "color-nav-comissoes": "var(--nav-comissoes)",
+          "color-nav-componentes": "var(--nav-componentes)",
+          "color-nav-graficos": "var(--nav-graficos)",
+          "color-avatar-from": "var(--avatar-from)",
+          "color-avatar-to": "var(--avatar-to)",
+          "color-presence": "var(--presence)",
           "font-sans": "\"Inter Variable\", ui-sans-serif, system-ui, sans-serif",
           "font-mono": "\"Geist Mono Variable\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
           "font-heading": "\"Inter Variable\", ui-sans-serif, system-ui, sans-serif",
@@ -130,7 +148,28 @@
           "custom-shadow-violet": "0px 0px 0px 0.5px rgba(139, 92, 246, 0.25), 0px 0.5px 2px -0.5px rgba(139, 92, 246, 0.18), 0px 2px 4px 0px rgba(139, 92, 246, 0.12)",
           "custom-shadow-fuchsia": "0px 0px 0px 0.5px rgba(217, 70, 239, 0.25), 0px 0.5px 2px -0.5px rgba(217, 70, 239, 0.18), 0px 2px 4px 0px rgba(217, 70, 239, 0.12)",
           "custom-shadow-sky": "0px 0px 0px 0.5px rgba(14, 165, 233, 0.25), 0px 0.5px 2px -0.5px rgba(14, 165, 233, 0.18), 0px 2px 4px 0px rgba(14, 165, 233, 0.12)",
-          "custom-outline-shadow": "0px 0px 0px 0.5px rgba(0, 0, 0, 0.06), 0px 0.5px 2px -0.5px rgba(0, 0, 0, 0.06), 0px 2px 4px 0px rgba(0, 0, 0, 0.04)"
+          "custom-outline-shadow": "0px 0px 0px 0.5px rgba(0, 0, 0, 0.06), 0px 0.5px 2px -0.5px rgba(0, 0, 0, 0.06), 0px 2px 4px 0px rgba(0, 0, 0, 0.04)",
+          "app-canvas": "oklch(0.944 0.003 286.3)",
+          "rail-item": "oklch(0.959 0.003 286.3)",
+          "rail-item-hover": "oklch(0.92 0.004 286.3)",
+          "nav-active": "oklch(0.944 0.003 286.3)",
+          "kanban-col": "oklch(0.972 0.005 258.3)",
+          "nav-inicio": "oklch(0.685 0.148 237.3)",
+          "nav-inicio-2": "oklch(0.585 0.204 277.1)",
+          "nav-leads": "oklch(0.623 0.188 259.8)",
+          "nav-pre-cadastros": "oklch(0.606 0.219 292.7)",
+          "nav-disponibilidade": "oklch(0.769 0.165 70.1)",
+          "nav-reservas": "oklch(0.705 0.187 47.6)",
+          "nav-funis": "oklch(0.667 0.259 322.1)",
+          "nav-comissoes": "oklch(0.696 0.149 162.5)",
+          "nav-componentes": "oklch(0.645 0.215 16.4)",
+          "nav-graficos": "oklch(0.795 0.162 86)",
+          "avatar-from": "oklch(0.754 0.139 232.7)",
+          "avatar-to": "oklch(0.606 0.219 292.7)",
+          "presence": "oklch(0.696 0.149 162.5)",
+          "stat-grad-1": "var(--foreground)",
+          "stat-grad-2": "var(--foreground)",
+          "stat-grad-3": "var(--foreground)"
         },
         "dark": {
           "background": "oklch(0.17 0 0)",
@@ -178,7 +217,15 @@
           "custom-shadow-red": "inset 0 0.5px 0 0 rgba(239, 68, 68, 0.03), 0 0 0 0.5px rgba(239, 68, 68, 0.18), 0 0.5px 2px 0 rgba(239, 68, 68, 0.1)",
           "custom-shadow-violet": "inset 0 0.5px 0 0 rgba(139, 92, 246, 0.03), 0 0 0 0.5px rgba(139, 92, 246, 0.18), 0 0.5px 2px 0 rgba(139, 92, 246, 0.1)",
           "custom-shadow-fuchsia": "inset 0 0.5px 0 0 rgba(217, 70, 239, 0.03), 0 0 0 0.5px rgba(217, 70, 239, 0.18), 0 0.5px 2px 0 rgba(217, 70, 239, 0.1)",
-          "custom-shadow-sky": "inset 0 0.5px 0 0 rgba(14, 165, 233, 0.03), 0 0 0 0.5px rgba(14, 165, 233, 0.18), 0 0.5px 2px 0 rgba(14, 165, 233, 0.1)"
+          "custom-shadow-sky": "inset 0 0.5px 0 0 rgba(14, 165, 233, 0.03), 0 0 0 0.5px rgba(14, 165, 233, 0.18), 0 0.5px 2px 0 rgba(14, 165, 233, 0.1)",
+          "app-canvas": "oklch(0.145 0 0)",
+          "rail-item": "oklch(0.269 0.016 269.1)",
+          "rail-item-hover": "oklch(0.31 0.016 269.1)",
+          "nav-active": "oklch(0.301 0.017 266.4)",
+          "kanban-col": "oklch(0.231 0.014 266.9)",
+          "stat-grad-1": "oklch(0.865 0.115 207.1)",
+          "stat-grad-2": "oklch(0.714 0.143 254.6)",
+          "stat-grad-3": "oklch(0.709 0.159 293.5)"
         }
       },
       "css": {
@@ -1539,6 +1586,25 @@
       "files": [
         {
           "path": "registry/base-vega/lib/range.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "meta": {
+        "group": "lib",
+        "tier": "core"
+      }
+    },
+    {
+      "name": "sections",
+      "type": "registry:lib",
+      "title": "Seções do CRM LYX",
+      "description": "lume-custom: as seções do CRM (rótulo, ícone outline e filled, cor da seção como token --nav-*, rotas e submenu) e o helper sectionOf(pathname).",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/lib/sections.ts",
           "type": "registry:lib"
         }
       ],

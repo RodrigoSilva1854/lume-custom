@@ -472,6 +472,17 @@ const FUNDACOES: ItemMeta[] = [
     files: [{ path: "registry/base-vega/lib/range.ts", type: "registry:lib" }],
   },
   {
+    name: "sections",
+    title: "Seções do CRM LYX",
+    description:
+      "lume-custom: as seções do CRM (rótulo, ícone outline e filled, cor da seção como token --nav-*, rotas e submenu) e o helper sectionOf(pathname).",
+    group: "lib",
+    type: "registry:lib",
+    files: [
+      { path: "registry/base-vega/lib/sections.ts", type: "registry:lib" },
+    ],
+  },
+  {
     name: "use-delayed-loading",
     title: "useDelayedLoading",
     description:
