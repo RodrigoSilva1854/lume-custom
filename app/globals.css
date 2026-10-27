@@ -3,6 +3,14 @@
 @import "../registry/base-vega/styles/globals.css";
 @import "@fontsource-variable/host-grotesk";
 
+/* Docs e JSON citam classes com placeholders ({c}, {a,b}) que o dev do
+   Turbopack não consegue gerar: fora da varredura do Tailwind. */
+@source not "../docs";
+@source not "../skills";
+@source not "../public/r";
+@source not "../FRONTEND.md";
+@source not "../CUSTOM.md";
+
 /* Display face (Host Grotesk) só em títulos de marketing e do próprio site;
    o app fica em Inter. Consumidores instalam o item `font-display`. */
 @theme inline {

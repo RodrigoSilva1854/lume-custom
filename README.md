@@ -7,6 +7,7 @@ skill de agente, distribuídos como registry do shadcn.
 
 - Regras gerais: [FRONTEND.md](FRONTEND.md) (as do lume, intactas).
 - O que muda no layout LYX: [CUSTOM.md](CUSTOM.md). Onde os dois divergem, vale o CUSTOM.md.
+- Demo ao vivo do layout: rota `/crm` do site (`bun run dev` e abra http://localhost:3000/crm).
 - Protótipo de referência: [docs/referencia/crm-prototipo.html](docs/referencia/crm-prototipo.html) (abra no navegador).
 
 Repositório privado: para instalar por `npx shadcn`, a máquina precisa de acesso ao

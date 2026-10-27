@@ -10,6 +10,7 @@ import { cn } from "@/registry/base-vega/lib/utils";
 import { buttonVariants } from "@/registry/base-vega/ui/button";
 
 const LINKS = [
+  { href: "/crm", label: "CRM LYX" },
   { href: "/componentes", label: "Componentes" },
   { href: "/blocos", label: "Blocos" },
   { href: "/botoes", label: "Botões" },
@@ -26,7 +27,7 @@ export function SiteNav() {
           href="/"
           className="font-display text-base font-[450] tracking-[-0.02em] text-foreground"
         >
-          lume
+          lume-custom
         </Link>
         <nav aria-label="Principal" className="flex items-center gap-1">
           {LINKS.map((l) => {
@@ -52,7 +53,7 @@ export function SiteNav() {
           {/* Âncora direta com as classes do botão: assim o <a> já carrega o
               conteúdo acessível, sem depender do render do Button. */}
           <a
-            href="https://github.com/joaodadas/lume"
+            href="https://github.com/RodrigoSilva1854/lume-custom"
             target="_blank"
             rel="noreferrer"
             className={buttonVariants({ variant: "ghost", size: "icon-sm" })}

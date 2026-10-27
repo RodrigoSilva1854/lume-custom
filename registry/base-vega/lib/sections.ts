@@ -9,7 +9,7 @@ import {
   IconBookmarkFilled,
   IconChartAreaLine,
   IconChartAreaLineFilled,
-  IconChartDots3,
+  IconChartBar,
   IconFileText,
   IconFileTextFilled,
   IconHome,
@@ -194,8 +194,8 @@ export const SECTIONS: Section[] = [
   {
     id: "graficos",
     label: "Gráficos",
-    icon: IconChartDots3,
-    iconActive: IconChartDots3,
+    icon: IconChartBar,
+    iconActive: IconChartBar,
     tone: {
       text: "text-nav-graficos",
       soft: "bg-nav-graficos/12",

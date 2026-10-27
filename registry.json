@@ -1974,6 +1974,25 @@
       }
     },
     {
+      "name": "kanban-column",
+      "type": "registry:component",
+      "title": "Kanban",
+      "description": "lume-custom: KanbanBoard, KanbanColumn (bg-kanban-col, sem borda, bolinha da etapa), KanbanCard (bg-card com a sombra da casa) e KanbanEmpty.",
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/components/kanban-column.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "group": "blocks",
+        "tier": "core"
+      }
+    },
+    {
       "name": "link",
       "type": "registry:component",
       "title": "Link (indireção)",
@@ -2030,6 +2049,50 @@
         }
       ],
       "docs": "Centralize com <div className=\"flex min-h-svh items-center justify-center\">. Passe methods para ligar senha, link mágico e Google; brand vai dentro do tile de 40px (ex.: <BrandMark className=\"w-7\" />) e googleIcon no botão (ex.: <GoogleLogo className=\"size-3.5 mr-0.75\" />). Um callback que rejeita mantém o form na tela com a mensagem; use pending e error para estado vindo do app.",
+      "meta": {
+        "group": "blocks",
+        "tier": "core"
+      }
+    },
+    {
+      "name": "lyx-shell",
+      "type": "registry:component",
+      "title": "Casca do CRM LYX",
+      "description": "lume-custom: trilho de ícones que encolhe com a altura da tela, ativo na cor da seção, submenu flutuante no hover, menu expandido em pílulas, botão Layout (expandir, menu horizontal, modo foco), chip do usuário em degradê, migalha com ícones, busca de telas (Ctrl K), gaveta no celular e subida ao topo ao trocar de página.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "motion"
+      ],
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/badge#v0.1.1",
+        "RodrigoSilva1854/lume-custom/button#v0.1.1",
+        "RodrigoSilva1854/lume-custom/dropdown-menu#v0.1.1",
+        "RodrigoSilva1854/lume-custom/kbd#v0.1.1",
+        "RodrigoSilva1854/lume-custom/link#v0.1.1",
+        "RodrigoSilva1854/lume-custom/motion#v0.1.1",
+        "RodrigoSilva1854/lume-custom/sections#v0.1.1",
+        "RodrigoSilva1854/lume-custom/sheet#v0.1.1",
+        "RodrigoSilva1854/lume-custom/theme-switcher#v0.1.1",
+        "RodrigoSilva1854/lume-custom/tooltip#v0.1.1",
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/blocks/lyx-shell/lyx-shell.tsx",
+          "type": "registry:component",
+          "target": "components/lyx-shell/lyx-shell.tsx"
+        },
+        {
+          "path": "registry/base-vega/blocks/lyx-shell/lyx-account.tsx",
+          "type": "registry:component",
+          "target": "components/lyx-shell/lyx-account.tsx"
+        },
+        {
+          "path": "registry/base-vega/blocks/lyx-shell/use-lyx-layout.ts",
+          "type": "registry:component",
+          "target": "components/lyx-shell/use-lyx-layout.ts"
+        }
+      ],
       "meta": {
         "group": "blocks",
         "tier": "core"
@@ -2355,6 +2418,28 @@
       "files": [
         {
           "path": "registry/base-vega/components/theme-switcher.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "group": "blocks",
+        "tier": "core"
+      }
+    },
+    {
+      "name": "view-toggle",
+      "type": "registry:component",
+      "title": "Alternador de visualização",
+      "description": "lume-custom: grupo Lista, Quadro, Compacto; ativo com anel inset de 1.5px, ícone na cor do texto e fundo a 7%, cantos só nas pontas.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/components/view-toggle.tsx",
           "type": "registry:component"
         }
       ],
@@ -2705,16 +2790,20 @@
       "registryDependencies": [
         "RodrigoSilva1854/lume-custom/app-shell#v0.1.1",
         "RodrigoSilva1854/lume-custom/empty-state#v0.1.1",
+        "RodrigoSilva1854/lume-custom/kanban-column#v0.1.1",
         "RodrigoSilva1854/lume-custom/link#v0.1.1",
+        "RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1",
         "RodrigoSilva1854/lume-custom/notice#v0.1.1",
         "RodrigoSilva1854/lume-custom/page-header#v0.1.1",
         "RodrigoSilva1854/lume-custom/section#v0.1.1",
+        "RodrigoSilva1854/lume-custom/sections#v0.1.1",
         "RodrigoSilva1854/lume-custom/sidebar#v0.1.1",
         "RodrigoSilva1854/lume-custom/stat-card#v0.1.1",
         "RodrigoSilva1854/lume-custom/stat-grid#v0.1.1",
         "RodrigoSilva1854/lume-custom/theme-provider#v0.1.1",
         "RodrigoSilva1854/lume-custom/theme-switcher#v0.1.1",
-        "RodrigoSilva1854/lume-custom/use-entrance-once#v0.1.1"
+        "RodrigoSilva1854/lume-custom/use-entrance-once#v0.1.1",
+        "RodrigoSilva1854/lume-custom/view-toggle#v0.1.1"
       ],
       "meta": {
         "group": "kits",

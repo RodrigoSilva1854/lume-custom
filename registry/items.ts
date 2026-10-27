@@ -800,6 +800,62 @@ const LANES: ItemMeta[] = [
     docs: "Só o cabeçalho leva PX; StatGrid, tabelas e outros filhos cuidam do próprio gutter.",
   },
   {
+    name: "lyx-shell",
+    title: "Casca do CRM LYX",
+    description:
+      "lume-custom: trilho de ícones que encolhe com a altura da tela, ativo na cor da seção, submenu flutuante no hover, menu expandido em pílulas, botão Layout (expandir, menu horizontal, modo foco), chip do usuário em degradê, migalha com ícones, busca de telas (Ctrl K), gaveta no celular e subida ao topo ao trocar de página.",
+    group: "blocks",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/blocks/lyx-shell/lyx-shell.tsx",
+        type: "registry:component",
+        target: "components/lyx-shell/lyx-shell.tsx",
+      },
+      {
+        path: "registry/base-vega/blocks/lyx-shell/lyx-account.tsx",
+        type: "registry:component",
+        target: "components/lyx-shell/lyx-account.tsx",
+      },
+      {
+        path: "registry/base-vega/blocks/lyx-shell/use-lyx-layout.ts",
+        type: "registry:component",
+        target: "components/lyx-shell/use-lyx-layout.ts",
+      },
+    ],
+  },
+  {
+    name: "view-toggle",
+    title: "Alternador de visualização",
+    description:
+      "lume-custom: grupo Lista, Quadro, Compacto; ativo com anel inset de 1.5px, ícone na cor do texto e fundo a 7%, cantos só nas pontas.",
+    group: "blocks",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/components/view-toggle.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
+    name: "kanban-column",
+    title: "Kanban",
+    description:
+      "lume-custom: KanbanBoard, KanbanColumn (bg-kanban-col, sem borda, bolinha da etapa), KanbanCard (bg-card com a sombra da casa) e KanbanEmpty.",
+    group: "blocks",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/components/kanban-column.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
     name: "app-shell",
     title: "Casca do app",
     description:
@@ -1058,6 +1114,10 @@ const KITS: ItemMeta[] = [
     registryDependencies: [
       "sidebar",
       "app-shell",
+      "lyx-shell",
+      "sections",
+      "view-toggle",
+      "kanban-column",
       "page-header",
       "stat-card",
       "stat-grid",

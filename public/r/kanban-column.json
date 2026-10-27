@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kanban-column",
+  "title": "Kanban",
+  "description": "lume-custom: KanbanBoard, KanbanColumn (bg-kanban-col, sem borda, bolinha da etapa), KanbanCard (bg-card com a sombra da casa) e KanbanEmpty.",
+  "registryDependencies": [
+    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+  ],
+  "files": [
+    {
+      "path": "registry/base-vega/components/kanban-column.tsx",
+      "content": "// lume-custom: coluna e cartão do kanban do CRM LYX. Coluna em bg-kanban-col,\n// sem borda e sem sombra; cartão bg-card com a sombra da casa; a cor da etapa\n// fica só na bolinha (CUSTOM.md, item 15).\nimport type * as React from \"react\";\n\nimport { cn } from \"@/registry/base-vega/lib/utils\";\n\nexport function KanbanBoard({\n  className,\n  ...props\n}: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      className={cn(\n        \"flex min-h-0 gap-3 overflow-x-auto pb-2 [scrollbar-width:thin]\",\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nexport function KanbanColumn({\n  title,\n  count,\n  dotClassName,\n  children,\n  className,\n}: {\n  title: string;\n  count?: number;\n  /** Cor da bolinha da etapa, como `bg-amber-500` ou `bg-nav-leads`. */\n  dotClassName?: string;\n  children?: React.ReactNode;\n  className?: string;\n}) {\n  return (\n    <section\n      aria-label={title}\n      className={cn(\n        \"flex w-72 shrink-0 flex-col gap-2 rounded-2xl bg-kanban-col p-1.5 pb-2 squircle:rounded-3xl corner-squircle\",\n        className,\n      )}\n    >\n      <header className=\"flex items-center gap-2 px-2.5 pt-2.5 pb-1\">\n        <span\n          aria-hidden\n          className={cn(\n            \"size-2 shrink-0 rounded-full bg-muted-foreground\",\n            dotClassName,\n          )}\n        />\n        <h2 className=\"truncate text-sm font-medium tracking-tight\">{title}</h2>\n        {count !== undefined && (\n          <span className=\"ml-auto text-xs text-muted-foreground tabular-nums\">\n            {count}\n          </span>\n        )}\n      </header>\n      {children}\n    </section>\n  );\n}\n\nexport function KanbanCard({\n  className,\n  ...props\n}: React.ComponentProps<\"article\">) {\n  return (\n    <article\n      className={cn(\n        \"flex flex-col gap-2.5 rounded-xl bg-card p-3.5 shadow-(--custom-shadow) transition-shadow hover:shadow-(--custom-shadow-lifted) squircle:rounded-2xl corner-squircle\",\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nexport function KanbanEmpty({\n  children = \"Nenhum item\",\n}: {\n  children?: React.ReactNode;\n}) {\n  return (\n    <div className=\"grid h-16 place-items-center rounded-xl text-xs text-muted-foreground\">\n      {children}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "group": "blocks",
+    "tier": "core"
+  },
+  "type": "registry:component"
+}

@@ -6,16 +6,20 @@
   "registryDependencies": [
     "RodrigoSilva1854/lume-custom/app-shell#v0.1.1",
     "RodrigoSilva1854/lume-custom/empty-state#v0.1.1",
+    "RodrigoSilva1854/lume-custom/kanban-column#v0.1.1",
     "RodrigoSilva1854/lume-custom/link#v0.1.1",
+    "RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1",
     "RodrigoSilva1854/lume-custom/notice#v0.1.1",
     "RodrigoSilva1854/lume-custom/page-header#v0.1.1",
     "RodrigoSilva1854/lume-custom/section#v0.1.1",
+    "RodrigoSilva1854/lume-custom/sections#v0.1.1",
     "RodrigoSilva1854/lume-custom/sidebar#v0.1.1",
     "RodrigoSilva1854/lume-custom/stat-card#v0.1.1",
     "RodrigoSilva1854/lume-custom/stat-grid#v0.1.1",
     "RodrigoSilva1854/lume-custom/theme-provider#v0.1.1",
     "RodrigoSilva1854/lume-custom/theme-switcher#v0.1.1",
-    "RodrigoSilva1854/lume-custom/use-entrance-once#v0.1.1"
+    "RodrigoSilva1854/lume-custom/use-entrance-once#v0.1.1",
+    "RodrigoSilva1854/lume-custom/view-toggle#v0.1.1"
   ],
   "meta": {
     "group": "kits",

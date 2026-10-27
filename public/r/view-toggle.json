@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "view-toggle",
+  "title": "Alternador de visualização",
+  "description": "lume-custom: grupo Lista, Quadro, Compacto; ativo com anel inset de 1.5px, ícone na cor do texto e fundo a 7%, cantos só nas pontas.",
+  "dependencies": [
+    "@tabler/icons-react"
+  ],
+  "registryDependencies": [
+    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+  ],
+  "files": [
+    {
+      "path": "registry/base-vega/components/view-toggle.tsx",
+      "content": "// lume-custom: alternador de visualização (Lista, Quadro, Compacto). Ativo com\n// anel inset de 1.5px na cor do texto, ícone na cor do texto e fundo a 7%;\n// cantos arredondados só nas pontas do grupo (CUSTOM.md, item 16).\n\"use client\";\n\nimport type { Icon } from \"@tabler/icons-react\";\n\nimport { cn } from \"@/registry/base-vega/lib/utils\";\n\nexport type ViewOption<T extends string> = {\n  value: T;\n  label: string;\n  icon: Icon;\n};\n\nexport function ViewToggle<T extends string>({\n  options,\n  value,\n  onValueChange,\n  label = \"Modo de visualização\",\n  className,\n}: {\n  options: ViewOption<T>[];\n  value: T;\n  onValueChange: (value: T) => void;\n  label?: string;\n  className?: string;\n}) {\n  return (\n    // biome-ignore lint/a11y/useSemanticElements: grupo de botões de alternância, fieldset traria borda e legenda de formulário\n    <div\n      role=\"group\"\n      aria-label={label}\n      className={cn(\n        \"inline-flex rounded-lg bg-card shadow-(--custom-outline-shadow) squircle:rounded-xl corner-squircle\",\n        className,\n      )}\n    >\n      {options.map((opt, i) => {\n        const active = opt.value === value;\n        return (\n          <button\n            key={opt.value}\n            type=\"button\"\n            aria-label={opt.label}\n            title={opt.label}\n            aria-pressed={active}\n            onClick={() => onValueChange(opt.value)}\n            className={cn(\n              \"grid h-8 w-9 cursor-pointer place-items-center outline-none transition-colors focus-visible:ring-[1.5px] focus-visible:ring-ring/50\",\n              i === 0 && \"rounded-l-lg squircle:rounded-l-xl\",\n              i === options.length - 1 && \"rounded-r-lg squircle:rounded-r-xl\",\n              active\n                ? \"bg-foreground/7 text-foreground ring-[1.5px] ring-foreground ring-inset\"\n                : \"text-muted-foreground hover:bg-muted hover:text-foreground\",\n            )}\n          >\n            <opt.icon className=\"size-4\" />\n          </button>\n        );\n      })}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "group": "blocks",
+    "tier": "core"
+  },
+  "type": "registry:component"
+}

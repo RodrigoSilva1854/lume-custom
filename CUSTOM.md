@@ -6,6 +6,45 @@ Este repositório é o lume (cópia fiel do Foglamp, ver `README.md`) com o layo
 
 Referência visual exata: [docs/referencia/crm-prototipo.html](docs/referencia/crm-prototipo.html) (abra no navegador). Copie medidas e comportamento, não o código: o protótipo é HTML e JS soltos, só um mock.
 
+## Como usar
+
+```bash
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y
+npx shadcn@latest add RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1 RodrigoSilva1854/lume-custom/view-toggle#v0.1.1 RodrigoSilva1854/lume-custom/kanban-column#v0.1.1
+```
+
+```tsx
+"use client";
+import { usePathname, useRouter } from "next/navigation";
+import { LyxShell } from "@/components/lyx-shell/lyx-shell";
+
+export function Shell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  return (
+    <LyxShell
+      pathname={pathname}
+      brandMark={<Logo />}
+      brandName="CRM Comercial"
+      user={{ name: "Rafael Souza", email: "rafael@lyx.com.br" }}
+      navigate={(href) => router.push(href)}
+      onAccountSelect={(id) => console.log(id)}
+    >
+      {children}
+    </LyxShell>
+  );
+}
+```
+
+As seções e rotas vêm de `lib/sections.ts`; edite ali para mudar o menu. A demo completa roda em `/crm` no site deste repositório (`bun run dev`).
+
+| Item | O que traz |
+|---|---|
+| `lyx-shell` | trilho, menu expandido, submenu flutuante, botão Layout, menu horizontal, modo foco, chip do usuário, migalha, busca de telas, gaveta no celular, subida ao topo |
+| `sections` | as seções do CRM (rótulo, ícones, cor, rotas) |
+| `view-toggle` | alternador Lista, Quadro, Compacto |
+| `kanban-column` | KanbanBoard, KanbanColumn, KanbanCard, KanbanEmpty |
+
 ## Tokens novos
 
 Todos em `registry/base-vega/styles/globals.css`, com versão dark e utilitário Tailwind (`bg-app-canvas`, `text-nav-leads`, `bg-nav-leads/12`...):
