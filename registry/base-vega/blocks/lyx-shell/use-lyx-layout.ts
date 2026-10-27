@@ -2,7 +2,12 @@
 // recolhido ou expandido, modo foco), guardado no navegador por usuário.
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+
+// No cliente lê antes da pintura (sem piscar o menu ao recarregar); no
+// servidor useLayoutEffect avisa, então cai no useEffect.
+const useIsoLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 export type LyxNav = "side" | "top";
 
@@ -35,7 +40,8 @@ function write(key: string, value: string) {
 
 /**
  * Nasce no padrão (lateral, recolhido) para o HTML do servidor e o primeiro
- * render do cliente coincidirem; a escolha salva entra depois de montar.
+ * render do cliente coincidirem; a escolha salva entra antes da primeira
+ * pintura, então o menu não pisca.
  */
 export function useLyxLayout() {
   const [layout, setLayout] = useState<LyxLayout>({
@@ -44,7 +50,7 @@ export function useLyxLayout() {
     focus: false,
   });
 
-  useEffect(() => {
+  useIsoLayoutEffect(() => {
     const nav = read(KEY_NAV) === "top" ? "top" : "side";
     const rail = read(KEY_RAIL) !== "0";
     setLayout((l) => ({ ...l, nav, rail }));

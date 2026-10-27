@@ -860,6 +860,29 @@ export function LyxShell({
     [navigate],
   );
 
+  // Com `navigate`, os links do menu (inclusive os do submenu flutuante, que
+  // abre num portal fora da casca) trocam de página sem recarregar, então o
+  // menu não fecha e abre de novo a cada clique.
+  useEffect(() => {
+    if (!navigate) return;
+    const known = new Set(
+      sections.flatMap((s) => s.items.map((it) => it.href)),
+    );
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element | null)?.closest?.("a[href]");
+      if (!(a instanceof HTMLAnchorElement)) return;
+      if (a.target && a.target !== "_self") return;
+      const href = a.getAttribute("href") ?? "";
+      if (!known.has(href)) return;
+      e.preventDefault();
+      navigate(href);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, [navigate, sections]);
+
   const side = nav === "side" && !focus;
   const top = nav === "top" && !focus;
   const railFit = useRailFit(sections.length, side && rail);

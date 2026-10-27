@@ -1,10 +1,9 @@
-// Demo /crm: o bloco lyx-shell (a casca do CRM LYX) ocupando a janela inteira,
-// com telas de exemplo. Cada rota das seções é estática (generateStaticParams);
+// Telas de exemplo do /crm; a casca (lyx-shell) mora em app/crm/layout.tsx. Cada rota das seções é estática (generateStaticParams);
 // a leitura de params fica dentro do Suspense, como o Cache Components pede.
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { CrmDemo } from "@/components/crm/crm-demo";
+import { CrmPage as CrmContent } from "@/components/crm/crm-demo";
 import { SECTIONS } from "@/registry/base-vega/lib/sections";
 
 type Params = { slug?: string[] };
@@ -25,12 +24,12 @@ export function generateStaticParams(): Params[] {
 
 async function Crm({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
-  return <CrmDemo path={(slug ?? []).join("/")} />;
+  return <CrmContent path={(slug ?? []).join("/")} />;
 }
 
 export default function CrmPage({ params }: { params: Promise<Params> }) {
   return (
-    <Suspense fallback={<div className="h-svh bg-app-canvas" />}>
+    <Suspense fallback={null}>
       <Crm params={params} />
     </Suspense>
   );

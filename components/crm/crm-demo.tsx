@@ -16,7 +16,7 @@ import {
   IconTools,
   IconUsers,
 } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -380,7 +380,8 @@ function Funis({ section }: { section?: Section }) {
 
 /* ---------------------------------------------------------------- casca */
 
-export function CrmDemo({ path }: { path: string }) {
+/** Conteúdo de cada tela de exemplo (a casca fica no layout de /crm). */
+export function CrmPage({ path }: { path: string }) {
   const router = useRouter();
   const pathname = path ? `${CRM_BASE}/${path}` : CRM_BASE;
   const section = SECTIONS_CRM.find(
@@ -420,6 +421,21 @@ export function CrmDemo({ path }: { path: string }) {
     );
 
   return (
+    <>
+      {page}
+      <p className="pt-4 text-xs text-muted-foreground">
+        Dados de exemplo: nomes e valores são fictícios.
+      </p>
+    </>
+  );
+}
+
+/** A casca do CRM, montada uma vez no layout: trocar de tela não remonta o
+ * menu, então ele não fecha e abre a cada clique. */
+export function CrmShell({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  return (
     <LyxShell
       pathname={pathname}
       brandMark={<LyxMark />}
@@ -429,10 +445,7 @@ export function CrmDemo({ path }: { path: string }) {
       navigate={(href) => router.push(href)}
       onAccountSelect={(id) => toast(`${id}: tela de exemplo`)}
     >
-      {page}
-      <p className="pt-4 text-xs text-muted-foreground">
-        Dados de exemplo: nomes e valores são fictícios.
-      </p>
+      {children}
     </LyxShell>
   );
 }
