@@ -1,23 +1,26 @@
-// Demo do bloco lyx-shell no site: o CRM LYX com o menu de verdade e algumas
-// telas de exemplo (Início, Leads, Funis). Dados fictícios. Arquivo do site,
-// não entra na registry.
+// Demo do bloco lyx-shell no site: o CRM LYX com o menu de verdade e todas as
+// telas preenchidas com dados de exemplo (./mock.ts). Arquivo do site, não
+// entra na registry.
 "use client";
 
 import {
-  IconArrowRight,
   IconBookmark,
   IconCalendarEvent,
   IconCoin,
   IconColumns3,
+  IconDownload,
   IconExternalLink,
+  IconFilter,
   IconLayoutKanban,
   IconList,
   IconPlus,
-  IconTools,
+  IconSearch,
+  IconUserCheck,
   IconUsers,
 } from "@tabler/icons-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useTheme } from "next-themes";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import {
@@ -25,19 +28,35 @@ import {
   prefixSections,
 } from "@/registry/base-vega/blocks/lyx-shell/lyx-shell";
 import { CardSparkline } from "@/registry/base-vega/components/card-sparkline";
-import { EmptyState } from "@/registry/base-vega/components/empty-state";
+import * as AreaChart from "@/registry/base-vega/components/evilcharts/charts/area-chart";
+import * as BarChart from "@/registry/base-vega/components/evilcharts/charts/bar-chart";
+import type { ChartConfig } from "@/registry/base-vega/components/evilcharts/core/chart";
 import {
   KanbanBoard,
   KanbanCard,
   KanbanColumn,
   KanbanEmpty,
 } from "@/registry/base-vega/components/kanban-column";
+import { Link } from "@/registry/base-vega/components/link";
+import { PillMeter } from "@/registry/base-vega/components/pill-meter";
 import { StatCard } from "@/registry/base-vega/components/stat-card";
+import {
+  ChartLegend,
+  themed,
+} from "@/registry/base-vega/components/trend-charts";
 import { ViewToggle } from "@/registry/base-vega/components/view-toggle";
 import { SECTIONS, type Section } from "@/registry/base-vega/lib/sections";
 import { cn } from "@/registry/base-vega/lib/utils";
 import { Badge } from "@/registry/base-vega/ui/badge";
 import { Button } from "@/registry/base-vega/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/registry/base-vega/ui/card";
+import { Input } from "@/registry/base-vega/ui/input";
 import { Label } from "@/registry/base-vega/ui/label";
 import { Switch } from "@/registry/base-vega/ui/switch";
 import {
@@ -48,6 +67,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/registry/base-vega/ui/table";
+
+import {
+  BLOCOS,
+  COMISSOES,
+  DIST,
+  DOT,
+  LEAD_STAGES,
+  LEADS,
+  LEADS_POR_DIA,
+  money,
+  ORIGEM,
+  PRE_CADASTROS,
+  PRE_STAGES,
+  RES_STAGES,
+  RESERVAS,
+  type Row,
+  type Stage,
+  UNIT_STATUS,
+  type UnitStatus,
+  units,
+  VENDAS_POR_MES,
+} from "./mock";
 
 export const CRM_BASE = "/crm";
 const SECTIONS_CRM = prefixSections(SECTIONS, CRM_BASE);
@@ -84,6 +125,8 @@ function LyxMark() {
   );
 }
 
+/* ---------------------------------------------------------------- peças */
+
 function Title({
   section,
   title,
@@ -107,58 +150,596 @@ function Title({
           {sub}
         </div>
       </div>
-      {actions && <div className="flex items-center gap-2">{actions}</div>}
+      {actions && (
+        <div className="flex flex-wrap items-center gap-2">{actions}</div>
+      )}
     </div>
   );
 }
 
-/* --------------------------------------------------------------- Início */
+const Code = ({ n }: { n: number }) => (
+  <span className="text-xs text-muted-foreground tabular-nums">#{n}</span>
+);
 
-const spark = (seed: number) =>
-  Array.from({ length: 14 }, (_, i) =>
-    Math.round(40 + 25 * Math.sin(i / 2 + seed) + i * 2 + ((i * seed) % 7)),
+function StageBadge({ stages, stage }: { stages: Stage[]; stage: string }) {
+  const s = stages.find((x) => x.key === stage) ?? stages[0];
+  return (
+    <Badge variant={s.tone} className="normal-case">
+      {s.label}
+    </Badge>
   );
+}
+
+const CHIP_ON = "bg-muted font-medium shadow-none";
+
+/** Chips de etapa com contagem, que filtram a lista. */
+function StageChips({
+  stages,
+  rows,
+  value,
+  onChange,
+}: {
+  stages: Stage[];
+  rows: Row[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const chip = (key: string, label: string, n: number, dot?: string) => (
+    <Button
+      key={key}
+      variant="outline"
+      size="sm"
+      aria-pressed={value === key}
+      onClick={() => onChange(key)}
+      className={cn("font-normal", value === key && CHIP_ON)}
+    >
+      {dot && <span className={cn("size-1.5 rounded-full", dot)} />}
+      {label}
+      <span className="text-muted-foreground tabular-nums">{n}</span>
+    </Button>
+  );
+  return (
+    <div className="flex flex-wrap gap-2">
+      {chip("todos", "Todos", rows.length)}
+      {stages.map((s) =>
+        chip(
+          s.key,
+          s.label,
+          rows.filter((r) => r.stage === s.key).length,
+          DOT[s.tone],
+        ),
+      )}
+    </div>
+  );
+}
+
+function Toolbar({ placeholder }: { placeholder: string }) {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <div className="relative w-full max-w-sm">
+        <IconSearch className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+        <Input placeholder={placeholder} className="pl-9" />
+      </div>
+      <Button variant="outline">
+        <IconFilter />
+        Mais filtros
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        aria-label="Exportar"
+        onClick={() => toast("Exportar: tela de exemplo")}
+      >
+        <IconDownload />
+      </Button>
+    </div>
+  );
+}
+
+type Col = { key: string; label: string; align?: "right" };
+
+function ScoreBar({ score }: { score: number }) {
+  return (
+    <span className="flex items-center gap-2 tabular-nums">
+      <span className="h-1.5 w-14 overflow-hidden rounded-full bg-muted">
+        <span
+          className={cn(
+            "block h-full rounded-full",
+            score >= 70
+              ? "bg-emerald-500"
+              : score >= 50
+                ? "bg-blue-500"
+                : "bg-orange-500",
+          )}
+          style={{ width: `${score}%` }}
+        />
+      </span>
+      {score}
+    </span>
+  );
+}
+
+/** Gestão: chips de etapa, busca e tabela. */
+function ListPage({
+  section,
+  title,
+  sub,
+  newLabel,
+  stages,
+  rows,
+  first,
+  cols,
+}: {
+  section?: Section;
+  title: string;
+  sub: string;
+  newLabel: string;
+  stages: Stage[];
+  rows: Row[];
+  first: string;
+  cols: Col[];
+}) {
+  const [stage, setStage] = useState("todos");
+  const list = stage === "todos" ? rows : rows.filter((r) => r.stage === stage);
+  return (
+    <>
+      <Title
+        section={section}
+        title={title}
+        sub={sub}
+        actions={
+          <>
+            <Button variant="outline">
+              <IconCalendarEvent />
+              Minha agenda
+            </Button>
+            <Button onClick={() => toast(`${newLabel}: tela de exemplo`)}>
+              <IconPlus />
+              {newLabel}
+            </Button>
+          </>
+        }
+      />
+      <StageChips
+        stages={stages}
+        rows={rows}
+        value={stage}
+        onChange={setStage}
+      />
+      <Toolbar placeholder="Buscar por nome, código ou responsável…" />
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>{first}</TableHead>
+            {cols.map((c) => (
+              <TableHead
+                key={c.key}
+                className={c.align === "right" ? "text-right" : undefined}
+              >
+                {c.label}
+              </TableHead>
+            ))}
+            <TableHead>Situação</TableHead>
+            <TableHead className="text-right">Ações</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {list.map((r) => (
+            <TableRow key={r.code}>
+              <TableCell>
+                <div className="flex flex-col">
+                  <span>{r.name}</span>
+                  <Code n={r.code} />
+                </div>
+              </TableCell>
+              {cols.map((c) => (
+                <TableCell
+                  key={c.key}
+                  className={cn(
+                    c.align === "right" && "text-right tabular-nums",
+                    /^Sem /.test(r.cols[c.key] ?? "") &&
+                      "text-muted-foreground",
+                  )}
+                >
+                  {c.key === "score" ? (
+                    <ScoreBar score={r.score ?? 0} />
+                  ) : c.key === "area" ? (
+                    <Badge variant="outline">{r.cols.area}</Badge>
+                  ) : (
+                    r.cols[c.key]
+                  )}
+                </TableCell>
+              ))}
+              <TableCell>
+                <StageBadge stages={stages} stage={r.stage} />
+              </TableCell>
+              <TableCell className="text-right">
+                <Button variant="outline" size="sm">
+                  Abrir
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <p className="text-xs text-muted-foreground tabular-nums">
+        {list.length} de {rows.length} registros
+      </p>
+    </>
+  );
+}
+
+type Mode = "lista" | "quadro" | "compacto";
+const MODES = [
+  { value: "lista" as const, label: "Lista", icon: IconList },
+  { value: "quadro" as const, label: "Quadro", icon: IconLayoutKanban },
+  { value: "compacto" as const, label: "Quadro compacto", icon: IconColumns3 },
+];
+
+/** Andamento: kanban por etapa, com o alternador de visualização. */
+function BoardPage({
+  section,
+  title,
+  sub,
+  stages,
+  rows,
+}: {
+  section?: Section;
+  title: string;
+  sub: string;
+  stages: Stage[];
+  rows: Row[];
+}) {
+  const [mode, setMode] = useState<Mode>("quadro");
+  return (
+    <>
+      <Title
+        section={section}
+        title={title}
+        sub={sub}
+        actions={
+          <ViewToggle value={mode} onValueChange={setMode} options={MODES} />
+        }
+      />
+      {mode === "lista" ? (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Nome</TableHead>
+              <TableHead>Telefone</TableHead>
+              <TableHead>Etapa</TableHead>
+              <TableHead>Próximo passo</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((r) => (
+              <TableRow key={r.code}>
+                <TableCell>
+                  <div className="flex flex-col">
+                    <span>{r.name}</span>
+                    <Code n={r.code} />
+                  </div>
+                </TableCell>
+                <TableCell className="tabular-nums">{r.phone}</TableCell>
+                <TableCell>
+                  <StageBadge stages={stages} stage={r.stage} />
+                </TableCell>
+                <TableCell>{r.foot}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      ) : (
+        <KanbanBoard>
+          {stages.map((s) => {
+            const items = rows.filter((r) => r.stage === s.key);
+            return (
+              <KanbanColumn
+                key={s.key}
+                title={s.label}
+                count={items.length}
+                dotClassName={DOT[s.tone]}
+                className={mode === "compacto" ? "w-60" : undefined}
+              >
+                {items.length ? (
+                  items.map((r) => (
+                    <KanbanCard key={r.code}>
+                      <div className="flex items-center justify-between gap-2">
+                        <Code n={r.code} />
+                        <IconExternalLink className="size-3.5 text-muted-foreground" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium tracking-tight">
+                          {r.name}
+                        </span>
+                        {mode === "quadro" && (
+                          <span className="text-xs text-muted-foreground tabular-nums">
+                            {r.phone}
+                          </span>
+                        )}
+                      </div>
+                      {mode === "quadro" && (
+                        <div className="flex items-center justify-between gap-2 pt-1 text-xs text-muted-foreground">
+                          {r.foot}
+                          <Button variant="outline" size="xs">
+                            Abrir
+                          </Button>
+                        </div>
+                      )}
+                    </KanbanCard>
+                  ))
+                ) : (
+                  <KanbanEmpty>Nada nesta etapa</KanbanEmpty>
+                )}
+              </KanbanColumn>
+            );
+          })}
+        </KanbanBoard>
+      )}
+    </>
+  );
+}
+
+type StatItem = {
+  label: string;
+  value: string;
+  icon: typeof IconUsers;
+  tone: string;
+  hint?: string;
+  delta?: { pct: number; dir: "up" | "down" | "flat" };
+};
+
+function Stats({ items, charts }: { items: StatItem[]; charts?: boolean }) {
+  return (
+    <div className="@container">
+      <div className="grid gap-4 @lg:grid-cols-2 @min-[62rem]:grid-cols-4">
+        {items.map((c, i) => (
+          <StatCard
+            key={c.label}
+            size="sm"
+            label={c.label}
+            value={c.value}
+            hint={c.hint}
+            delta={c.delta}
+            icon={c.icon}
+            iconClassName={c.tone}
+            chart={
+              charts ? (
+                <CardSparkline
+                  data={LEADS_POR_DIA.slice(i * 3, i * 3 + 14).map(
+                    (d) => d.leads,
+                  )}
+                  className={c.tone}
+                />
+              ) : undefined
+            }
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Distribuição: métricas e carga por corretor. */
+function DistPage({
+  section,
+  title,
+  sub,
+  noun,
+}: {
+  section?: Section;
+  title: string;
+  sub: string;
+  noun: string;
+}) {
+  const total = DIST.reduce((a, d) => a + d.active, 0);
+  return (
+    <>
+      <Title
+        section={section}
+        title={title}
+        sub={sub}
+        actions={
+          <Button onClick={() => toast("Distribuir: tela de exemplo")}>
+            Distribuir agora
+          </Button>
+        }
+      />
+      <Stats
+        items={[
+          {
+            label: `${noun} ativos`,
+            value: String(total),
+            icon: IconUsers,
+            tone: "text-emerald-500",
+          },
+          {
+            label: "Corretores",
+            value: String(DIST.length),
+            icon: IconUserCheck,
+            tone: "text-blue-500",
+          },
+          {
+            label: "Média por corretor",
+            value: (total / DIST.length).toLocaleString("pt-BR", {
+              maximumFractionDigits: 1,
+            }),
+            icon: IconCoin,
+            tone: "text-amber-500",
+          },
+          {
+            label: `${noun} sem corretor`,
+            value: "4",
+            icon: IconBookmark,
+            tone: "text-rose-500",
+          },
+        ]}
+      />
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Corretor</TableHead>
+            <TableHead>Equipe</TableHead>
+            <TableHead>Carga</TableHead>
+            <TableHead className="text-right">Ativos</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {DIST.map((d) => (
+            <TableRow key={d.name}>
+              <TableCell>{d.name}</TableCell>
+              <TableCell className="text-muted-foreground">{d.team}</TableCell>
+              <TableCell>
+                <PillMeter
+                  fraction={d.active / d.total}
+                  count={24}
+                  className="max-w-48"
+                />
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {d.active}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
+  );
+}
+
+/* --------------------------------------------------------------- gráficos */
+
+const leadsConfig = {
+  leads: { label: "Leads", colors: themed("var(--nav-leads)") },
+  visitas: { label: "Visitas", colors: themed("var(--nav-pre-cadastros)") },
+} satisfies ChartConfig;
+
+const vendasConfig = {
+  reservas: { label: "Reservas", colors: themed("var(--nav-reservas)") },
+  vendas: { label: "Vendas", colors: themed("var(--nav-comissoes)") },
+} satisfies ChartConfig;
+
+function useMode() {
+  const { resolvedTheme } = useTheme();
+  return resolvedTheme === "dark" ? "dark" : "light";
+}
+
+function LeadsChart() {
+  const [sel, setSel] = useState<string | null>(null);
+  const mode = useMode();
+  return (
+    <Card size="sm">
+      <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-2">
+        <div>
+          <CardTitle>Leads e visitas por dia</CardTitle>
+          <CardDescription>Últimos 30 dias</CardDescription>
+        </div>
+        <ChartLegend
+          config={leadsConfig}
+          selected={sel}
+          onSelect={setSel}
+          mode={mode}
+        />
+      </CardHeader>
+      <CardContent className="mt-3">
+        <AreaChart.EvilAreaChart
+          config={leadsConfig}
+          data={LEADS_POR_DIA}
+          xDataKey="dia"
+          selectedDataKey={sel}
+          onSelectionChange={setSel}
+          className="h-56 w-full"
+          chartProps={{ margin: { top: 5, right: 5, bottom: 5, left: 2 } }}
+        >
+          <AreaChart.Grid />
+          <AreaChart.XAxis dataKey="dia" interval={4} />
+          <AreaChart.YAxis allowDecimals={false} />
+          <AreaChart.Tooltip />
+          <AreaChart.Area dataKey="leads" strokeVariant="solid" />
+          <AreaChart.Area dataKey="visitas" strokeVariant="solid" />
+        </AreaChart.EvilAreaChart>
+      </CardContent>
+    </Card>
+  );
+}
+
+function VendasChart() {
+  const [sel, setSel] = useState<string | null>(null);
+  const mode = useMode();
+  return (
+    <Card size="sm">
+      <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-2">
+        <div>
+          <CardTitle>Reservas e vendas</CardTitle>
+          <CardDescription>Últimos 6 meses</CardDescription>
+        </div>
+        <ChartLegend
+          config={vendasConfig}
+          selected={sel}
+          onSelect={setSel}
+          mode={mode}
+        />
+      </CardHeader>
+      <CardContent className="mt-3">
+        <BarChart.EvilBarChart
+          config={vendasConfig}
+          data={VENDAS_POR_MES}
+          xDataKey="mes"
+          selectedDataKey={sel}
+          onSelectionChange={setSel}
+          className="h-56 w-full"
+          chartProps={{
+            margin: { top: 5, right: 5, bottom: 5, left: 2 },
+            barCategoryGap: "35%",
+          }}
+        >
+          <BarChart.Grid />
+          <BarChart.XAxis dataKey="mes" />
+          <BarChart.YAxis allowDecimals={false} />
+          <BarChart.Tooltip />
+          <BarChart.Bar dataKey="reservas" isClickable />
+          <BarChart.Bar dataKey="vendas" isClickable />
+        </BarChart.EvilBarChart>
+      </CardContent>
+    </Card>
+  );
+}
+
+function OrigemCard() {
+  const total = ORIGEM.reduce((a, o) => a + o.qtd, 0);
+  return (
+    <Card size="sm">
+      <CardHeader>
+        <CardTitle>Por origem</CardTitle>
+        <CardDescription>
+          Google e Instagram somam mais da metade.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-3">
+        {ORIGEM.map((o) => (
+          <div key={o.nome} className="flex flex-col gap-1.5">
+            <div className="flex items-center justify-between text-sm">
+              <span>{o.nome}</span>
+              <span className="text-xs text-muted-foreground tabular-nums">
+                {o.qtd} ·{" "}
+                {((o.qtd / total) * 100).toLocaleString("pt-BR", {
+                  maximumFractionDigits: 1,
+                })}
+                %
+              </span>
+            </div>
+            <PillMeter fraction={o.qtd / ORIGEM[0].qtd} count={40} />
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+
+/* ------------------------------------------------------------------ telas */
 
 function Inicio({ section }: { section?: Section }) {
   const [charts, setCharts] = useState(false);
-  const cards = [
-    {
-      label: "Leads recebidos",
-      value: "1.509",
-      hint: "vs. período anterior",
-      delta: { pct: 0.097, dir: "up" as const },
-      icon: IconUsers,
-      tone: "text-emerald-500",
-      seed: 1,
-    },
-    {
-      label: "Visitas realizadas",
-      value: "395",
-      hint: "26,2% dos leads",
-      delta: { pct: 0.145, dir: "up" as const },
-      icon: IconCalendarEvent,
-      tone: "text-rose-500",
-      seed: 2,
-    },
-    {
-      label: "Reservas",
-      value: "78",
-      hint: "19,7% das visitas",
-      delta: { pct: 0.219, dir: "up" as const },
-      icon: IconBookmark,
-      tone: "text-amber-500",
-      seed: 3,
-    },
-    {
-      label: "Vendas",
-      value: "17",
-      hint: "R$ 10,5 mi em VGV",
-      delta: { pct: 0.545, dir: "up" as const },
-      icon: IconCoin,
-      tone: "text-sky-500",
-      seed: 4,
-    },
-  ];
   return (
     <>
       <Title
@@ -175,150 +756,414 @@ function Inicio({ section }: { section?: Section }) {
           </>
         }
       />
-      <div className="@container">
-        <div className="grid gap-4 @lg:grid-cols-2 @min-[62rem]:grid-cols-4">
-          {cards.map((c) => (
-            <StatCard
-              key={c.label}
-              size="sm"
-              label={c.label}
-              value={c.value}
-              hint={c.hint}
-              delta={c.delta}
-              icon={c.icon}
-              iconClassName={c.tone}
-              chart={
-                charts ? (
-                  <CardSparkline data={spark(c.seed)} className={c.tone} />
-                ) : undefined
-              }
-            />
-          ))}
-        </div>
+      <Stats
+        charts={charts}
+        items={[
+          {
+            label: "Leads recebidos",
+            value: "1.509",
+            hint: "vs. período anterior",
+            delta: { pct: 0.097, dir: "up" },
+            icon: IconUsers,
+            tone: "text-emerald-500",
+          },
+          {
+            label: "Visitas realizadas",
+            value: "395",
+            hint: "26,2% dos leads",
+            delta: { pct: 0.145, dir: "up" },
+            icon: IconCalendarEvent,
+            tone: "text-rose-500",
+          },
+          {
+            label: "Reservas",
+            value: "78",
+            hint: "19,7% das visitas",
+            delta: { pct: 0.219, dir: "up" },
+            icon: IconBookmark,
+            tone: "text-amber-500",
+          },
+          {
+            label: "Vendas",
+            value: "17",
+            hint: "R$ 10,5 mi em VGV",
+            delta: { pct: 0.545, dir: "up" },
+            icon: IconCoin,
+            tone: "text-sky-500",
+          },
+        ]}
+      />
+      <div className="grid gap-4 xl:grid-cols-[2fr_1fr]">
+        <LeadsChart />
+        <OrigemCard />
       </div>
     </>
   );
 }
 
-/* ---------------------------------------------------------------- Leads */
-
-const LEADS = [
-  [
-    "774301",
-    "Marina Albuquerque",
-    "Google",
-    "Atlanta Condomínio Clube",
-    "Dercy Ramos",
-    "Em atendimento",
-    "amber",
-  ],
-  [
-    "774464",
-    "Otávio Brandão",
-    "Google",
-    "Madison II Condomínio Clube",
-    "Nicolas Prado",
-    "Em atendimento",
-    "amber",
-  ],
-  [
-    "774455",
-    "Helena Vasques",
-    "Facebook",
-    "Blue Lake Fase II",
-    "Samara Leite",
-    "1ª visita",
-    "blue",
-  ],
-  [
-    "775054",
-    "Caio Figueiredo",
-    "Instagram",
-    "Sem empreendimento",
-    "Sem corretor",
-    "Aguardando",
-    "secondary",
-  ],
-  [
-    "773918",
-    "Lívia Monteiro",
-    "Indicação",
-    "Kentucky Fase III",
-    "Anna Rezende",
-    "Com reserva",
-    "violet",
-  ],
-] as const;
-
-function Leads({ section }: { section?: Section }) {
+function Inicio2({ section }: { section?: Section }) {
   return (
     <>
       <Title
         section={section}
-        title="Leads"
-        sub="Acompanhe cada contato, do primeiro atendimento à venda."
-        actions={
-          <Button onClick={() => toast("Novo lead: tela de exemplo")}>
-            <IconPlus />
-            Novo lead
-          </Button>
-        }
+        title="Início 2"
+        sub="Boa tarde, Rafael! Carteira, unidades e processos de hoje."
       />
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Contato</TableHead>
-            <TableHead>Origem</TableHead>
-            <TableHead>Empreendimento</TableHead>
-            <TableHead>Responsável</TableHead>
-            <TableHead>Situação</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {LEADS.map(([code, name, origem, emp, resp, sit, cor]) => (
-            <TableRow key={code}>
-              <TableCell>
-                <div className="flex flex-col">
-                  <span className="font-normal">{name}</span>
-                  <span className="text-xs text-muted-foreground tabular-nums">
-                    #{code}
+      <Stats
+        items={[
+          {
+            label: "Total de processos",
+            value: "1.222",
+            hint: "1.222 ativos",
+            icon: IconLayoutKanban,
+            tone: "text-emerald-500",
+          },
+          {
+            label: "Contratos assinados",
+            value: "64",
+            hint: "no mês",
+            delta: { pct: 0.08, dir: "up" },
+            icon: IconUserCheck,
+            tone: "text-rose-500",
+          },
+          {
+            label: "Unidades disponíveis",
+            value: "312",
+            hint: "em 6 empreendimentos",
+            icon: IconBookmark,
+            tone: "text-amber-500",
+          },
+          {
+            label: "VGV do mês",
+            value: "R$ 10,5 mi",
+            hint: "meta R$ 12 mi",
+            icon: IconCoin,
+            tone: "text-sky-500",
+          },
+        ]}
+      />
+      <div className="grid gap-4 xl:grid-cols-2">
+        <VendasChart />
+        <Card size="sm">
+          <CardHeader>
+            <CardTitle>Processos de hoje</CardTitle>
+            <CardDescription>O que precisa de atenção agora.</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col">
+            {RESERVAS.slice(0, 5).map((r) => (
+              <div
+                key={r.code}
+                className="flex items-center justify-between gap-3 py-2.5 text-sm not-last:border-b not-last:border-border/50"
+              >
+                <div className="flex min-w-0 flex-col">
+                  <span className="truncate">{r.name}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {r.foot}
                   </span>
                 </div>
-              </TableCell>
-              <TableCell>{origem}</TableCell>
-              <TableCell>{emp}</TableCell>
-              <TableCell>{resp}</TableCell>
-              <TableCell>
-                <Badge variant={cor}>{sit}</Badge>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+                <StageBadge stages={RES_STAGES} stage={r.stage} />
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
     </>
   );
 }
 
-/* ---------------------------------------------------------------- Funis */
+const UNIT_FILTERS = [
+  "todas",
+  "disponivel",
+  "reservada",
+  "vendida",
+  "bloqueada",
+] as const;
 
-const COLS = [
+function Disponibilidade({ section }: { section?: Section }) {
+  const [bloco, setBloco] = useState(0);
+  const [filtro, setFiltro] = useState<UnitStatus | "todas">("todas");
+  const andares = useMemo(() => units(bloco), [bloco]);
+  const all = andares.flatMap((a) => a.units);
+  const count = (s: UnitStatus) => all.filter((u) => u.status === s).length;
+  return (
+    <>
+      <Title
+        section={section}
+        title="Mapa de disponibilidade"
+        sub="Escolha um empreendimento e veja a situação de cada unidade."
+        actions={
+          <Badge variant="outline">
+            Atlanta Condomínio Clube · Porto Alegre/RS
+          </Badge>
+        }
+      />
+      <Stats
+        items={[
+          {
+            label: "Unidades no empreendimento",
+            value: "80",
+            icon: IconBookmark,
+            tone: "text-emerald-500",
+          },
+          {
+            label: "Disponíveis",
+            value: "23",
+            icon: IconUserCheck,
+            tone: "text-emerald-500",
+          },
+          {
+            label: "Reservadas",
+            value: "18",
+            icon: IconBookmark,
+            tone: "text-amber-500",
+          },
+          {
+            label: "Vendidas",
+            value: "34",
+            icon: IconCoin,
+            tone: "text-sky-500",
+          },
+        ]}
+      />
+      <Card size="sm">
+        <CardHeader className="flex flex-col gap-3">
+          <div className="flex flex-wrap gap-2">
+            {BLOCOS.map((b, i) => (
+              <Button
+                key={b}
+                variant="outline"
+                size="sm"
+                aria-pressed={bloco === i}
+                onClick={() => setBloco(i)}
+                className={cn("font-normal", bloco === i && CHIP_ON)}
+              >
+                {b}
+              </Button>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {UNIT_FILTERS.map((s) => (
+              <Button
+                key={s}
+                variant="outline"
+                size="sm"
+                aria-pressed={filtro === s}
+                onClick={() => setFiltro(s)}
+                className={cn("font-normal", filtro === s && CHIP_ON)}
+              >
+                {s !== "todas" && (
+                  <span
+                    className={cn("size-1.5 rounded-full", UNIT_STATUS[s].dot)}
+                  />
+                )}
+                {s === "todas" ? "Todas" : UNIT_STATUS[s].label}
+                <span className="text-muted-foreground tabular-nums">
+                  {s === "todas" ? all.length : count(s)}
+                </span>
+              </Button>
+            ))}
+          </div>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-2">
+          {andares.map((a) => (
+            <div key={a.andar} className="flex items-center gap-3">
+              <span className="w-16 shrink-0 text-xs text-muted-foreground">
+                {a.andar}º andar
+              </span>
+              <div className="grid flex-1 grid-cols-4 gap-2 sm:max-w-md">
+                {a.units.map((u) => {
+                  const st = UNIT_STATUS[u.status];
+                  const off = filtro !== "todas" && filtro !== u.status;
+                  return (
+                    <button
+                      key={u.numero}
+                      type="button"
+                      onClick={() => toast(`Unidade ${u.numero}: ${st.label}`)}
+                      className={cn(
+                        "flex cursor-pointer flex-col items-center rounded-lg py-2 text-xs transition-opacity",
+                        st.cls,
+                        off && "opacity-25",
+                      )}
+                    >
+                      <span className="text-sm font-medium tabular-nums">
+                        {u.numero}
+                      </span>
+                      {st.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+    </>
+  );
+}
+
+function ComissoesTabs({ path }: { path: string }) {
+  const tabs = [
+    { href: `${CRM_BASE}/comissoes`, label: "Buscar" },
+    { href: `${CRM_BASE}/comissoes/lista`, label: "Lista" },
+    { href: `${CRM_BASE}/comissoes/configuracoes`, label: "Configurações" },
+  ];
+  const cur = `${CRM_BASE}/${path}`;
+  return (
+    <div className="inline-flex w-fit items-center gap-0.5 rounded-full bg-muted p-[3px]">
+      {tabs.map((t) => (
+        <Link
+          key={t.href}
+          href={t.href}
+          aria-current={cur === t.href ? "page" : undefined}
+          className={cn(
+            "rounded-full px-3 py-1 text-sm transition-colors",
+            cur === t.href
+              ? "bg-background font-medium text-foreground shadow-(--custom-shadow)"
+              : "text-muted-foreground hover:text-foreground",
+          )}
+        >
+          {t.label}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+const CONFIGS = [
+  {
+    t: "Calcular comissão na assinatura",
+    d: "A comissão nasce quando o contrato é assinado.",
+    on: true,
+  },
+  {
+    t: "Avisar o corretor por e-mail",
+    d: "Envia o extrato quando a comissão é paga.",
+    on: true,
+  },
+  {
+    t: "Bloquear estorno após 90 dias",
+    d: "Estornos antigos passam pela gerência.",
+    on: false,
+  },
+];
+
+function Comissoes({ section, path }: { section?: Section; path: string }) {
+  return (
+    <>
+      <Title
+        section={section}
+        title="Comissões"
+        sub="Busque comissões por empresa, período, situação e espécie."
+      />
+      <ComissoesTabs path={path} />
+      {path === "comissoes" && (
+        <Card size="sm">
+          <CardContent className="flex flex-col gap-4">
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div className="flex flex-col gap-2.5">
+                <Label>CNPJ da empresa</Label>
+                <Input placeholder="00.000.000/0000-00" />
+              </div>
+              <div className="flex flex-col gap-2.5">
+                <Label>Período</Label>
+                <Input placeholder="Out/2026" />
+              </div>
+              <div className="flex flex-col gap-2.5">
+                <Label>Situação</Label>
+                <Input placeholder="Todas" />
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <Button onClick={() => toast("Buscar: tela de exemplo")}>
+                <IconSearch />
+                Buscar
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+      {path === "comissoes/lista" && (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Empresa</TableHead>
+              <TableHead>Período</TableHead>
+              <TableHead>Situação</TableHead>
+              <TableHead className="text-right">Valor</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {COMISSOES.map((c) => (
+              <TableRow key={c.empresa}>
+                <TableCell>{c.empresa}</TableCell>
+                <TableCell className="text-muted-foreground">
+                  {c.periodo}
+                </TableCell>
+                <TableCell>
+                  <Badge variant={c.tone} className="normal-case">
+                    {c.situacao}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-right tabular-nums">
+                  {money(c.valor)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+      {path === "comissoes/configuracoes" && (
+        <Card size="sm">
+          <CardContent className="flex flex-col">
+            {CONFIGS.map((c) => (
+              <Label
+                key={c.t}
+                className="flex cursor-pointer items-center justify-between gap-4 py-3 not-last:border-b not-last:border-border/50"
+              >
+                <span className="flex flex-col gap-1">
+                  <span className="text-sm font-medium">{c.t}</span>
+                  <span className="text-xs font-normal text-muted-foreground">
+                    {c.d}
+                  </span>
+                </span>
+                <Switch defaultChecked={c.on} />
+              </Label>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+    </>
+  );
+}
+
+const FUNIS = [
   {
     title: "MRV",
-    dot: "bg-neutral-500",
+    dot: "bg-neutral-400",
     items: ["Sensia Horizon", "Château de Vermont", "Residencial Cortese"],
   },
   { title: "Hercasa", dot: "bg-blue-500", items: ["Residencial Roma"] },
   {
     title: "Valor Real",
     dot: "bg-orange-500",
-    items: ["Residencial Santa Clara", "Duna House", "Luna House"],
+    items: [
+      "Residencial Santa Clara",
+      "Residencial New South",
+      "Duna House",
+      "Luna House",
+    ],
   },
   { title: "Make IT", dot: "bg-violet-500", items: ["Now", "Horizon"] },
+  {
+    title: "Blue",
+    dot: "bg-sky-500",
+    items: ["Civitas", "Cena Passeio", "Aya Emiliano Perneta"],
+  },
   { title: "Tenda", dot: "bg-emerald-500", items: [] as string[] },
 ];
 
 function Funis({ section }: { section?: Section }) {
-  const [mode, setMode] = useState<"lista" | "quadro" | "compacto">("quadro");
+  const [mode, setMode] = useState<Mode>("quadro");
   return (
     <>
       <Title
@@ -326,28 +1171,26 @@ function Funis({ section }: { section?: Section }) {
         title="Funis"
         sub="Acompanhe os processos de cada funil, coluna por coluna."
         actions={
-          <ViewToggle
-            value={mode}
-            onValueChange={setMode}
-            options={[
-              { value: "lista", label: "Lista", icon: IconList },
-              { value: "quadro", label: "Quadro", icon: IconLayoutKanban },
-              {
-                value: "compacto",
-                label: "Quadro compacto",
-                icon: IconColumns3,
-              },
-            ]}
-          />
+          <>
+            <span className="text-sm text-muted-foreground tabular-nums">
+              13 processos ativos
+            </span>
+            <Button onClick={() => toast("Novo processo: tela de exemplo")}>
+              <IconPlus />
+              Novo processo
+            </Button>
+            <ViewToggle value={mode} onValueChange={setMode} options={MODES} />
+          </>
         }
       />
       <KanbanBoard>
-        {COLS.map((c) => (
+        {FUNIS.map((c, ci) => (
           <KanbanColumn
             key={c.title}
             title={c.title}
             count={c.items.length}
             dotClassName={c.dot}
+            className={mode === "compacto" ? "w-60" : undefined}
           >
             {c.items.length ? (
               c.items.map((it) => (
@@ -364,7 +1207,7 @@ function Funis({ section }: { section?: Section }) {
                     </Badge>
                   )}
                   <span className="text-xs text-muted-foreground">
-                    Adriana Fontes
+                    {ci < 3 ? "Adriana Fontes" : "André Gouveia"}
                   </span>
                 </KanbanCard>
               ))
@@ -378,11 +1221,112 @@ function Funis({ section }: { section?: Section }) {
   );
 }
 
-/* ---------------------------------------------------------------- casca */
+function ToggleDemo() {
+  const [v, setV] = useState<Mode>("quadro");
+  return <ViewToggle value={v} onValueChange={setV} options={MODES} />;
+}
+
+function Componentes({ section }: { section?: Section }) {
+  return (
+    <>
+      <Title
+        section={section}
+        title="Componentes"
+        sub="As peças do lume-custom que o CRM usa, num lugar só."
+      />
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Card size="sm">
+          <CardHeader>
+            <CardTitle>Botões</CardTitle>
+            <CardDescription>
+              Pílula; a variant muda o peso da ação.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-wrap gap-2">
+            <Button>Principal</Button>
+            <Button variant="secondary">Secundário</Button>
+            <Button variant="outline">Contorno</Button>
+            <Button variant="ghost">Fantasma</Button>
+          </CardContent>
+        </Card>
+        <Card size="sm">
+          <CardHeader>
+            <CardTitle>Situações</CardTitle>
+            <CardDescription>
+              Badge com sombra na cor do status.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-wrap gap-2">
+            {LEAD_STAGES.map((s) => (
+              <Badge key={s.key} variant={s.tone} className="normal-case">
+                {s.label}
+              </Badge>
+            ))}
+          </CardContent>
+        </Card>
+        <Card size="sm">
+          <CardHeader>
+            <CardTitle>Campos</CardTitle>
+            <CardDescription>Rótulo e campo.</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2.5">
+            <Label>Nome do cliente</Label>
+            <Input placeholder="Nome completo" />
+          </CardContent>
+        </Card>
+        <Card size="sm">
+          <CardHeader>
+            <CardTitle>Alternador de visualização</CardTitle>
+            <CardDescription>view-toggle do lume-custom.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ToggleDemo />
+          </CardContent>
+        </Card>
+      </div>
+    </>
+  );
+}
+
+function Graficos({ section }: { section?: Section }) {
+  return (
+    <>
+      <Title
+        section={section}
+        title="Gráficos"
+        sub="Os gráficos do lume com as cores de seção."
+      />
+      <div className="grid gap-4 xl:grid-cols-2">
+        <LeadsChart />
+        <VendasChart />
+      </div>
+      <OrigemCard />
+    </>
+  );
+}
+
+/* ---------------------------------------------------------------- rotas */
+
+const LEAD_COLS: Col[] = [
+  { key: "score", label: "Score" },
+  { key: "origem", label: "Origem" },
+  { key: "empreendimento", label: "Empreendimento" },
+  { key: "responsavel", label: "Responsável" },
+];
+const PRE_COLS: Col[] = [
+  { key: "empreendimento", label: "Empreendimento" },
+  { key: "valor", label: "Valor", align: "right" },
+  { key: "imobiliaria", label: "Responsável" },
+];
+const RES_COLS: Col[] = [
+  { key: "unidade", label: "Unidade" },
+  { key: "valor", label: "Valor", align: "right" },
+  { key: "responsavel", label: "Responsável" },
+  { key: "area", label: "Área" },
+];
 
 /** Conteúdo de cada tela de exemplo (a casca fica no layout de /crm). */
 export function CrmPage({ path }: { path: string }) {
-  const router = useRouter();
   const pathname = path ? `${CRM_BASE}/${path}` : CRM_BASE;
   const section = SECTIONS_CRM.find(
     (s) =>
@@ -392,39 +1336,112 @@ export function CrmPage({ path }: { path: string }) {
       (s.id !== "inicio" || pathname === CRM_BASE),
   );
 
-  let page: React.ReactNode;
-  if (!path) page = <Inicio section={section} />;
-  else if (path === "leads") page = <Leads section={section} />;
-  else if (path === "funis") page = <Funis section={section} />;
-  else
-    page = (
-      <>
-        <Title
-          section={section}
-          title={section?.label ?? "Tela"}
-          sub="Tela de exemplo: o menu, a migalha e a busca já funcionam."
-        />
-        <EmptyState
-          icon={IconTools}
-          title="Conteúdo de exemplo"
-          description="Esta demo mostra a casca do CRM. Veja Início, Leads e Funis para telas preenchidas."
-        >
-          <Button
-            variant="outline"
-            onClick={() => router.push(`${CRM_BASE}/leads`)}
-          >
-            Ir para Leads
-            <IconArrowRight />
-          </Button>
-        </EmptyState>
-      </>
-    );
+  const pages: Record<string, () => React.ReactNode> = {
+    "": () => <Inicio section={section} />,
+    "inicio-2": () => <Inicio2 section={section} />,
+    leads: () => (
+      <ListPage
+        section={section}
+        title="Leads"
+        sub="Acompanhe cada contato, do primeiro atendimento à venda."
+        newLabel="Novo lead"
+        stages={LEAD_STAGES}
+        rows={LEADS}
+        first="Contato"
+        cols={LEAD_COLS}
+      />
+    ),
+    "leads/andamento": () => (
+      <BoardPage
+        section={section}
+        title="Andamento dos leads"
+        sub="Em que etapa está cada lead."
+        stages={LEAD_STAGES}
+        rows={LEADS}
+      />
+    ),
+    "leads/distribuicao": () => (
+      <DistPage
+        section={section}
+        title="Distribuição dos leads"
+        sub="Quantos leads ativos cada corretor tem."
+        noun="Leads"
+      />
+    ),
+    "pre-cadastros": () => (
+      <ListPage
+        section={section}
+        title="Pré-cadastros"
+        sub="Acompanhe a análise de crédito de cada cliente, da avaliação à aprovação."
+        newLabel="Novo pré-cadastro"
+        stages={PRE_STAGES}
+        rows={PRE_CADASTROS}
+        first="Cliente"
+        cols={PRE_COLS}
+      />
+    ),
+    "pre-cadastros/andamento": () => (
+      <BoardPage
+        section={section}
+        title="Andamento dos pré-cadastros"
+        sub="Em que etapa da análise está cada cliente."
+        stages={PRE_STAGES}
+        rows={PRE_CADASTROS}
+      />
+    ),
+    "pre-cadastros/distribuicao": () => (
+      <DistPage
+        section={section}
+        title="Distribuição dos pré-cadastros"
+        sub="Quantos pré-cadastros cada corretor acompanha."
+        noun="Pré-cadastros"
+      />
+    ),
+    disponibilidade: () => <Disponibilidade section={section} />,
+    reservas: () => (
+      <ListPage
+        section={section}
+        title="Reservas"
+        sub="Acompanhe cada reserva, do pedido à assinatura do contrato."
+        newLabel="Nova reserva"
+        stages={RES_STAGES}
+        rows={RESERVAS}
+        first="Cliente"
+        cols={RES_COLS}
+      />
+    ),
+    "reservas/andamento": () => (
+      <BoardPage
+        section={section}
+        title="Andamento das reservas"
+        sub="Em que etapa está cada reserva."
+        stages={RES_STAGES}
+        rows={RESERVAS}
+      />
+    ),
+    "reservas/distribuicao": () => (
+      <DistPage
+        section={section}
+        title="Distribuição das reservas"
+        sub="Quantas reservas ativas cada corretor tem."
+        noun="Reservas"
+      />
+    ),
+    funis: () => <Funis section={section} />,
+    comissoes: () => <Comissoes section={section} path={path} />,
+    "comissoes/lista": () => <Comissoes section={section} path={path} />,
+    "comissoes/configuracoes": () => (
+      <Comissoes section={section} path={path} />
+    ),
+    componentes: () => <Componentes section={section} />,
+    graficos: () => <Graficos section={section} />,
+  };
 
   return (
     <>
-      {page}
+      {(pages[path] ?? pages[""])()}
       <p className="pt-4 text-xs text-muted-foreground">
-        Dados de exemplo: nomes e valores são fictícios.
+        Dados de exemplo: nomes, telefones e valores são fictícios.
       </p>
     </>
   );
