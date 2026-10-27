@@ -44,6 +44,7 @@ As seções e rotas vêm de `lib/sections.ts`; edite ali para mudar o menu. A de
 | `sections` | as seções do CRM (rótulo, ícones, cor, rotas) |
 | `view-toggle` | alternador Lista, Quadro, Compacto |
 | `kanban-column` | KanbanBoard, KanbanColumn, KanbanCard, KanbanEmpty |
+| `lyx-charts` | GradientBarChart e MeterRow |
 
 ## Tokens novos
 
@@ -114,6 +115,8 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 20. **Menus e tooltips flutuantes** podem usar sombra um pouco mais marcada que `--custom-shadow` para descolar do cartão branco. Dialog continua separado pelo backdrop, como no `FRONTEND.md`.
 
 21. **Dark mais claro e azulado** (substitui o dark em cinza puro do Foglamp). No `.dark`, o lume-custom redefine `--background`, `--card`, `--popover`, `--muted`, `--accent`, `--foreground`, `--muted-foreground`, `--border` e `--sidebar` com chroma baixo no matiz 265: página `oklch(0.2)`, cartão `oklch(0.256)`, menu flutuante `oklch(0.288)`, canvas `oklch(0.155)`. É o dark do protótipo.
+
+22. **Gráficos do CRM** (`lyx-charts`): barras verticais em degradê (claro na base, cor cheia no topo) com grade tracejada e etiqueta no hover, e medidores em degradê horizontal para origem, funil e metas. Substituem o evilcharts nas telas do CRM; o evilcharts segue disponível para séries com mais de uma métrica.
 
 ## Para agentes
 

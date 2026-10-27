@@ -38,6 +38,11 @@ import {
   KanbanEmpty,
 } from "@/registry/base-vega/components/kanban-column";
 import { Link } from "@/registry/base-vega/components/link";
+import {
+  GradientBarChart,
+  type LyxTone,
+  MeterRow,
+} from "@/registry/base-vega/components/lyx-charts";
 import { PillMeter } from "@/registry/base-vega/components/pill-meter";
 import { StatCard } from "@/registry/base-vega/components/stat-card";
 import {
@@ -705,6 +710,15 @@ function VendasChart() {
   );
 }
 
+const ORIGEM_TONES: LyxTone[] = [
+  "violet",
+  "rose",
+  "sky",
+  "emerald",
+  "amber",
+  "neutral",
+];
+
 function OrigemCard() {
   const total = ORIGEM.reduce((a, o) => a + o.qtd, 0);
   return (
@@ -712,24 +726,296 @@ function OrigemCard() {
       <CardHeader>
         <CardTitle>Por origem</CardTitle>
         <CardDescription>
-          Google e Instagram somam mais da metade.
+          De onde vieram os leads do período. Google e Instagram somam mais da
+          metade.
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3">
-        {ORIGEM.map((o) => (
-          <div key={o.nome} className="flex flex-col gap-1.5">
-            <div className="flex items-center justify-between text-sm">
-              <span>{o.nome}</span>
-              <span className="text-xs text-muted-foreground tabular-nums">
-                {o.qtd} ·{" "}
-                {((o.qtd / total) * 100).toLocaleString("pt-BR", {
-                  maximumFractionDigits: 1,
-                })}
-                %
+      <CardContent className="flex flex-col gap-4">
+        {ORIGEM.map((o, i) => (
+          <MeterRow
+            key={o.nome}
+            label={o.nome}
+            value={`${o.qtd} leads · ${((o.qtd / total) * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`}
+            fraction={o.qtd / ORIGEM[0].qtd}
+            tone={ORIGEM_TONES[i]}
+          />
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+
+function LeadsPorDia() {
+  return (
+    <Card size="sm">
+      <CardHeader>
+        <CardTitle>Leads por dia</CardTitle>
+        <CardDescription>Últimos 30 dias</CardDescription>
+      </CardHeader>
+      <CardContent className="mt-2">
+        <GradientBarChart
+          label="Leads por dia nos últimos 30 dias"
+          data={LEADS_POR_DIA.map((d) => ({ label: d.dia, value: d.leads }))}
+          unit="leads"
+        />
+      </CardContent>
+    </Card>
+  );
+}
+
+const FUNIL: { label: string; qtd: number; tone: LyxTone }[] = [
+  { label: "Aguardando atendimento", qtd: 208, tone: "neutral" },
+  { label: "Em atendimento", qtd: 608, tone: "amber" },
+  { label: "1ª visita", qtd: 389, tone: "sky" },
+  { label: "Com reserva", qtd: 79, tone: "violet" },
+  { label: "Venda realizada", qtd: 16, tone: "emerald" },
+];
+
+function SeeAll({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="text-xs text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+    >
+      {children}
+    </Link>
+  );
+}
+
+function FunilCard() {
+  const total = FUNIL.reduce((a, f) => a + f.qtd, 0);
+  return (
+    <Card size="sm">
+      <CardHeader className="flex flex-row items-start justify-between gap-3">
+        <div>
+          <CardTitle>Funil do período</CardTitle>
+          <CardDescription>Onde está cada lead recebido.</CardDescription>
+        </div>
+        <SeeAll href={`${CRM_BASE}/leads/andamento`}>Ver andamento</SeeAll>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4">
+        {FUNIL.map((f) => (
+          <MeterRow
+            key={f.label}
+            label={f.label}
+            value={`${f.qtd} leads · ${((f.qtd / total) * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`}
+            fraction={f.qtd / FUNIL[1].qtd}
+            tone={f.tone}
+          />
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+
+const RANKING = [
+  {
+    nome: "Dercy Ramos",
+    equipe: "Equipe Laura · POA",
+    leads: 193,
+    visitas: 56,
+    vendas: 3,
+  },
+  {
+    nome: "Nicolas Prado",
+    equipe: "Equipe Menna · POA",
+    leads: 163,
+    visitas: 47,
+    vendas: 3,
+  },
+  {
+    nome: "Samara Leite",
+    equipe: "Equipe Karoline · CWB",
+    leads: 178,
+    visitas: 51,
+    vendas: 2,
+  },
+  {
+    nome: "Paulo Venturini",
+    equipe: "Equipe Laura · POA",
+    leads: 134,
+    visitas: 39,
+    vendas: 2,
+  },
+  {
+    nome: "Anna Rezende",
+    equipe: "Equipe Adalberto · CWB",
+    leads: 119,
+    visitas: 34,
+    vendas: 2,
+  },
+];
+
+function RankingCard() {
+  return (
+    <Card size="sm">
+      <CardHeader className="flex flex-row items-start justify-between gap-3">
+        <div>
+          <CardTitle>Ranking de corretores</CardTitle>
+          <CardDescription>
+            Quem mais converteu lead em venda no período.
+          </CardDescription>
+        </div>
+        <SeeAll href={`${CRM_BASE}/leads/distribuicao`}>Ver equipes</SeeAll>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Corretor</TableHead>
+              <TableHead className="text-right">Leads</TableHead>
+              <TableHead className="text-right">Visitas</TableHead>
+              <TableHead className="text-right">Vendas</TableHead>
+              <TableHead className="text-right">Conversão</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {RANKING.map((r) => {
+              const conv = r.vendas / r.leads;
+              return (
+                <TableRow key={r.nome}>
+                  <TableCell>
+                    <div className="flex items-center gap-3">
+                      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-muted text-xs text-muted-foreground">
+                        {r.nome
+                          .split(" ")
+                          .map((x) => x[0])
+                          .join("")
+                          .slice(0, 2)}
+                      </span>
+                      <div className="flex flex-col">
+                        <span>{r.nome}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {r.equipe}
+                        </span>
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right tabular-nums">
+                    {r.leads}
+                  </TableCell>
+                  <TableCell className="text-right tabular-nums">
+                    {r.visitas}
+                  </TableCell>
+                  <TableCell className="text-right tabular-nums">
+                    {r.vendas}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center justify-end gap-2 tabular-nums">
+                      {(conv * 100).toLocaleString("pt-BR", {
+                        maximumFractionDigits: 1,
+                        minimumFractionDigits: 1,
+                      })}
+                      %
+                      <span className="h-1.5 w-20 overflow-hidden rounded-full bg-muted">
+                        <span
+                          className="block h-full rounded-full bg-linear-to-r from-violet-300 to-violet-500"
+                          style={{
+                            width: `${Math.min(100, conv * 100 * 25)}%`,
+                          }}
+                        />
+                      </span>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  );
+}
+
+const VISITAS = [
+  {
+    quando: "Hoje, 14h",
+    nome: "Marina Albuquerque",
+    emp: "Atlanta Condomínio Clube",
+    corretor: "Dercy Ramos",
+  },
+  {
+    quando: "Hoje, 16h30",
+    nome: "Helena Vasques",
+    emp: "Blue Lake Fase II",
+    corretor: "Samara Leite",
+  },
+  {
+    quando: "Amanhã, 10h",
+    nome: "Otávio Brandão",
+    emp: "Madison II Condomínio Clube",
+    corretor: "Nicolas Prado",
+  },
+  {
+    quando: "Sexta, 9h",
+    nome: "Lívia Monteiro",
+    emp: "Kentucky Fase III",
+    corretor: "Anna Rezende",
+  },
+];
+
+function VisitasCard() {
+  return (
+    <Card size="sm">
+      <CardHeader className="flex flex-row items-start justify-between gap-3">
+        <div>
+          <CardTitle>Próximas visitas</CardTitle>
+          <CardDescription>Agenda da equipe nos próximos dias.</CardDescription>
+        </div>
+        <SeeAll href={`${CRM_BASE}/leads`}>Ver agenda</SeeAll>
+      </CardHeader>
+      <CardContent className="flex flex-col">
+        {VISITAS.map((v) => (
+          <div
+            key={v.nome}
+            className="grid grid-cols-[6.5rem_1fr_auto] items-center gap-3 py-2.5 text-sm not-last:border-b not-last:border-border/50"
+          >
+            <span className="font-medium">{v.quando}</span>
+            <span className="flex min-w-0 flex-col">
+              <span className="truncate">{v.nome}</span>
+              <span className="truncate text-xs text-muted-foreground">
+                {v.emp}
               </span>
-            </div>
-            <PillMeter fraction={o.qtd / ORIGEM[0].qtd} count={40} />
+            </span>
+            <span className="text-xs text-muted-foreground">{v.corretor}</span>
           </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+
+const METAS = [
+  { label: "Leads atendidos", feito: 1184, meta: 1500 },
+  { label: "Visitas realizadas", feito: 395, meta: 450 },
+  { label: "Reservas", feito: 78, meta: 100 },
+  { label: "Vendas", feito: 17, meta: 25 },
+];
+
+function MetasCard() {
+  return (
+    <Card size="sm">
+      <CardHeader>
+        <CardTitle>Metas do mês</CardTitle>
+        <CardDescription>
+          Quanto da meta de outubro já foi atingido.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4">
+        {METAS.map((m) => (
+          <MeterRow
+            key={m.label}
+            label={m.label}
+            value={`${m.feito.toLocaleString("pt-BR")} de ${m.meta.toLocaleString("pt-BR")} · ${Math.round((m.feito / m.meta) * 100)}%`}
+            fraction={m.feito / m.meta}
+            tone="ink"
+          />
         ))}
       </CardContent>
     </Card>
@@ -794,8 +1080,16 @@ function Inicio({ section }: { section?: Section }) {
         ]}
       />
       <div className="grid gap-4 xl:grid-cols-[2fr_1fr]">
-        <LeadsChart />
+        <LeadsPorDia />
         <OrigemCard />
+      </div>
+      <div className="grid gap-4 xl:grid-cols-[1fr_2fr]">
+        <FunilCard />
+        <RankingCard />
+      </div>
+      <div className="grid gap-4 xl:grid-cols-[2fr_1fr]">
+        <VisitasCard />
+        <MetasCard />
       </div>
     </>
   );
@@ -1297,10 +1591,11 @@ function Graficos({ section }: { section?: Section }) {
         sub="Os gráficos do lume com as cores de seção."
       />
       <div className="grid gap-4 xl:grid-cols-2">
+        <LeadsPorDia />
+        <OrigemCard />
         <LeadsChart />
         <VendasChart />
       </div>
-      <OrigemCard />
     </>
   );
 }

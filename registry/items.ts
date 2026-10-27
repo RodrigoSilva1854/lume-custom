@@ -841,6 +841,21 @@ const LANES: ItemMeta[] = [
     ],
   },
   {
+    name: "lyx-charts",
+    title: "Gráficos do CRM LYX",
+    description:
+      "lume-custom: GradientBarChart (barras verticais em degradê, grade tracejada, coluna realçada e etiqueta no hover) e MeterRow (medidor em degradê horizontal para origem, funil e metas), com tons por cor.",
+    group: "blocks",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/components/lyx-charts.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
     name: "kanban-column",
     title: "Kanban",
     description:
@@ -1118,6 +1133,7 @@ const KITS: ItemMeta[] = [
       "sections",
       "view-toggle",
       "kanban-column",
+      "lyx-charts",
       "page-header",
       "stat-card",
       "stat-grid",

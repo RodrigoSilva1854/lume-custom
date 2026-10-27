@@ -2,7 +2,7 @@
 
 Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/RodrigoSilva1854/lume-custom; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
 
-113 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
+114 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
 
 ## Base (1)
 
@@ -98,7 +98,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `toggle-group` | Toggle group | Grupo de toggles com sombra compartilhada. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/toggle-group#v0.1.1` |
 | `tooltip` | Tooltip | Dica não invertida: mesma superfície dos popovers. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/tooltip#v0.1.1` |
 
-## Componentes (38)
+## Componentes (39)
 
 | Item | Título | Descrição | Comando |
 |---|---|---|---|
@@ -115,6 +115,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `link` | Link (indireção) | O Link que os blocos usam: um <a> simples. Em projetos Next, instale link-next por cima. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/link#v0.1.1` |
 | `link-next` | Link (next/link) | Troca o Link da indireção por next/link. Instale depois dos blocos, em projetos Next. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/link-next#v0.1.1` |
 | `login-form` | Formulário de login | Login presentacional do Foglamp: coluna de max-w-lg p-6 sem card, tile da marca de 40px em bg-muted com sombra, senha, link mágico e Google com separador h-px bg-border/50, validação zod no submit e erros em FieldError text-xs; quem autentica é o app pelos callbacks. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/login-form#v0.1.1` |
+| `lyx-charts` | Gráficos do CRM LYX | lume-custom: GradientBarChart (barras verticais em degradê, grade tracejada, coluna realçada e etiqueta no hover) e MeterRow (medidor em degradê horizontal para origem, funil e metas), com tons por cor. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/lyx-charts#v0.1.1` |
 | `lyx-shell` | Casca do CRM LYX | lume-custom: trilho de ícones que encolhe com a altura da tela, ativo na cor da seção, submenu flutuante no hover, menu expandido em pílulas, botão Layout (expandir, menu horizontal, modo foco), chip do usuário em degradê, migalha com ícones, busca de telas (Ctrl K), gaveta no celular e subida ao topo ao trocar de página. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1` |
 | `markdown-components` | Componentes de markdown | Overrides de a, table, thead, tr, th, td, img e hr para react-markdown ou Streamdown: links internos (href com /) pelo Link da indireção, externos em nova aba, tabelas planas text-xs tabular-nums com linhas border-border/40, img cru sem next/image. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/markdown-components#v0.1.1` |
 | `notice` | Notice | Faixa de aviso com tone warning, error ou info: fundo da cor a 10%, texto escuro/claro conforme o tema, ícone Tabler filled e a sombra colorida do token (shadow-(--custom-shadow-amber), -rose, -blue) no lugar de borda, com o gutter PX. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/notice#v0.1.1` |

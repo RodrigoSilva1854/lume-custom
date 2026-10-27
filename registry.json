@@ -2058,6 +2058,25 @@
       }
     },
     {
+      "name": "lyx-charts",
+      "type": "registry:component",
+      "title": "Gráficos do CRM LYX",
+      "description": "lume-custom: GradientBarChart (barras verticais em degradê, grade tracejada, coluna realçada e etiqueta no hover) e MeterRow (medidor em degradê horizontal para origem, funil e metas), com tons por cor.",
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/components/lyx-charts.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "group": "blocks",
+        "tier": "core"
+      }
+    },
+    {
       "name": "lyx-shell",
       "type": "registry:component",
       "title": "Casca do CRM LYX",
@@ -2795,6 +2814,7 @@
         "RodrigoSilva1854/lume-custom/empty-state#v0.1.1",
         "RodrigoSilva1854/lume-custom/kanban-column#v0.1.1",
         "RodrigoSilva1854/lume-custom/link#v0.1.1",
+        "RodrigoSilva1854/lume-custom/lyx-charts#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1",
         "RodrigoSilva1854/lume-custom/notice#v0.1.1",
         "RodrigoSilva1854/lume-custom/page-header#v0.1.1",
