@@ -1,6 +1,6 @@
 # Glossário
 
-Origem: mapa cap. 22. Termos na ordem em que aparecem no guia, do mais básico ao mais específico; cada um aponta para o capítulo que o detalha. Nomes de item da registry em `código` são os que você passa para `npx shadcn@latest add joaodadas/lume/<item>#v0.1.0`.
+Origem: mapa cap. 22. Termos na ordem em que aparecem no guia, do mais básico ao mais específico; cada um aponta para o capítulo que o detalha. Nomes de item da registry em `código` são os que você passa para `npx shadcn@latest add RodrigoSilva1854/lume-custom/<item>#v0.1.0`.
 
 - **base-vega**: o style do shadcn 4.x declarado em `components.json`; primitivos sobre Base UI com `data-slot`, `cva` e `cn`. O lume parte dele e retoca cerca de metade dos arquivos, como o Foglamp. [02-primitivos](./02-primitivos.md)
 - **Base UI e `render` prop**: `@base-ui/react`, headless no lugar do Radix; um componente vira outro elemento com `render={<Link href="/x" />}` em vez de `asChild`, e expõe estado por `data-open`, `data-closed`, `data-starting-style`, `data-ending-style` e variáveis como `--transform-origin` e `--anchor-width`. [02-primitivos](./02-primitivos.md)

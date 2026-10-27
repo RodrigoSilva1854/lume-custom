@@ -13,18 +13,18 @@ lyx-ds/
   AGENTS.md  CODEOWNERS (João e Jefferson)  scripts/{check,release}.ts reduzidos
 ```
 
-Sem site: a Lyx instala do GitHub (`npx shadcn@latest add Lyx-Engenharia/lyx-ds/<item>#v0.1.0`) ou pelo alias `@lyx` apontando para a Contents API. Todo `registryDependencies` para a base usa o endereço completo com tag (`joaodadas/lume/<item>#v0.1.0`): refs não são herdadas. Nenhum item da Lyx declara dependência no `base`, para o `theme-lyx` nunca ser instalado no mesmo comando que ele (quando os dois entram juntos, o `base` vence). Os repos `lyx-design-system-v2` e `lyx-design-system-bi-v2` são arquivados com um README apontando para cá.
+Sem site: a Lyx instala do GitHub (`npx shadcn@latest add Lyx-Engenharia/lyx-ds/<item>#v0.1.0`) ou pelo alias `@lyx` apontando para a Contents API. Todo `registryDependencies` para a base usa o endereço completo com tag (`RodrigoSilva1854/lume-custom/<item>#v0.1.0`): refs não são herdadas. Nenhum item da Lyx declara dependência no `base`, para o `theme-lyx` nunca ser instalado no mesmo comando que ele (quando os dois entram juntos, o `base` vence). Os repos `lyx-design-system-v2` e `lyx-design-system-bi-v2` são arquivados com um README apontando para cá.
 
 ## Itens
 
 | Item | Tipo | O que é | Depende de |
 |---|---|---|---|
 | `theme-lyx` | `registry:theme` | Só `cssVars`: `--brand`, `--brand-foreground`, `--custom-shadow-brand` nos dois temas e `color-brand` no `theme`; mais um `css` que estende a variante dark para `.dark` e `[data-theme="dark"]` ao mesmo tempo, para os fronts atuais migrarem o toggle depois dos componentes | nada |
-| `lyx-logo` | `registry:component` | Portado de `lyx-front-template/src/components/ui/lyx-logo.tsx` (SVG `viewBox="0 0 120 110"`, `currentColor`, `aria-label="Lyx"`, prop `size`) | `joaodadas/lume/utils#v0.1.0` |
-| `lyx-login` | `registry:block` | O redesign do Jefferson sobre o `login-form` da base (presentacional: `{ brand, methods, onPassword, onMagicLink, onGoogle, onForgot, pending, error }`); o Better Auth fica no front | `joaodadas/lume/login-form#v0.1.0`, `lyx-logo` |
-| `lyx-shell` | `registry:block` | `app-shell` da base com `brand={<LyxLogo />}`, switcher de portal, link para o Hub (`https://hub.lyxai.com.br`, como em `painel/src/app/shell.tsx:107-109`) e menu de conta com sair | `joaodadas/lume/app-shell#v0.1.0`, `lyx-logo` |
-| `badge`, `button` | `registry:ui` | Sobrescrevem o item da base acrescentando a variant `brand` (`bg-brand`, `text-brand-foreground` e a sombra `--custom-shadow-brand`); o `CHANGELOG.md` da base avisa quando `button.tsx` ou `badge.tsx` mudarem, e o `check.ts` daqui compara o resto do arquivo com o da base | `joaodadas/lume/utils#v0.1.0` |
-| `lyx-guide` | `registry:item` | Depende do `guia` da base e instala `docs/LYX.md` como `~/docs/lume/LYX.md` | `joaodadas/lume/guia#v0.1.0` |
+| `lyx-logo` | `registry:component` | Portado de `lyx-front-template/src/components/ui/lyx-logo.tsx` (SVG `viewBox="0 0 120 110"`, `currentColor`, `aria-label="Lyx"`, prop `size`) | `RodrigoSilva1854/lume-custom/utils#v0.1.0` |
+| `lyx-login` | `registry:block` | O redesign do Jefferson sobre o `login-form` da base (presentacional: `{ brand, methods, onPassword, onMagicLink, onGoogle, onForgot, pending, error }`); o Better Auth fica no front | `RodrigoSilva1854/lume-custom/login-form#v0.1.0`, `lyx-logo` |
+| `lyx-shell` | `registry:block` | `app-shell` da base com `brand={<LyxLogo />}`, switcher de portal, link para o Hub (`https://hub.lyxai.com.br`, como em `painel/src/app/shell.tsx:107-109`) e menu de conta com sair | `RodrigoSilva1854/lume-custom/app-shell#v0.1.0`, `lyx-logo` |
+| `badge`, `button` | `registry:ui` | Sobrescrevem o item da base acrescentando a variant `brand` (`bg-brand`, `text-brand-foreground` e a sombra `--custom-shadow-brand`); o `CHANGELOG.md` da base avisa quando `button.tsx` ou `badge.tsx` mudarem, e o `check.ts` daqui compara o resto do arquivo com o da base | `RodrigoSilva1854/lume-custom/utils#v0.1.0` |
+| `lyx-guide` | `registry:item` | Depende do `guia` da base e instala `docs/LYX.md` como `~/docs/lume/LYX.md` | `RodrigoSilva1854/lume-custom/guia#v0.1.0` |
 
 ## Teal `#025864`: `--brand`, não `--primary`
 
@@ -71,7 +71,7 @@ Isso cobre `dark:` nas utilities e os tokens de marca; os tokens da base (`--bac
   "iconLibrary": "tabler",
   "aliases": { "components": "@/components", "utils": "@/lib/utils", "ui": "@/components/ui", "lib": "@/lib", "hooks": "@/hooks" },
   "registries": {
-    "@lume": "https://raw.githubusercontent.com/joaodadas/lume/v0.1.0/public/r/{name}.json",
+    "@lume": "https://raw.githubusercontent.com/RodrigoSilva1854/lume-custom/v0.1.0/public/r/{name}.json",
     "@lyx": {
       "url": "https://api.github.com/repos/Lyx-Engenharia/lyx-ds/contents/public/r/{name}.json",
       "params": { "ref": "v0.1.0" },
@@ -90,11 +90,11 @@ Isso cobre `dark:` nas utilities e os tokens de marca; os tokens da base (`--bac
 Dev (com `gh auth login` feito; a CLI 4.19+ usa o token do `gh` para repo privado no modo GitHub):
 
 ```bash
-npx shadcn@latest init joaodadas/lume/base#v0.1.0 -y          # nunca -d; fallback: init https://lume-ashmont.vercel.app/r/base.json -y
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y          # nunca -d; fallback: init https://lume-ashmont.vercel.app/r/base.json -y
 npx shadcn@latest add Lyx-Engenharia/lyx-ds/theme-lyx#v0.1.0   # sozinho, depois do init, para o tema vencer o base
 npx shadcn@latest add Lyx-Engenharia/lyx-ds/lyx-shell#v0.1.0 Lyx-Engenharia/lyx-ds/lyx-login#v0.1.0 Lyx-Engenharia/lyx-ds/lyx-guide#v0.1.0
-npx shadcn@latest add joaodadas/lume/link-next#v0.1.0 --overwrite
-npx skills add joaodadas/lume --skill lume-design-engineering
+npx shadcn@latest add RodrigoSilva1854/lume-custom/link-next#v0.1.0 --overwrite
+npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering
 ```
 
 Conferir depois: `grep -n "\-\-brand" src/app/globals.css` mostra `--brand` em `:root`, `.dark` e `[data-theme="dark"]` e `--color-brand` no `@theme inline`; `grep -c "sidebar-primary" src/app/globals.css` dá 0 (se der mais, o `init` rodou com `-d`: refaça); `ls components/link.tsx docs/lume/LYX.md` existem; `grep -rl "@/registry/" src` não devolve nada.

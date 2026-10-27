@@ -5,7 +5,7 @@ Todas as mudanças relevantes do lume ficam aqui. O formato segue o
 o [SemVer](https://semver.org/lang/pt-BR/): patch é correção visual, minor é item
 ou prop nova, major é token removido ou prop quebrada. Cada versão tem uma tag
 `vX.Y.Z`; o consumidor fixa a tag no comando (`npx shadcn@latest add
-joaodadas/lume/<item>#vX.Y.Z`) e atualiza com `--diff` para ver e `--overwrite`
+RodrigoSilva1854/lume-custom/<item>#vX.Y.Z`) e atualiza com `--diff` para ver e `--overwrite`
 para aplicar. Quando um item muda de API, a seção traz "Como migrar".
 
 ## [Não lançado]
@@ -38,7 +38,7 @@ para aplicar. Quando um item muda de API, a seção traz "Como migrar".
 - Extras: `number-ticker`, `rolling-text` (slot-text), `border-beam-card` (border-beam), `font-display` (Host Grotesk via Fontsource).
 - Kits (`registry:block` só com `registryDependencies`): `kit-shell`, `kit-tabela`, `kit-formulario`, `kit-feedback`, `kit-dados`, `kit-graficos`.
 - Guia: `FRONTEND.md` (regras Always e Never), `docs/guia`, `docs/conceitos` (craft, reescrito em pt-BR), `docs/referencias.md`, `docs/adocao` (Next novo, Vite, migração 52W, camada Lyx) e o item `guia`, que instala tudo em `docs/lume/`.
-- Skill `lume-design-engineering` (`skills/lume-design-engineering`), gerada do `FRONTEND.md` e do guia, instalável com `npx skills add joaodadas/lume --skill lume-design-engineering`.
+- Skill `lume-design-engineering` (`skills/lume-design-engineering`), gerada do `FRONTEND.md` e do guia, instalável com `npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering`.
 - Site de vitrine em https://lume-ashmont.vercel.app, que também serve a registry em `/r/<item>.json` (alias `@lume`).
 - Tooling: `scripts/check.ts` (12 verificações), `scripts/release.ts`, `scripts/sync-upstream.ts`, CI em `.github/workflows/check.yml`.
 

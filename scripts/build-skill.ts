@@ -16,7 +16,7 @@ import path from "node:path";
 const ROOT = path.resolve(import.meta.dirname, "..");
 const SKILL_DIR = path.join("skills", "lume-design-engineering");
 const REFERENCES_DIR = path.join(SKILL_DIR, "references");
-const REPO_URL = "https://github.com/joaodadas/lume";
+const REPO_URL = "https://github.com/RodrigoSilva1854/lume-custom";
 const SKILL_LINE_CAP = 499; // scripts/check.ts falha a partir de 500
 // Travessão (U+2014) e meia-risca (U+2013), montados por código para o glifo não entrar no repo.
 const DASHES = new RegExp(`[${String.fromCharCode(0x2013, 0x2014)}]`);
@@ -493,8 +493,8 @@ function montarReferences(
       const linhas = lista.map((i) => {
         const cmd =
           tipo === "registry:base"
-            ? `npx shadcn@latest init joaodadas/lume/${i.name}#v${versao} -y`
-            : `npx shadcn@latest add joaodadas/lume/${i.name}#v${versao}`;
+            ? `npx shadcn@latest init RodrigoSilva1854/lume-custom/${i.name}#v${versao} -y`
+            : `npx shadcn@latest add RodrigoSilva1854/lume-custom/${i.name}#v${versao}`;
         return `| \`${i.name}\` | ${celula(i.title ?? "")} | ${celula(i.description ?? "")} | \`${cmd}\` |`;
       });
       return `## ${rotulo} (${lista.length})\n\n| Item | Título | Descrição | Comando |\n|---|---|---|---|\n${linhas.join("\n")}`;
@@ -560,7 +560,7 @@ O lume é uma registry shadcn (\`base-vega\` sobre \`@base-ui/react\`, Tailwind 
 1. Ache a seção no digest abaixo (uma linha por seção do \`FRONTEND.md\`) ou no índice de references.
 2. Leia a reference inteira antes de escrever código: ela traz as strings de classe exatas, os tokens e \`arquivo:linha\`.
 3. Use os valores exatos (tokens, pares de raio, sombras, durações, curvas de \`lib/motion.ts\`); não invente um cinza, uma sombra ou uma curva nova.
-4. Instale o que falta pela registry: \`npx shadcn@latest add joaodadas/lume/<item>#v${versao}\` (lista em [12-itens](references/12-itens.md)); \`components/ui/*\` nunca é editado à mão, só atualizado com \`--overwrite\`.
+4. Instale o que falta pela registry: \`npx shadcn@latest add RodrigoSilva1854/lume-custom/<item>#v${versao}\` (lista em [12-itens](references/12-itens.md)); \`components/ui/*\` nunca é editado à mão, só atualizado com \`--overwrite\`.
 5. Ao revisar UI, reporte cada mudança numa tabela Antes / Depois / Regra, citando a seção e \`arquivo:linha\`.
 
 ## Os 10 princípios
@@ -621,7 +621,7 @@ ${checklist}
 ## Instalação e convivência
 
 \`\`\`bash
-npx skills add joaodadas/lume --skill lume-design-engineering   # esta skill
+npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering   # esta skill
 npx skills add gustavo-fior/craft                                # a teoria; o lume cita o craft, não o substitui
 npx skills add vercel-labs/agent-skills --skill web-design-guidelines   # reviewer de a11y e UX com arquivo:linha
 npx skills add emilkowalski/skills                               # animação: quando não animar, duração e easing

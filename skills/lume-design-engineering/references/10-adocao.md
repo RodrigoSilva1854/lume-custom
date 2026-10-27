@@ -9,7 +9,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `FRONTEND.md`, `docs/guia/11
 Regras para construir qualquer interface com o lume. Toda regra é dura salvo indicação em contrário: se um padrão não cabe, levante antes de contornar. O texto segue a regra praticada no código do Foglamp (github.com/foglamp-labs/foglamp, commit `2bc3bb5`, Apache 2.0), não o `FRONTEND.md` original dele; onde os dois divergem (tema padrão `dark`, `motion/react` em uso, borda aceita em linha de tabela, divisor e campo no dark, `QueryCache.onError` em `utils/trpc.ts`, nenhum `error.tsx`), vale o código. Adições próprias estão marcadas com "(adição do lume)". A leitura longa, com tabelas e valores, fica em `docs/guia`; os conceitos do craft (Gustavo Fior, MIT) em `docs/conceitos`; as decisões do repo em `docs/DECISOES.md`.
 
 - **Always** leia caminhos sem prefixo como relativos à raiz deste repo (`registry/base-vega/ui/button.tsx:10`); caminhos que começam em `apps/web/` ou `packages/ui/` são do Foglamp, citados para o que ainda não virou item da registry.
-- **Always** instale pela registry: `npx shadcn@latest init joaodadas/lume/base#v0.1.0 -y` (sem `-d`: o `-d` ignora o `base` e instala o style padrão por cima) e `npx shadcn@latest add joaodadas/lume/<item>#v0.1.0`; a skill vem com `npx skills add joaodadas/lume --skill lume-design-engineering`.
+- **Always** instale pela registry: `npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y` (sem `-d`: o `-d` ignora o `base` e instala o style padrão por cima) e `npx shadcn@latest add RodrigoSilva1854/lume-custom/<item>#v0.1.0`; a skill vem com `npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering`.
 Porquê: o lume é uma cópia fiel de um sistema que está no ar; a autoridade é o código, e este arquivo é o que dev e agente leem antes de escrever qualquer tela.
 
 ## Layout do projeto
@@ -38,7 +38,7 @@ Porquê: a indireção de `link` e o estado de URL sem roteador são o que deixa
 
 <!-- mapa: 3.7, 21.12 | regras 22, 23 -->
 
-- **Always** instale e use junto: `npx skills add joaodadas/lume --skill lume-design-engineering` (este arquivo gerado em `SKILL.md` + `references/`), `npx skills add gustavo-fior/craft` (a teoria; o lume cita o craft, não o substitui), `web-design-guidelines` de `vercel-labs/agent-skills` (reviewer que reporta `arquivo:linha`) e `emilkowalski/skills` (animação); a ordem de leitura está em `docs/referencias.md`.
+- **Always** instale e use junto: `npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering` (este arquivo gerado em `SKILL.md` + `references/`), `npx skills add gustavo-fior/craft` (a teoria; o lume cita o craft, não o substitui), `web-design-guidelines` de `vercel-labs/agent-skills` (reviewer que reporta `arquivo:linha`) e `emilkowalski/skills` (animação); a ordem de leitura está em `docs/referencias.md`.
 - **Always** afine botão, badge e chip no playground `/botoes` (`app/botoes/page.tsx`, tecla `T` alterna o tema) antes de abrir PR, e reporte revisão em tabela Before / After / Regra.
 - **Always** comente em uma linha todo valor arbitrário (`[...]`), todo hex e toda exceção a este arquivo, e marque o que é adição própria.
 - **Never** instale biblioteca de componentes, ícones, tabela, estado global (Zustand, Redux, Jotai) ou CSS file por componente; se parecer necessário, levante antes.
@@ -70,7 +70,7 @@ Porquê: o Foglamp codifica com agentes em camadas (skills genéricas, regras do
 
 ### Camada Lyx: `Lyx-Engenharia/lyx-ds` sobre a base pública
 
-Fonte: [docs/adocao/camada-lyx.md](https://github.com/joaodadas/lume/blob/main/docs/adocao/camada-lyx.md).
+Fonte: [docs/adocao/camada-lyx.md](https://github.com/RodrigoSilva1854/lume-custom/blob/main/docs/adocao/camada-lyx.md).
 
 #### Teal `#025864`: `--brand`, não `--primary`
 
@@ -95,16 +95,16 @@ A fórmula da sombra colorida é a mesma dos badges da base (`--custom-shadow-em
 #### Comandos
 
 ```bash
-npx shadcn@latest init joaodadas/lume/base#v0.1.0 -y          # nunca -d; fallback: init https://lume-ashmont.vercel.app/r/base.json -y
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y          # nunca -d; fallback: init https://lume-ashmont.vercel.app/r/base.json -y
 npx shadcn@latest add Lyx-Engenharia/lyx-ds/theme-lyx#v0.1.0   # sozinho, depois do init, para o tema vencer o base
 npx shadcn@latest add Lyx-Engenharia/lyx-ds/lyx-shell#v0.1.0 Lyx-Engenharia/lyx-ds/lyx-login#v0.1.0 Lyx-Engenharia/lyx-ds/lyx-guide#v0.1.0
-npx shadcn@latest add joaodadas/lume/link-next#v0.1.0 --overwrite
-npx skills add joaodadas/lume --skill lume-design-engineering
+npx shadcn@latest add RodrigoSilva1854/lume-custom/link-next#v0.1.0 --overwrite
+npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering
 ```
 
 ### Migrar um front 52W (Lyx) para o lume
 
-Fonte: [docs/adocao/migracao-52w.md](https://github.com/joaodadas/lume/blob/main/docs/adocao/migracao-52w.md).
+Fonte: [docs/adocao/migracao-52w.md](https://github.com/RodrigoSilva1854/lume-custom/blob/main/docs/adocao/migracao-52w.md).
 
 #### Inventário de hoje (16/10/2026)
 
@@ -123,7 +123,7 @@ Comandos do inventário (rode no seu front antes de começar e guarde os número
 #### Passo 1: `components.json` e dependências
 
 ```bash
-npx shadcn@latest init joaodadas/lume/base#v0.1.0 -y
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y
 ```
 
 #### Passo 3: camada de aliases temporária
@@ -165,13 +165,13 @@ Dois nomes colidem e não podem virar alias:
 #### Passo 4: dark mode de `data-theme` para `.dark`
 
 ```bash
-npx shadcn@latest add joaodadas/lume/theme-provider#v0.1.0 joaodadas/lume/theme-switcher#v0.1.0
+npx shadcn@latest add RodrigoSilva1854/lume-custom/theme-provider#v0.1.0 RodrigoSilva1854/lume-custom/theme-switcher#v0.1.0
 ```
 
 #### Passo 6: primitivos Radix para Base UI
 
 ```bash
-npx shadcn@latest add joaodadas/lume/kit-formulario#v0.1.0 joaodadas/lume/kit-feedback#v0.1.0 joaodadas/lume/card#v0.1.0 joaodadas/lume/table#v0.1.0 joaodadas/lume/sidebar#v0.1.0 joaodadas/lume/scroll-area#v0.1.0 joaodadas/lume/separator#v0.1.0 joaodadas/lume/badge#v0.1.0 joaodadas/lume/button#v0.1.0 --overwrite
+npx shadcn@latest add RodrigoSilva1854/lume-custom/kit-formulario#v0.1.0 RodrigoSilva1854/lume-custom/kit-feedback#v0.1.0 RodrigoSilva1854/lume-custom/card#v0.1.0 RodrigoSilva1854/lume-custom/table#v0.1.0 RodrigoSilva1854/lume-custom/sidebar#v0.1.0 RodrigoSilva1854/lume-custom/scroll-area#v0.1.0 RodrigoSilva1854/lume-custom/separator#v0.1.0 RodrigoSilva1854/lume-custom/badge#v0.1.0 RodrigoSilva1854/lume-custom/button#v0.1.0 --overwrite
 ```
 
 | Radix (new-york) | Base UI (lume) | Onde confere |
@@ -228,7 +228,7 @@ npm uninstall lucide-react radix-ui @radix-ui/react-dialog @radix-ui/react-dropd
 
 ### Projeto Next novo com o lume
 
-Fonte: [docs/adocao/next-novo.md](https://github.com/joaodadas/lume/blob/main/docs/adocao/next-novo.md).
+Fonte: [docs/adocao/next-novo.md](https://github.com/RodrigoSilva1854/lume-custom/blob/main/docs/adocao/next-novo.md).
 
 #### 1. Criar o app
 
@@ -240,7 +240,7 @@ cd meu-app
 #### 2. Instalar a base
 
 ```bash
-npx shadcn@latest init joaodadas/lume/base#v0.1.0 -y
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y
 ```
 
 Conferir o `app/globals.css` e o `app/layout.tsx` depois do `init`:
@@ -260,15 +260,15 @@ O `create-next-app` deixa `Geist` e `Geist_Mono` de `next/font/google` no `app/l
 #### 3. Instalar os itens e a skill
 
 ```bash
-npx shadcn@latest add joaodadas/lume/kit-shell#v0.1.0 joaodadas/lume/kit-tabela#v0.1.0 joaodadas/lume/kit-formulario#v0.1.0 joaodadas/lume/kit-feedback#v0.1.0 joaodadas/lume/kit-dados#v0.1.0 joaodadas/lume/kit-graficos#v0.1.0 joaodadas/lume/login-form#v0.1.0
-npx shadcn@latest add joaodadas/lume/link-next#v0.1.0 --overwrite
-npx shadcn@latest add joaodadas/lume/guia#v0.1.0
-npx skills add joaodadas/lume --skill lume-design-engineering
+npx shadcn@latest add RodrigoSilva1854/lume-custom/kit-shell#v0.1.0 RodrigoSilva1854/lume-custom/kit-tabela#v0.1.0 RodrigoSilva1854/lume-custom/kit-formulario#v0.1.0 RodrigoSilva1854/lume-custom/kit-feedback#v0.1.0 RodrigoSilva1854/lume-custom/kit-dados#v0.1.0 RodrigoSilva1854/lume-custom/kit-graficos#v0.1.0 RodrigoSilva1854/lume-custom/login-form#v0.1.0
+npx shadcn@latest add RodrigoSilva1854/lume-custom/link-next#v0.1.0 --overwrite
+npx shadcn@latest add RodrigoSilva1854/lume-custom/guia#v0.1.0
+npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering
 ```
 
 ### Vite (SPA) com o lume
 
-Fonte: [docs/adocao/vite.md](https://github.com/joaodadas/lume/blob/main/docs/adocao/vite.md).
+Fonte: [docs/adocao/vite.md](https://github.com/RodrigoSilva1854/lume-custom/blob/main/docs/adocao/vite.md).
 
 #### 1. Projeto e `components.json`
 
@@ -278,15 +278,15 @@ cd meu-painel && bun add -d @tailwindcss/vite
 ```
 
 ```bash
-npx shadcn@latest init joaodadas/lume/base#v0.1.0 -y
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y
 ```
 
 #### 2. Itens
 
 ```bash
-npx shadcn@latest add joaodadas/lume/kit-shell#v0.1.0 joaodadas/lume/kit-tabela#v0.1.0 joaodadas/lume/kit-feedback#v0.1.0 joaodadas/lume/kit-dados#v0.1.0 joaodadas/lume/kit-graficos#v0.1.0
-npx shadcn@latest add joaodadas/lume/theme-provider-csp#v0.1.0 --overwrite
-npx skills add joaodadas/lume --skill lume-design-engineering
+npx shadcn@latest add RodrigoSilva1854/lume-custom/kit-shell#v0.1.0 RodrigoSilva1854/lume-custom/kit-tabela#v0.1.0 RodrigoSilva1854/lume-custom/kit-feedback#v0.1.0 RodrigoSilva1854/lume-custom/kit-dados#v0.1.0 RodrigoSilva1854/lume-custom/kit-graficos#v0.1.0
+npx shadcn@latest add RodrigoSilva1854/lume-custom/theme-provider-csp#v0.1.0 --overwrite
+npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering
 ```
 
 #### 3. Bloco a bloco: o que usava Next e a variante pura

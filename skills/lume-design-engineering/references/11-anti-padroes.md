@@ -152,7 +152,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `docs/guia/11-receita.md`, o
 ### Regras para agentes
 
 - **Never** instale biblioteca de componentes, ícones, tabela, estado global (Zustand, Redux, Jotai) ou CSS file por componente; se parecer necessário, levante antes.
-- Em vez disso: instale e use junto: `npx skills add joaodadas/lume --skill lume-design-engineering` (este arquivo gerado em `SKILL.md` + `references/`), `npx skills add gustavo-fior/craft` (a teoria; o lume cita o craft, não o substitui), `web-design-guidelines` de `vercel-labs/agent-skills` (reviewer que reporta `arquivo:linha`) e `emilkowalski/skills` (animação); a ordem de leitura está em `docs/referencias.md`. ([seção](10-adocao.md#regras-para-agentes))
+- Em vez disso: instale e use junto: `npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering` (este arquivo gerado em `SKILL.md` + `references/`), `npx skills add gustavo-fior/craft` (a teoria; o lume cita o craft, não o substitui), `web-design-guidelines` de `vercel-labs/agent-skills` (reviewer que reporta `arquivo:linha`) e `emilkowalski/skills` (animação); a ordem de leitura está em `docs/referencias.md`. ([seção](10-adocao.md#regras-para-agentes))
 
 ## Do guia: 11. Receita: do zero a um app com a cara do Foglamp
 

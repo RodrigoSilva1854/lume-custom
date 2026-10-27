@@ -202,5 +202,5 @@ export function rotaDoLink(docAtual: Doc, href: string): string | null {
 export function linkDoRepo(docAtual: Doc, href: string): string {
   const dir = path.posix.dirname(docAtual.arquivo);
   const alvo = path.posix.normalize(path.posix.join(dir, href));
-  return `https://github.com/joaodadas/lume/blob/main/${alvo}`;
+  return `https://github.com/RodrigoSilva1854/lume-custom/blob/main/${alvo}`;
 }

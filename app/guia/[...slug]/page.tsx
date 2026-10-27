@@ -55,7 +55,7 @@ export default async function GuiaDocPage({
           <span aria-hidden="true">/</span>
           <span>{doc.grupo}</span>
           <a
-            href={`https://github.com/joaodadas/lume/blob/main/${doc.arquivo}`}
+            href={`https://github.com/RodrigoSilva1854/lume-custom/blob/main/${doc.arquivo}`}
             target="_blank"
             rel="noreferrer"
             className="ml-auto normal-case tracking-normal transition-colors hover:text-foreground"

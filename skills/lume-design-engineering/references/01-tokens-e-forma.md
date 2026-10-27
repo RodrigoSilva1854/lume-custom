@@ -178,7 +178,7 @@ Sintaxes equivalentes: `shadow-(--custom-shadow)` e `shadow-[var(--custom-shadow
 | Separador | `Separator` = `bg-border/70`, com `dark:bg-border/40` em dialogs | `registry/base-vega/ui/separator.tsx:19` |
 | Estado vazio | `border-dashed border dark:border-border/50` | `registry/base-vega/ui/empty.tsx:12` |
 | Input no dark | `dark:shadow-none dark:border-[0.5px] dark:border-border/50` | campos, ver acima |
-| Hairline de marketing | `border-b border-border/50` a `/70` | navbar, footer, FAQ ([12-marketing](https://github.com/joaodadas/lume/blob/main/docs/guia/12-marketing.md)) |
+| Hairline de marketing | `border-b border-border/50` a `/70` | navbar, footer, FAQ ([12-marketing](https://github.com/RodrigoSilva1854/lume-custom/blob/main/docs/guia/12-marketing.md)) |
 | Header mobile do shell | `border-b border-border/50` | `app-shell` (adição do lume) |
 
 **Never** `border` a 100% fechando uma caixa dentro do app; **Never** `ring-1 ring-foreground/10` como aresta de superfície (é o resto do shadcn que o Foglamp não retocou em Select, HoverCard e Combobox).

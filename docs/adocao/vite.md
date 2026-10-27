@@ -12,10 +12,10 @@ cd meu-painel && bun add -d @tailwindcss/vite
 `tsconfig.json` com `"paths": { "@/*": ["./src/*"] }` e `vite.config.ts` com `resolve.alias` `@` para `./src` (o painel: `fileURLToPath(new URL('./src', import.meta.url))`) e `plugins: [react(), tailwindcss()]`. A CLI do shadcn exige o alias no tsconfig para reescrever os imports.
 
 ```bash
-npx shadcn@latest init joaodadas/lume/base#v0.1.0 -y
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y
 ```
 
-Mesma regra do Next: `-y`, nunca `-d`. O `init` do shadcn reconhece Vite pelo `vite.config.ts` e escreve o `components.json` com `rsc: false` (conferir: validado hoje só em Next; se o `init` recusar o projeto, escreva o `components.json` abaixo à mão e rode `npx shadcn@latest add joaodadas/lume/base#v0.1.0`, que grava `cssVars` e `css` no arquivo de CSS e ignora o `config`).
+Mesma regra do Next: `-y`, nunca `-d`. O `init` do shadcn reconhece Vite pelo `vite.config.ts` e escreve o `components.json` com `rsc: false` (conferir: validado hoje só em Next; se o `init` recusar o projeto, escreva o `components.json` abaixo à mão e rode `npx shadcn@latest add RodrigoSilva1854/lume-custom/base#v0.1.0`, que grava `cssVars` e `css` no arquivo de CSS e ignora o `config`).
 
 ```json
 {
@@ -35,9 +35,9 @@ Mesma regra do Next: `-y`, nunca `-d`. O `init` do shadcn reconhece Vite pelo `v
 ## 2. Itens
 
 ```bash
-npx shadcn@latest add joaodadas/lume/kit-shell#v0.1.0 joaodadas/lume/kit-tabela#v0.1.0 joaodadas/lume/kit-feedback#v0.1.0 joaodadas/lume/kit-dados#v0.1.0 joaodadas/lume/kit-graficos#v0.1.0
-npx shadcn@latest add joaodadas/lume/theme-provider-csp#v0.1.0 --overwrite
-npx skills add joaodadas/lume --skill lume-design-engineering
+npx shadcn@latest add RodrigoSilva1854/lume-custom/kit-shell#v0.1.0 RodrigoSilva1854/lume-custom/kit-tabela#v0.1.0 RodrigoSilva1854/lume-custom/kit-feedback#v0.1.0 RodrigoSilva1854/lume-custom/kit-dados#v0.1.0 RodrigoSilva1854/lume-custom/kit-graficos#v0.1.0
+npx shadcn@latest add RodrigoSilva1854/lume-custom/theme-provider-csp#v0.1.0 --overwrite
+npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering
 ```
 
 Nunca instale `link-next`, `theme-provider` (next-themes funciona em Vite, mas injeta `<script>` inline; use-o só sem CSP) nem qualquer item `nextOnly`. Conferir: `grep -rl "next/" src` não devolve nada e `grep -rl "@/registry/" src` também não.

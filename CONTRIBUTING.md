@@ -15,7 +15,7 @@ camada do produto (na Lyx, o repo `Lyx-Engenharia/lyx-ds`).
    ("levante antes de contornar"): o look é cinza estrutural com cor só por
    significado, e cada acréscimo precisa caber nisso.
 4. Depois do merge, o produto atualiza com `npx shadcn@latest add
-   joaodadas/lume/<item>#vX.Y.Z --diff` para ver e `--overwrite` para aplicar.
+   RodrigoSilva1854/lume-custom/<item>#vX.Y.Z --diff` para ver e `--overwrite` para aplicar.
 
 ## Como rodar
 

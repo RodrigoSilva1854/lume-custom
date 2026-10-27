@@ -6,9 +6,9 @@ import { Button, buttonVariants } from "@/registry/base-vega/ui/button";
 import { Card, CardContent } from "@/registry/base-vega/ui/card";
 
 const COMANDOS = [
-  `npx shadcn@latest init joaodadas/lume/base#v${pkg.version}`,
-  `npx shadcn@latest add joaodadas/lume/kit-shell#v${pkg.version}`,
-  "npx skills add joaodadas/lume --skill lume-design-engineering",
+  `npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v${pkg.version}`,
+  `npx shadcn@latest add RodrigoSilva1854/lume-custom/kit-shell#v${pkg.version}`,
+  "npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering",
 ];
 
 export default function Home() {

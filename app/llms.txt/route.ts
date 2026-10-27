@@ -60,9 +60,9 @@ const BODY = `# lume
 
 ## Instalação
 \`\`\`bash
-npx shadcn@latest init joaodadas/lume/base#v${v} -y
-npx shadcn@latest add joaodadas/lume/kit-shell#v${v}
-npx skills add joaodadas/lume --skill lume-design-engineering
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v${v} -y
+npx shadcn@latest add RodrigoSilva1854/lume-custom/kit-shell#v${v}
+npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering
 \`\`\`
 
 Sem \`-d\` no init: o \`-d\` ignora o \`base\` e instala o style padrão por cima.
@@ -75,7 +75,7 @@ Sem \`-d\` no init: o \`-d\` ignora o \`base\` e instala o style padrão por cim
 - [Repositório](${GITHUB_URL}): código, registry/items.ts, scripts e CHANGELOG.
 
 ## Itens da registry
-Cada item é um JSON em \`${SITE_URL}/r/<nome>.json\`; instale com \`npx shadcn@latest add joaodadas/lume/<nome>#v${v}\`. ${itens.length} itens.
+Cada item é um JSON em \`${SITE_URL}/r/<nome>.json\`; instale com \`npx shadcn@latest add RodrigoSilva1854/lume-custom/<nome>#v${v}\`. ${itens.length} itens.
 
 ${secoesDaRegistry(itens)}
 

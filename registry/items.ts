@@ -266,7 +266,7 @@ const BASE: ItemMeta[] = [
     name: "base",
     title: "Base lume",
     description:
-      "Tokens oklch em cinza, 17 sombras no lugar de borda, squircle, fontes Inter e Geist Mono e a base layer. Instale com `shadcn init joaodadas/lume/base#vX`.",
+      "Tokens oklch em cinza, 17 sombras no lugar de borda, squircle, fontes Inter e Geist Mono e a base layer. Instale com `shadcn init RodrigoSilva1854/lume-custom/base#vX`.",
     group: "base",
     type: "registry:base",
     extends: "none",

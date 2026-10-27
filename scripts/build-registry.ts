@@ -4,7 +4,7 @@
 //
 // Para cada item lê os arquivos, extrai os imports e classifica:
 // - "@/registry/base-vega/..." vira registryDependencies no item dono do
-//   arquivo, no endereço completo joaodadas/lume/<item>#v<versão>;
+//   arquivo, no endereço completo RodrigoSilva1854/lume-custom/<item>#v<versão>;
 // - pacote npm vira dependencies (react, react-dom e next ficam de fora;
 //   PINS fixa a faixa de versão quando preciso);
 // - relativo precisa ficar dentro do mesmo item.
@@ -32,7 +32,7 @@ const pkg = JSON.parse(
   version: string;
 };
 const TAG = `v${pkg.version}`;
-const OWNER = "joaodadas/lume";
+const OWNER = "RodrigoSilva1854/lume-custom";
 const SKIP_PACKAGES = new Set(["react", "react-dom", "next"]);
 
 const REGISTRY_PREFIX = "@/registry/base-vega/";

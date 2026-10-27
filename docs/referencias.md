@@ -48,7 +48,7 @@ Cada entrada tem uma frase de justificativa. "Não" significa "não na v0.1"; mu
 
 | Skill | Status | Comando | Por quê |
 |---|---|---|---|
-| `lume-design-engineering` | base | `npx skills add joaodadas/lume --skill lume-design-engineering` | As regras deste design system, geradas do `FRONTEND.md` e dos capítulos do guia |
+| `lume-design-engineering` | base | `npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering` | As regras deste design system, geradas do `FRONTEND.md` e dos capítulos do guia |
 | `gustavo-fior/craft` | obrigatória | `npx skills add gustavo-fior/craft` | A teoria por trás dos valores (tabular numbers, optical alignment, button press, hover restraint); o lume cita o craft, não o substitui |
 | `vercel-labs/agent-skills` (`web-design-guidelines`) | obrigatória | `npx skills add vercel-labs/agent-skills --skill web-design-guidelines` | Reviewer que reporta `arquivo:linha` contra as Web Interface Guidelines; é a checagem de acessibilidade e UX que o lume não reescreve |
 | `emilkowalski/skills` | recomendada | `npx skills add emilkowalski/skills` | Animação: quando não animar, duração e easing; coincide com as 12 receitas do [09-movimento](./guia/09-movimento.md) |

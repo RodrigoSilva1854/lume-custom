@@ -21,7 +21,7 @@ O lume é uma registry shadcn (`base-vega` sobre `@base-ui/react`, Tailwind v4, 
 1. Ache a seção no digest abaixo (uma linha por seção do `FRONTEND.md`) ou no índice de references.
 2. Leia a reference inteira antes de escrever código: ela traz as strings de classe exatas, os tokens e `arquivo:linha`.
 3. Use os valores exatos (tokens, pares de raio, sombras, durações, curvas de `lib/motion.ts`); não invente um cinza, uma sombra ou uma curva nova.
-4. Instale o que falta pela registry: `npx shadcn@latest add joaodadas/lume/<item>#v0.1.1` (lista em [12-itens](references/12-itens.md)); `components/ui/*` nunca é editado à mão, só atualizado com `--overwrite`.
+4. Instale o que falta pela registry: `npx shadcn@latest add RodrigoSilva1854/lume-custom/<item>#v0.1.1` (lista em [12-itens](references/12-itens.md)); `components/ui/*` nunca é editado à mão, só atualizado com `--overwrite`.
 5. Ao revisar UI, reporte cada mudança numa tabela Antes / Depois / Regra, citando a seção e `arquivo:linha`.
 
 ## Os 10 princípios
@@ -77,7 +77,7 @@ Uma linha por seção: o primeiro **Always** e o link para a seção inteira na 
 - **Assistente de AI (chat)**: monte o painel como irmão flex do inset no canvas `bg-sidebar`, largura 354px (mínimo 320, máximo 640), tween `{ duration: 0.25, ease: ENTRANCE_EASE }` com `{ duration: 0 }` durante o arrasto, conteúdo interno de largura fixa para não refluir; `useReportLayoutReserve(open ? width : 0)` (item `header-slot`) avisa a Toolbar da largura futura. ([ref](references/08-chat-de-ai.md#assistente-de-ai-chat))
 - **Marketing (opcional)**: use o container `mx-auto w-full max-w-7xl px-5 sm:px-8` e títulos em `font-display text-3xl font-[450] tracking-tight text-balance sm:text-4xl` (450 é o peso mais recente; 600 nas páginas antigas), corpo `text-lg text-muted-foreground text-pretty`. ([ref](references/01-tokens-e-forma.md#marketing-opcional))
 - **Next.js e Vite: o que muda**: no Next: trio por rota (`header.tsx` com um `RouteHeader`, `loading.tsx` só com ele, `page.tsx` com o client ou `Suspense fallback={<XHeader />}` quando lê `useSearchParams`); `params` e `searchParams` são `Promise` e o server resolve e passa como prop; instale `link-next` (mesmo caminho `components/link.tsx`, sobre `next/link` com `prefetch`); imagens por `next/image` com `alt` obrigatório. ([ref](references/10-adocao.md#nextjs-e-vite-o-que-muda))
-- **Regras para agentes**: instale e use junto: `npx skills add joaodadas/lume --skill lume-design-engineering` (este arquivo gerado em `SKILL.md` + `references/`), `npx skills add gustavo-fior/craft` (a teoria; o lume cita o craft, não o substitui), `web-design-guidelines` de `vercel-labs/agent-skills` (reviewer que reporta `arquivo:linha`) e `emilkowalski/skills` (animação); a ordem de leitura está em `docs/referencias.md`. ([ref](references/10-adocao.md#regras-para-agentes))
+- **Regras para agentes**: instale e use junto: `npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering` (este arquivo gerado em `SKILL.md` + `references/`), `npx skills add gustavo-fior/craft` (a teoria; o lume cita o craft, não o substitui), `web-design-guidelines` de `vercel-labs/agent-skills` (reviewer que reporta `arquivo:linha`) e `emilkowalski/skills` (animação); a ordem de leitura está em `docs/referencias.md`. ([ref](references/10-adocao.md#regras-para-agentes))
 <!-- digest:end -->
 
 ## References
@@ -131,7 +131,7 @@ Antes de abrir PR (mapa 21.14), e reporte o resultado na tabela Antes / Depois /
 ## Instalação e convivência
 
 ```bash
-npx skills add joaodadas/lume --skill lume-design-engineering   # esta skill
+npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering   # esta skill
 npx skills add gustavo-fior/craft                                # a teoria; o lume cita o craft, não o substitui
 npx skills add vercel-labs/agent-skills --skill web-design-guidelines   # reviewer de a11y e UX com arquivo:linha
 npx skills add emilkowalski/skills                               # animação: quando não animar, duração e easing

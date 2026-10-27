@@ -7,7 +7,7 @@
 Regras para construir qualquer interface com o lume. Toda regra é dura salvo indicação em contrário: se um padrão não cabe, levante antes de contornar. O texto segue a regra praticada no código do Foglamp (github.com/foglamp-labs/foglamp, commit `2bc3bb5`, Apache 2.0), não o `FRONTEND.md` original dele; onde os dois divergem (tema padrão `dark`, `motion/react` em uso, borda aceita em linha de tabela, divisor e campo no dark, `QueryCache.onError` em `utils/trpc.ts`, nenhum `error.tsx`), vale o código. Adições próprias estão marcadas com "(adição do lume)". A leitura longa, com tabelas e valores, fica em `docs/guia`; os conceitos do craft (Gustavo Fior, MIT) em `docs/conceitos`; as decisões do repo em `docs/DECISOES.md`.
 
 - **Always** leia caminhos sem prefixo como relativos à raiz deste repo (`registry/base-vega/ui/button.tsx:10`); caminhos que começam em `apps/web/` ou `packages/ui/` são do Foglamp, citados para o que ainda não virou item da registry.
-- **Always** instale pela registry: `npx shadcn@latest init joaodadas/lume/base#v0.1.0 -y` (sem `-d`: o `-d` ignora o `base` e instala o style padrão por cima) e `npx shadcn@latest add joaodadas/lume/<item>#v0.1.0`; a skill vem com `npx skills add joaodadas/lume --skill lume-design-engineering`.
+- **Always** instale pela registry: `npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y` (sem `-d`: o `-d` ignora o `base` e instala o style padrão por cima) e `npx shadcn@latest add RodrigoSilva1854/lume-custom/<item>#v0.1.0`; a skill vem com `npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering`.
 Porquê: o lume é uma cópia fiel de um sistema que está no ar; a autoridade é o código, e este arquivo é o que dev e agente leem antes de escrever qualquer tela.
 
 ## Layout do projeto
@@ -343,7 +343,7 @@ Porquê: a indireção de `link` e o estado de URL sem roteador são o que deixa
 
 <!-- mapa: 3.7, 21.12 | regras 22, 23 -->
 
-- **Always** instale e use junto: `npx skills add joaodadas/lume --skill lume-design-engineering` (este arquivo gerado em `SKILL.md` + `references/`), `npx skills add gustavo-fior/craft` (a teoria; o lume cita o craft, não o substitui), `web-design-guidelines` de `vercel-labs/agent-skills` (reviewer que reporta `arquivo:linha`) e `emilkowalski/skills` (animação); a ordem de leitura está em `docs/referencias.md`.
+- **Always** instale e use junto: `npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering` (este arquivo gerado em `SKILL.md` + `references/`), `npx skills add gustavo-fior/craft` (a teoria; o lume cita o craft, não o substitui), `web-design-guidelines` de `vercel-labs/agent-skills` (reviewer que reporta `arquivo:linha`) e `emilkowalski/skills` (animação); a ordem de leitura está em `docs/referencias.md`.
 - **Always** afine botão, badge e chip no playground `/botoes` (`app/botoes/page.tsx`, tecla `T` alterna o tema) antes de abrir PR, e reporte revisão em tabela Before / After / Regra.
 - **Always** comente em uma linha todo valor arbitrário (`[...]`), todo hex e toda exceção a este arquivo, e marque o que é adição própria.
 - **Never** instale biblioteca de componentes, ícones, tabela, estado global (Zustand, Redux, Jotai) ou CSS file por componente; se parecer necessário, levante antes.

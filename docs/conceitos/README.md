@@ -73,6 +73,6 @@ divergem, o código vence. Quando o autor publicar um deles, ele entra aqui no m
 
 `npx skills add gustavo-fior/craft` instala a skill `craft-design-engineering` com os 34 conceitos
 em inglês, publicados e rascunhos. O lume não a substitui: a skill `lume-design-engineering`
-(`npx skills add joaodadas/lume --skill lume-design-engineering`) cita estes 11 com os valores do
+(`npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering`) cita estes 11 com os valores do
 Foglamp e manda instalar a do craft junto (ver `docs/referencias.md`). Para revisar UI, o fluxo é o
 mesmo do craft: reportar cada mudança numa tabela Before, After, Regra, com link para o conceito.
