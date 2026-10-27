@@ -1,5 +1,6 @@
 // Derivado do Foglamp (https://github.com/foglamp-labs/foglamp, apps/web/src/components/app/page-parts.tsx @ 2bc3bb5), Apache-2.0, e do painel do lyx-pr-agent (João Vitor Dadas).
 // Modificado por joaodadas/lume: só StatCard e DeltaBadge (linhas 176-352 do upstream); Link da indireção e href string no lugar de next/link e Route; ticker via NumberTicker; Delta de @/registry/base-vega/lib/format; do painel vieram deltaTitle (título da seta, padrão em pt-BR) e o title no rótulo truncado; o resto das classes verbatim.
+// Modificado por RodrigoSilva1854/lume-custom: valor em degradê no dark (tokens --stat-grad-*, CUSTOM.md item 18).
 "use client";
 
 import {
@@ -131,7 +132,7 @@ export function StatCard({
                     title={deltaTitle}
                   />
                 )}
-            <CardTitle className="tracking-tight tabular-nums">
+            <CardTitle className="tracking-tight tabular-nums dark:w-fit dark:bg-linear-95 dark:from-stat-grad-1 dark:via-stat-grad-2 dark:to-stat-grad-3 dark:bg-clip-text dark:text-transparent">
               {hold ? (
                 // Zero-width text keeps the title's line box so the row
                 // height matches the loaded card exactly.

@@ -246,12 +246,29 @@
   --custom-shadow-sky:
     inset 0 0.5px 0 0 rgba(14, 165, 233, 0.03),
     0 0 0 0.5px rgba(14, 165, 233, 0.18), 0 0.5px 2px 0 rgba(14, 165, 233, 0.1);
-  /* lume-custom: layout LYX no escuro */
-  --app-canvas: oklch(0.145 0 0);
+  /* lume-custom: layout LYX no escuro. Mais claro que o dark do Foglamp e
+     com um toque azulado (CUSTOM.md, item 21): superfícies em degraus de L
+     com chroma baixo no matiz 265, no lugar do cinza puro. */
+  --background: oklch(0.2 0.01 268.2);
+  --card: oklch(0.256 0.016 264.2);
+  --popover: oklch(0.288 0.02 264.2);
+  --secondary: oklch(0.305 0.021 265.9);
+  --muted: oklch(0.226 0.014 266.9);
+  --accent: oklch(0.305 0.021 265.9);
+  --foreground: oklch(0.949 0.006 264.5);
+  --card-foreground: oklch(0.949 0.006 264.5);
+  --popover-foreground: oklch(0.949 0.006 264.5);
+  --secondary-foreground: oklch(0.949 0.006 264.5);
+  --accent-foreground: oklch(0.949 0.006 264.5);
+  --muted-foreground: oklch(0.708 0.02 265.9);
+  --border: oklch(1 0 0 / 7%);
+  --sidebar: oklch(0.217 0.013 264.3);
+  --sidebar-accent: oklch(0.305 0.021 265.9);
+  --app-canvas: oklch(0.155 0.007 271);
   --rail-item: oklch(0.269 0.016 269.1);
   --rail-item-hover: oklch(0.31 0.016 269.1);
-  --nav-active: oklch(0.301 0.017 266.4);
-  --kanban-col: oklch(0.231 0.014 266.9);
+  --nav-active: oklch(0.305 0.021 265.9);
+  --kanban-col: oklch(0.226 0.014 266.9);
   --stat-grad-1: oklch(0.865 0.115 207.1);
   --stat-grad-2: oklch(0.714 0.143 254.6);
   --stat-grad-3: oklch(0.709 0.159 293.5);
@@ -277,6 +294,9 @@
   --color-avatar-from: var(--avatar-from);
   --color-avatar-to: var(--avatar-to);
   --color-presence: var(--presence);
+  --color-stat-grad-1: var(--stat-grad-1);
+  --color-stat-grad-2: var(--stat-grad-2);
+  --color-stat-grad-3: var(--stat-grad-3);
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas,

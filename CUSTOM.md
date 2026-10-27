@@ -113,6 +113,8 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 19. **Tema padrão claro** (substitui o padrão `dark`).
 20. **Menus e tooltips flutuantes** podem usar sombra um pouco mais marcada que `--custom-shadow` para descolar do cartão branco. Dialog continua separado pelo backdrop, como no `FRONTEND.md`.
 
+21. **Dark mais claro e azulado** (substitui o dark em cinza puro do Foglamp). No `.dark`, o lume-custom redefine `--background`, `--card`, `--popover`, `--muted`, `--accent`, `--foreground`, `--muted-foreground`, `--border` e `--sidebar` com chroma baixo no matiz 265: página `oklch(0.2)`, cartão `oklch(0.256)`, menu flutuante `oklch(0.288)`, canvas `oklch(0.155)`. É o dark do protótipo.
+
 ## Para agentes
 
 Leia nesta ordem: `FRONTEND.md`, depois este arquivo. Quando os dois falarem do mesmo assunto, vale este. Use `sections.ts` para qualquer cor ou ícone de seção e os tokens acima para qualquer cor nova do layout; hex continua proibido fora de `globals.css`.
