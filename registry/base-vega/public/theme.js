@@ -3,14 +3,14 @@
 // padrão. Mesma chave e mesmo padrão do ThemeProvider (theme-provider-csp): para
 // mudar os dois, use data-storage-key e data-default-theme nesta tag.
 //
-//   <script src="/theme.js" data-storage-key="lume-theme" data-default-theme="dark"></script>
+//   <script src="/theme.js" data-storage-key="lume-theme" data-default-theme="light"></script>
 //
 // Derivado do painel do lyx-pr-agent (João Vitor Dadas): painel/public/assets/tema.js.
 (() => {
   try {
     const script = document.currentScript;
     const key = script?.dataset.storageKey || "lume-theme";
-    const fallback = script?.dataset.defaultTheme || "dark";
+    const fallback = script?.dataset.defaultTheme || "light";
     const saved = localStorage.getItem(key);
     const theme =
       saved === "light" || saved === "dark" || saved === "system"

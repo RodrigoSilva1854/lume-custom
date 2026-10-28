@@ -1,5 +1,6 @@
 // Derivado do Foglamp (https://github.com/foglamp-labs/foglamp, apps/web/src/components/theme-provider.tsx @ 2bc3bb5), Apache-2.0.
 // Modificado por joaodadas/lume: só o cabeçalho.
+// Modificado por RodrigoSilva1854/lume-custom: padrões do CRM LYX (classe no html, abre no claro, system disponível, sem transição na troca); qualquer prop passada vence (CUSTOM.md, item 19).
 "use client";
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
@@ -28,5 +29,15 @@ export function ThemeProvider({
   children,
   ...props
 }: React.ComponentProps<typeof NextThemesProvider>) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem
+      disableTransitionOnChange
+      {...props}
+    >
+      {children}
+    </NextThemesProvider>
+  );
 }

@@ -1,5 +1,6 @@
 // Derivado do painel do lyx-pr-agent (João Vitor Dadas): painel/src/app/tema.tsx, com o public/assets/tema.js correspondente em registry/base-vega/public/theme.js.
 // Modificado por joaodadas/lume: nomes com a forma do next-themes (ThemeProvider e useTheme devolvendo theme, setTheme, resolvedTheme, systemTheme e themes), storageKey e defaultTheme configuráveis (padrão "lume-theme" e "dark"), seguro em SSR (lê localStorage só depois do mount) e sincronizado entre abas pelo evento storage.
+// Modificado por RodrigoSilva1854/lume-custom: abre no claro por padrão (CUSTOM.md, item 19).
 "use client";
 
 import {
@@ -56,7 +57,7 @@ function readStored(key: string, fallback: Theme): Theme {
 export function ThemeProvider({
   children,
   storageKey = "lume-theme",
-  defaultTheme = "dark",
+  defaultTheme = "light",
 }: {
   children: React.ReactNode;
   /** Mesma chave que o theme.js lê (data-storage-key na tag do script). */

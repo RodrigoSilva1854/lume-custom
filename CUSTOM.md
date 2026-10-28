@@ -117,7 +117,7 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 
 ### Tema e superfícies
 
-19. **Tema padrão claro** (substitui o padrão `dark`).
+19. **Tema padrão claro** (substitui o padrão `dark`). O `theme-provider` já vem com `attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange`, e o `theme-provider-csp` (com o `theme.js`) também abre no claro; qualquer prop passada vence.
 20. **Menus e tooltips flutuantes** podem usar sombra um pouco mais marcada que `--custom-shadow` para descolar do cartão branco. Dialog continua separado pelo backdrop, como no `FRONTEND.md`.
 
 21. **Dark mais claro e azulado** (substitui o dark em cinza puro do Foglamp). No `.dark`, o lume-custom redefine `--background`, `--card`, `--popover`, `--muted`, `--accent`, `--foreground`, `--muted-foreground`, `--border` e `--sidebar` com chroma baixo no matiz 265: página `oklch(0.2)`, cartão `oklch(0.256)`, menu flutuante `oklch(0.288)`, canvas `oklch(0.155)`. É o dark do protótipo.
