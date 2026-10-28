@@ -136,6 +136,8 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 
 29. **Nada de `<select>` nativo** (substitui o uso do `native-select` no CRM): toda escolha numa lista usa o `LyxSelect` (`lyx-select`), sobre o Select do lume, para a lista abrir num popover com a cara do sistema e igual em todo navegador.
 
+30. **Inter oficial com "a" de um andar e algarismos abertos**: a fonte vem do pacote `inter-ui` (a Inter do autor, rsms), porque a da Fontsource é um recorte do Google Fonts sem as alternativas. O `globals.css` liga `font-feature-settings: "cv11", "ss01"` no html, body e campos. É a cara da fonte no protótipo; números tabulares continuam com `tabular-nums`.
+
 Qual usar: barras simples e medidores, `lyx-charts`; séries comuns com legenda e tooltip, `lyx-recharts`; funil, mapa de calor, sankey ou muitos pontos, `lyx-echarts`.
 
 ## Para agentes

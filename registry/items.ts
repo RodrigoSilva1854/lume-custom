@@ -285,7 +285,7 @@ const BASE: ItemMeta[] = [
       "tw-animate-css",
       "shadcn",
       "@toolwind/corner-shape",
-      "@fontsource-variable/inter",
+      "inter-ui",
       "@fontsource-variable/geist-mono",
       "clsx",
       "tailwind-merge",
@@ -298,7 +298,7 @@ const BASE: ItemMeta[] = [
     css: {
       '@import "tw-animate-css"': {},
       '@import "shadcn/tailwind.css"': {},
-      '@import "@fontsource-variable/inter/opsz.css"': {},
+      '@import "inter-ui/inter-variable.css"': {},
       '@import "@fontsource-variable/geist-mono"': {},
       '@plugin "@toolwind/corner-shape"': {},
       "@custom-variant squircle (@supports (corner-shape: squircle))": {},
@@ -306,7 +306,34 @@ const BASE: ItemMeta[] = [
         "0%": { "background-position": "200% center" },
         "100%": { "background-position": "-200% center" },
       },
+      // lume-custom: movimento do layout LYX (CUSTOM.md, item 27).
+      "@keyframes lyx-in": {
+        from: { opacity: "0", transform: "translateY(6px)" },
+      },
+      "@keyframes lyx-grow-y": { from: { transform: "scaleY(0)" } },
+      "@keyframes lyx-grow-x": { from: { transform: "scaleX(0)" } },
+      ".lyx-in": {
+        animation: "lyx-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "animation-delay": "var(--d, 0ms)",
+      },
+      ".lyx-grow-y": {
+        "transform-origin": "bottom",
+        animation: "lyx-grow-y 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "animation-delay": "var(--d, 0ms)",
+      },
+      ".lyx-grow-x": {
+        "transform-origin": "left",
+        animation: "lyx-grow-x 0.7s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "animation-delay": "var(--d, 0ms)",
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ".lyx-in, .lyx-grow-y, .lyx-grow-x": { animation: "none" },
+      },
       "@layer base": {
+        // lume-custom: Inter com "a" de um andar e algarismos abertos (item 30).
+        "html, body, button, input, select, textarea": {
+          "font-feature-settings": '"cv11", "ss01"',
+        },
         "*": {
           "@apply border-border outline-ring/50": {},
           "scrollbar-width": "thin",
@@ -326,7 +353,7 @@ const BASE: ItemMeta[] = [
           },
       },
     },
-    docs: "Depois do init, confira app/globals.css: :root e .dark com os 17 custom-shadow-*, @theme inline com --font-mono, @plugin corner-shape e @custom-variant squircle. Se o init tiver injetado Inter do next/font/google no layout, apague a linha: a Inter já vem do Fontsource.",
+    docs: "Depois do init, confira app/globals.css: :root e .dark com os 17 custom-shadow-*, @theme inline com --font-mono, @plugin corner-shape e @custom-variant squircle. Se o init tiver injetado Inter do next/font/google no layout, apague a linha: a Inter já vem do pacote inter-ui (lume-custom).",
   },
   {
     name: "utils",

@@ -7,11 +7,11 @@
   "dependencies": [
     "@base-ui/react",
     "@fontsource-variable/geist-mono",
-    "@fontsource-variable/inter",
     "@tabler/icons-react",
     "@toolwind/corner-shape",
     "class-variance-authority",
     "clsx",
+    "inter-ui",
     "shadcn",
     "tailwind-merge",
     "tailwindcss",
@@ -43,9 +43,9 @@
       "color-stat-grad-1": "var(--stat-grad-1)",
       "color-stat-grad-2": "var(--stat-grad-2)",
       "color-stat-grad-3": "var(--stat-grad-3)",
-      "font-sans": "\"Inter Variable\", ui-sans-serif, system-ui, sans-serif",
+      "font-sans": "InterVariable, \"Inter Variable\", ui-sans-serif, system-ui, sans-serif",
       "font-mono": "\"Geist Mono Variable\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-      "font-heading": "\"Inter Variable\", ui-sans-serif, system-ui, sans-serif",
+      "font-heading": "InterVariable, \"Inter Variable\", ui-sans-serif, system-ui, sans-serif",
       "color-sidebar-ring": "var(--sidebar-ring)",
       "color-sidebar-border": "var(--sidebar-border)",
       "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
@@ -214,7 +214,7 @@
   "css": {
     "@import \"tw-animate-css\"": {},
     "@import \"shadcn/tailwind.css\"": {},
-    "@import \"@fontsource-variable/inter/opsz.css\"": {},
+    "@import \"inter-ui/inter-variable.css\"": {},
     "@import \"@fontsource-variable/geist-mono\"": {},
     "@plugin \"@toolwind/corner-shape\"": {},
     "@custom-variant squircle (@supports (corner-shape: squircle))": {},
@@ -226,7 +226,45 @@
         "background-position": "-200% center"
       }
     },
+    "@keyframes lyx-in": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(6px)"
+      }
+    },
+    "@keyframes lyx-grow-y": {
+      "from": {
+        "transform": "scaleY(0)"
+      }
+    },
+    "@keyframes lyx-grow-x": {
+      "from": {
+        "transform": "scaleX(0)"
+      }
+    },
+    ".lyx-in": {
+      "animation": "lyx-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+      "animation-delay": "var(--d, 0ms)"
+    },
+    ".lyx-grow-y": {
+      "transform-origin": "bottom",
+      "animation": "lyx-grow-y 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+      "animation-delay": "var(--d, 0ms)"
+    },
+    ".lyx-grow-x": {
+      "transform-origin": "left",
+      "animation": "lyx-grow-x 0.7s cubic-bezier(0.22, 1, 0.36, 1) both",
+      "animation-delay": "var(--d, 0ms)"
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ".lyx-in, .lyx-grow-y, .lyx-grow-x": {
+        "animation": "none"
+      }
+    },
     "@layer base": {
+      "html, body, button, input, select, textarea": {
+        "font-feature-settings": "\"cv11\", \"ss01\""
+      },
       "*": {
         "@apply border-border outline-ring/50": {},
         "scrollbar-width": "thin",
@@ -249,7 +287,7 @@
     "group": "base",
     "tier": "core"
   },
-  "docs": "Depois do init, confira app/globals.css: :root e .dark com os 17 custom-shadow-*, @theme inline com --font-mono, @plugin corner-shape e @custom-variant squircle. Se o init tiver injetado Inter do next/font/google no layout, apague a linha: a Inter já vem do Fontsource.",
+  "docs": "Depois do init, confira app/globals.css: :root e .dark com os 17 custom-shadow-*, @theme inline com --font-mono, @plugin corner-shape e @custom-variant squircle. Se o init tiver injetado Inter do next/font/google no layout, apague a linha: a Inter já vem do pacote inter-ui (lume-custom).",
   "type": "registry:base",
   "config": {
     "style": "base-vega",
