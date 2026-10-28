@@ -2,7 +2,7 @@
 
 Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/RodrigoSilva1854/lume-custom; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
 
-118 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
+119 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
 
 ## Base (1)
 
@@ -98,7 +98,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `toggle-group` | Toggle group | Grupo de toggles com sombra compartilhada. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/toggle-group#v0.1.1` |
 | `tooltip` | Tooltip | Dica não invertida: mesma superfície dos popovers. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/tooltip#v0.1.1` |
 
-## Componentes (43)
+## Componentes (44)
 
 | Item | Título | Descrição | Comando |
 |---|---|---|---|
@@ -110,6 +110,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `copy-icon` | Ícone de copiar | Troca copy/check com blur de 4px, scale 0.25 e fade na mola COPY_SPRING (0.25 s, bounce 0); verde text-green-600 dark:text-green-400, invertido via checkClassName dentro de Button default. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/copy-icon#v0.1.1` |
 | `data-table` | Tabela de dados | Toolbar de filtros com busca em pílula (h-8 w-56), FilterSelect com typeahead acima de 8 opções, ToggleChip, botão Limpar animado, cabeçalho ordenável tri-state (desc, asc, off), estado de filtros na URL por history.replaceState e rodapé de paginação com linhas por página; o grupo trailing sobe para o header via TOOLBAR_SPRING. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/data-table#v0.1.1` |
 | `empty-state` | Empty state | Estado vazio das páginas sobre o Empty da registry: caixa tracejada, EmptyMedia variant icon com o ícone em opacity-40, título e descrição opcionais e filhos para a ação. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/empty-state#v0.1.1` |
+| `filter-drawer` | Filtros laterais | lume-custom: FilterDrawer (gaveta à direita montada por grupos de seleção, chips e caixas de marcar, com visões salvas, Limpar tudo e Ver resultados), FilterButton com a contagem e ActiveFilters com os filtros ativos removíveis. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/filter-drawer#v0.1.1` |
 | `header-slot` | Header slot | Contexto que deixa a toolbar subir ações para o header da página quando aperta. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/header-slot#v0.1.1` |
 | `kanban-column` | Kanban | lume-custom: KanbanBoard, KanbanColumn (bg-kanban-col, sem borda, bolinha da etapa), KanbanCard (bg-card com a sombra da casa) e KanbanEmpty. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/kanban-column#v0.1.1` |
 | `link` | Link (indireção) | O Link que os blocos usam: um <a> simples. Em projetos Next, instale link-next por cima. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/link#v0.1.1` |

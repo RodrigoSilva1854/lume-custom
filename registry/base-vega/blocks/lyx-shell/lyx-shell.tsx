@@ -844,12 +844,21 @@ function useCardsEnter(
     const top = all
       .filter((el) => !el.parentElement?.closest(ENTER_SEL))
       .slice(0, 18);
-    for (const el of root.querySelectorAll(".lyx-in"))
-      el.classList.remove("lyx-in");
-    void root.offsetWidth;
+    // Web Animations em vez de classe: não mexe nos atributos, então não
+    // briga com a hidratação do React na primeira carga.
     top.forEach((el, i) => {
-      el.style.setProperty("--d", `${Math.min(i * 50, 400)}ms`);
-      el.classList.add("lyx-in");
+      el.animate(
+        [
+          { opacity: 0, transform: "translateY(6px)" },
+          { opacity: 1, transform: "none" },
+        ],
+        {
+          duration: 500,
+          delay: Math.min(i * 50, 400),
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+          fill: "backwards",
+        },
+      );
     });
   }, [pathname, ref, reduce]);
 }

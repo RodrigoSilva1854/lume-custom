@@ -916,6 +916,21 @@ const LANES: ItemMeta[] = [
     ],
   },
   {
+    name: "filter-drawer",
+    title: "Filtros laterais",
+    description:
+      "lume-custom: FilterDrawer (gaveta à direita montada por grupos de seleção, chips e caixas de marcar, com visões salvas, Limpar tudo e Ver resultados), FilterButton com a contagem e ActiveFilters com os filtros ativos removíveis.",
+    group: "blocks",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/components/filter-drawer.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
     name: "kanban-column",
     title: "Kanban",
     description:
@@ -1198,6 +1213,7 @@ const KITS: ItemMeta[] = [
       "lyx-echarts",
       "lyx-stat-card",
       "unit-map",
+      "filter-drawer",
       "page-header",
       "stat-card",
       "stat-grid",

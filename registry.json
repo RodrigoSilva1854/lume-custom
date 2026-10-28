@@ -1961,6 +1961,33 @@
       }
     },
     {
+      "name": "filter-drawer",
+      "type": "registry:component",
+      "title": "Filtros laterais",
+      "description": "lume-custom: FilterDrawer (gaveta à direita montada por grupos de seleção, chips e caixas de marcar, com visões salvas, Limpar tudo e Ver resultados), FilterButton com a contagem e ActiveFilters com os filtros ativos removíveis.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/button#v0.1.1",
+        "RodrigoSilva1854/lume-custom/checkbox#v0.1.1",
+        "RodrigoSilva1854/lume-custom/input#v0.1.1",
+        "RodrigoSilva1854/lume-custom/native-select#v0.1.1",
+        "RodrigoSilva1854/lume-custom/sheet#v0.1.1",
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/components/filter-drawer.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "group": "blocks",
+        "tier": "core"
+      }
+    },
+    {
       "name": "header-slot",
       "type": "registry:component",
       "title": "Header slot",
@@ -2898,6 +2925,7 @@
       "registryDependencies": [
         "RodrigoSilva1854/lume-custom/app-shell#v0.1.1",
         "RodrigoSilva1854/lume-custom/empty-state#v0.1.1",
+        "RodrigoSilva1854/lume-custom/filter-drawer#v0.1.1",
         "RodrigoSilva1854/lume-custom/kanban-column#v0.1.1",
         "RodrigoSilva1854/lume-custom/link#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-charts#v0.1.1",

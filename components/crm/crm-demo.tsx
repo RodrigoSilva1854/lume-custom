@@ -13,7 +13,6 @@ import {
   IconColumns3,
   IconDownload,
   IconExternalLink,
-  IconFilter,
   IconLayoutKanban,
   IconList,
   IconPlus,
@@ -33,6 +32,15 @@ import {
 import { CardSparkline } from "@/registry/base-vega/components/card-sparkline";
 import * as BarChart from "@/registry/base-vega/components/evilcharts/charts/bar-chart";
 import type { ChartConfig } from "@/registry/base-vega/components/evilcharts/core/chart";
+import {
+  ActiveFilters,
+  countFilters,
+  FilterButton,
+  FilterDrawer,
+  type FilterGroup,
+  type FilterValues,
+  type SavedView,
+} from "@/registry/base-vega/components/filter-drawer";
 import {
   KanbanBoard,
   KanbanCard,
@@ -238,17 +246,134 @@ function StageChips({
   );
 }
 
-function Toolbar({ placeholder }: { placeholder: string }) {
+const LEAD_VIEWS: SavedView[] = [
+  { name: "Sem corretor", value: { responsavel: "Sem corretor" } },
+  {
+    name: "Score alto sem tarefa",
+    value: { score: ["76 a 100"], semTarefa: true },
+  },
+];
+
+const SCORE_FAIXAS = ["0 a 25", "26 a 50", "51 a 75", "76 a 100"];
+
+function inFaixa(score: number | undefined, faixa: string) {
+  if (score === undefined) return false;
+  const [lo, hi] = faixa.split(" a ").map(Number);
+  return score >= lo && score <= hi;
+}
+
+/** Monta os grupos da gaveta a partir das colunas da lista. */
+function filterGroups(rows: Row[], cols: Col[]): FilterGroup[] {
+  const uniq = (k: string) =>
+    [...new Set(rows.map((r) => r.cols[k]).filter(Boolean))].sort();
+  const has = (k: string) => cols.some((c) => c.key === k);
+  const resp = has("responsavel") ? "responsavel" : "imobiliaria";
+  const emp = has("empreendimento") ? "empreendimento" : "unidade";
+  const groups: FilterGroup[] = [
+    {
+      title: "Quem atende",
+      fields: [
+        {
+          id: resp,
+          label: resp === "imobiliaria" ? "Imobiliária" : "Responsável",
+          type: "select",
+          options: uniq(resp),
+        },
+        ...(has("area")
+          ? [
+              {
+                id: "area",
+                label: "Área",
+                type: "select" as const,
+                options: uniq("area"),
+              },
+            ]
+          : []),
+      ],
+    },
+    {
+      title: "O que procura",
+      fields: [
+        {
+          id: emp,
+          label: "Empreendimento",
+          type: "select",
+          options: uniq(emp),
+        },
+        ...(has("origem")
+          ? [
+              {
+                id: "origem",
+                label: "Origem",
+                type: "chips" as const,
+                options: uniq("origem"),
+              },
+            ]
+          : []),
+      ],
+    },
+  ];
+  if (has("score"))
+    groups.push({
+      title: "Qualidade e urgência",
+      fields: [
+        { id: "score", label: "Score", type: "chips", options: SCORE_FAIXAS },
+        { id: "semTarefa", label: "Sem tarefa agendada", type: "check" },
+      ],
+    });
+  return groups;
+}
+
+function applyFilters(rows: Row[], f: FilterValues, q: string) {
+  const t = q.trim().toLowerCase();
+  return rows.filter((r) => {
+    if (
+      t &&
+      !`${r.name} ${r.code} ${Object.values(r.cols).join(" ")}`
+        .toLowerCase()
+        .includes(t)
+    )
+      return false;
+    for (const [k, v] of Object.entries(f)) {
+      if (k === "score" && Array.isArray(v) && v.length) {
+        if (!v.some((faixa) => inFaixa(r.score, faixa))) return false;
+      } else if (k === "semTarefa" && v === true) {
+        if (r.foot !== "Sem tarefa") return false;
+      } else if (Array.isArray(v) && v.length) {
+        if (!v.includes(r.cols[k] ?? "")) return false;
+      } else if (typeof v === "string" && v && v !== "Todos") {
+        if (r.cols[k] !== v) return false;
+      }
+    }
+    return true;
+  });
+}
+
+function Toolbar({
+  placeholder,
+  query,
+  onQuery,
+  filterCount,
+  onFilters,
+}: {
+  placeholder: string;
+  query: string;
+  onQuery: (q: string) => void;
+  filterCount: number;
+  onFilters: () => void;
+}) {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <div className="relative w-full max-w-sm">
         <IconSearch className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-        <Input placeholder={placeholder} className="pl-9" />
+        <Input
+          placeholder={placeholder}
+          className="pl-9"
+          value={query}
+          onChange={(e) => onQuery(e.target.value)}
+        />
       </div>
-      <Button variant="outline">
-        <IconFilter />
-        Mais filtros
-      </Button>
+      <FilterButton count={filterCount} onClick={onFilters} />
       <Button
         variant="ghost"
         size="icon"
@@ -305,7 +430,16 @@ function ListPage({
   cols: Col[];
 }) {
   const [stage, setStage] = useState("todos");
-  const list = stage === "todos" ? rows : rows.filter((r) => r.stage === stage);
+  const [query, setQuery] = useState("");
+  const [filters, setFilters] = useState<FilterValues>({});
+  const [drawer, setDrawer] = useState(false);
+  const [views, setViews] = useState<SavedView[]>(() =>
+    cols.some((c) => c.key === "score") ? LEAD_VIEWS : [],
+  );
+  const groups = useMemo(() => filterGroups(rows, cols), [rows, cols]);
+  const filtered = applyFilters(rows, filters, query);
+  const list =
+    stage === "todos" ? filtered : filtered.filter((r) => r.stage === stage);
   return (
     <>
       <Title
@@ -331,7 +465,27 @@ function ListPage({
         value={stage}
         onChange={setStage}
       />
-      <Toolbar placeholder="Buscar por nome, código ou responsável…" />
+      <Toolbar
+        placeholder="Buscar por nome, código ou responsável…"
+        query={query}
+        onQuery={setQuery}
+        filterCount={countFilters(filters)}
+        onFilters={() => setDrawer(true)}
+      />
+      <ActiveFilters groups={groups} value={filters} onChange={setFilters} />
+      <FilterDrawer
+        open={drawer}
+        onOpenChange={setDrawer}
+        groups={groups}
+        value={filters}
+        onChange={setFilters}
+        resultCount={list.length}
+        savedViews={views}
+        onSaveView={(name) => {
+          setViews((v) => [...v, { name, value: filters }]);
+          toast(`Visão "${name}" salva`);
+        }}
+      />
       <Table>
         <TableHeader>
           <TableRow>

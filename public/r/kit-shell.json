@@ -6,6 +6,7 @@
   "registryDependencies": [
     "RodrigoSilva1854/lume-custom/app-shell#v0.1.1",
     "RodrigoSilva1854/lume-custom/empty-state#v0.1.1",
+    "RodrigoSilva1854/lume-custom/filter-drawer#v0.1.1",
     "RodrigoSilva1854/lume-custom/kanban-column#v0.1.1",
     "RodrigoSilva1854/lume-custom/link#v0.1.1",
     "RodrigoSilva1854/lume-custom/lyx-charts#v0.1.1",
