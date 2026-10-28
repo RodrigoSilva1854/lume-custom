@@ -13,7 +13,6 @@ import {
   IconChevronDown,
   IconChevronRight,
   IconLayoutNavbar,
-  IconLayoutSidebar,
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
   IconMaximize,
@@ -1043,14 +1042,6 @@ export function LyxShell({
           {/* Menu horizontal (só no computador). */}
           {top && (
             <header className="hidden h-14 shrink-0 items-center gap-1 border-b border-border/40 px-4 min-[861px]:flex">
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                aria-label="Menu lateral"
-                onClick={() => setNav("side")}
-              >
-                <IconLayoutSidebar />
-              </Button>
               <div className="mr-3 ml-1 shrink-0">{brand}</div>
               <nav
                 ref={overflow.ref}
