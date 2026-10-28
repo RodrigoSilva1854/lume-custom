@@ -53,6 +53,7 @@ import {
   type LyxTone,
   MeterRow,
 } from "@/registry/base-vega/components/lyx-charts";
+import { LyxSelect } from "@/registry/base-vega/components/lyx-select";
 import { LyxStatCard } from "@/registry/base-vega/components/lyx-stat-card";
 import { PillMeter } from "@/registry/base-vega/components/pill-meter";
 import {
@@ -79,10 +80,6 @@ import {
 } from "@/registry/base-vega/ui/card";
 import { Input } from "@/registry/base-vega/ui/input";
 import { Label } from "@/registry/base-vega/ui/label";
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/registry/base-vega/ui/native-select";
 import { Switch } from "@/registry/base-vega/ui/switch";
 import {
   Table,
@@ -1315,6 +1312,7 @@ const UNIT_FILTERS = [
 ] as const;
 
 function Disponibilidade({ section }: { section?: Section }) {
+  const [uf, setUf] = useState("Todos");
   const [emp, setEmp] = useState(EMPREENDIMENTOS_DISP[0]);
   const [bloco, setBloco] = useState(0);
   const [filtro, setFiltro] = useState<UnitStatus | "todas">("todas");
@@ -1337,25 +1335,27 @@ function Disponibilidade({ section }: { section?: Section }) {
       />
       <div className="flex flex-wrap items-center gap-3">
         <span className="text-sm text-muted-foreground">Estado</span>
-        <NativeSelect className="w-28" aria-label="Estado">
-          <NativeSelectOption>Todos</NativeSelectOption>
-          <NativeSelectOption>RS</NativeSelectOption>
-          <NativeSelectOption>PR</NativeSelectOption>
-        </NativeSelect>
+        <LyxSelect
+          label="Estado"
+          className="w-28"
+          value={uf}
+          onValueChange={setUf}
+          options={["RS", "PR"]}
+          allLabel="Todos"
+        />
         <span className="text-sm text-muted-foreground">Empreendimento</span>
-        <NativeSelect
+        <LyxSelect
+          label="Empreendimento"
           className="w-[22rem] max-w-full"
-          aria-label="Empreendimento"
           value={emp}
-          onChange={(e) => {
-            setEmp(e.target.value);
+          onValueChange={(v) => {
+            setEmp(v);
             setSel(undefined);
           }}
-        >
-          {EMPREENDIMENTOS_DISP.map((e) => (
-            <NativeSelectOption key={e}>{e}</NativeSelectOption>
-          ))}
-        </NativeSelect>
+          options={EMPREENDIMENTOS_DISP.filter(
+            (e) => uf === "Todos" || e.endsWith(`/${uf}`),
+          )}
+        />
         <Button
           variant="outline"
           className="ml-auto"

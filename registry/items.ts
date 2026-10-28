@@ -931,6 +931,21 @@ const LANES: ItemMeta[] = [
     ],
   },
   {
+    name: "lyx-select",
+    title: "Seleção LYX",
+    description:
+      'lume-custom: LyxSelect, seleção por lista de textos sobre o Select do lume (popover com a cara do design system), com opção "Todos". Substitui o <select> nativo no CRM.',
+    group: "blocks",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/components/lyx-select.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
     name: "kanban-column",
     title: "Kanban",
     description:
@@ -1214,6 +1229,7 @@ const KITS: ItemMeta[] = [
       "lyx-stat-card",
       "unit-map",
       "filter-drawer",
+      "lyx-select",
       "page-header",
       "stat-card",
       "stat-grid",

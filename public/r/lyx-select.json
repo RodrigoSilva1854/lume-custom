@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lyx-select",
+  "title": "Seleção LYX",
+  "description": "lume-custom: LyxSelect, seleção por lista de textos sobre o Select do lume (popover com a cara do design system), com opção \"Todos\". Substitui o <select> nativo no CRM.",
+  "registryDependencies": [
+    "RodrigoSilva1854/lume-custom/select#v0.1.1",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+  ],
+  "files": [
+    {
+      "path": "registry/base-vega/components/lyx-select.tsx",
+      "content": "// lume-custom: seleção simples por lista de textos, sobre o Select do lume\n// (Base UI). Nunca o <select> nativo: a lista abre num popover com a cara do\n// design system, igual em todo navegador (CUSTOM.md, item 29).\n\"use client\";\n\nimport { cn } from \"@/registry/base-vega/lib/utils\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/registry/base-vega/ui/select\";\n\nexport function LyxSelect({\n  value,\n  onValueChange,\n  options,\n  allLabel,\n  label,\n  size = \"default\",\n  className,\n}: {\n  value: string;\n  onValueChange: (value: string) => void;\n  options: string[];\n  /** Primeira opção que significa \"sem filtro\", como \"Todos\". */\n  allLabel?: string;\n  /** Nome acessível do campo. */\n  label: string;\n  size?: \"sm\" | \"default\";\n  className?: string;\n}) {\n  const items = allLabel ? [allLabel, ...options] : options;\n  return (\n    <Select<string, false>\n      value={value || allLabel || options[0]}\n      onValueChange={(v) => v !== null && onValueChange(v)}\n    >\n      <SelectTrigger\n        size={size}\n        aria-label={label}\n        className={cn(\"w-full justify-between\", className)}\n      >\n        <SelectValue />\n      </SelectTrigger>\n      <SelectContent\n        align=\"start\"\n        sideOffset={6}\n        className=\"w-auto min-w-(--anchor-width) rounded-xl p-1 squircle:rounded-2xl\"\n      >\n        {items.map((o) => (\n          <SelectItem key={o} value={o}>\n            {o}\n          </SelectItem>\n        ))}\n      </SelectContent>\n    </Select>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "group": "blocks",
+    "tier": "core"
+  },
+  "type": "registry:component"
+}

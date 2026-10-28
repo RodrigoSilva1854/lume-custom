@@ -1972,7 +1972,7 @@
         "RodrigoSilva1854/lume-custom/button#v0.1.1",
         "RodrigoSilva1854/lume-custom/checkbox#v0.1.1",
         "RodrigoSilva1854/lume-custom/input#v0.1.1",
-        "RodrigoSilva1854/lume-custom/native-select#v0.1.1",
+        "RodrigoSilva1854/lume-custom/lyx-select#v0.1.1",
         "RodrigoSilva1854/lume-custom/sheet#v0.1.1",
         "RodrigoSilva1854/lume-custom/utils#v0.1.1"
       ],
@@ -2095,6 +2095,26 @@
       "files": [
         {
           "path": "registry/base-vega/components/lyx-charts.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "group": "blocks",
+        "tier": "core"
+      }
+    },
+    {
+      "name": "lyx-select",
+      "type": "registry:component",
+      "title": "Seleção LYX",
+      "description": "lume-custom: LyxSelect, seleção por lista de textos sobre o Select do lume (popover com a cara do design system), com opção \"Todos\". Substitui o <select> nativo no CRM.",
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/select#v0.1.1",
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/components/lyx-select.tsx",
           "type": "registry:component"
         }
       ],
@@ -2931,6 +2951,7 @@
         "RodrigoSilva1854/lume-custom/lyx-charts#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-echarts#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-recharts#v0.1.1",
+        "RodrigoSilva1854/lume-custom/lyx-select#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-stat-card#v0.1.1",
         "RodrigoSilva1854/lume-custom/notice#v0.1.1",

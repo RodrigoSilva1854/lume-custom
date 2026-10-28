@@ -8,14 +8,11 @@
 import { IconFilter, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 
+import { LyxSelect } from "@/registry/base-vega/components/lyx-select";
 import { cn } from "@/registry/base-vega/lib/utils";
 import { Button } from "@/registry/base-vega/ui/button";
 import { Checkbox } from "@/registry/base-vega/ui/checkbox";
 import { Input } from "@/registry/base-vega/ui/input";
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/registry/base-vega/ui/native-select";
 import {
   Sheet,
   SheetContent,
@@ -228,23 +225,16 @@ export function FilterDrawer({
                 {g.fields.map((f) => {
                   if (f.type === "select") {
                     return (
-                      // biome-ignore lint/a11y/noLabelWithoutControl: o NativeSelect renderiza o <select> dentro do rótulo
-                      <label
-                        key={f.id}
-                        className="flex flex-col gap-2 text-sm font-medium"
-                      >
-                        {f.label}
-                        <NativeSelect
-                          className="w-full"
+                      <div key={f.id} className="flex flex-col gap-2">
+                        <span className="text-sm font-medium">{f.label}</span>
+                        <LyxSelect
+                          label={f.label}
                           value={(value[f.id] as string) || ALL}
-                          onChange={(e) => set(f.id, e.target.value)}
-                        >
-                          <NativeSelectOption>{ALL}</NativeSelectOption>
-                          {f.options.map((o) => (
-                            <NativeSelectOption key={o}>{o}</NativeSelectOption>
-                          ))}
-                        </NativeSelect>
-                      </label>
+                          onValueChange={(v) => set(f.id, v)}
+                          options={f.options}
+                          allLabel={ALL}
+                        />
+                      </div>
                     );
                   }
                   if (f.type === "chips") {

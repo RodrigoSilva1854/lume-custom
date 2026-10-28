@@ -50,6 +50,7 @@ As seções e rotas vêm de `lib/sections.ts`; edite ali para mudar o menu. A de
 | `lyx-stat-card` | LyxStatCard |
 | `unit-map` | UnitMap e UNIT_STATUS |
 | `filter-drawer` | FilterDrawer, FilterButton e ActiveFilters |
+| `lyx-select` | LyxSelect |
 
 ## Tokens novos
 
@@ -132,6 +133,8 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 27. **Movimento de entrada** (no `lyx-shell` e no `globals.css`): ao abrir uma tela, cartões, colunas do kanban e tabelas entram em cascata (50ms de intervalo, fade e subida de 6px em 0.5s com o `EASE`); as barras do `lyx-charts` crescem da base e os medidores, da esquerda. Marque com `data-lyx-card` o que deve entrar. Respeita `prefers-reduced-motion`.
 
 28. **Filtros laterais** (`filter-drawer`): "Mais filtros" abre uma gaveta à direita com grupos (Quem atende, O que procura, Qualidade e urgência...), visões salvas, "Limpar tudo" e "Ver resultados (n)" com a contagem ao vivo. O botão mostra quantos filtros estão ativos e, abaixo da busca, cada filtro ativo vira um chip com X.
+
+29. **Nada de `<select>` nativo** (substitui o uso do `native-select` no CRM): toda escolha numa lista usa o `LyxSelect` (`lyx-select`), sobre o Select do lume, para a lista abrir num popover com a cara do sistema e igual em todo navegador.
 
 Qual usar: barras simples e medidores, `lyx-charts`; séries comuns com legenda e tooltip, `lyx-recharts`; funil, mapa de calor, sankey ou muitos pontos, `lyx-echarts`.
 
