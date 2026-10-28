@@ -2620,6 +2620,51 @@
       }
     },
     {
+      "name": "lyx-echarts",
+      "type": "registry:component",
+      "title": "ECharts com o tema LYX",
+      "description": "lume-custom: LyxEChart, um invólucro do Apache ECharts (SVG) com o tema LYX tirado dos tokens (texto, grade, popover, cores de seção), refeito na troca de tema; lyxToken resolve um token para RGB. Para funil, mapa de calor, sankey e séries longas com zoom.",
+      "dependencies": [
+        "echarts"
+      ],
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/components/lyx-echarts.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "group": "charts",
+        "tier": "core"
+      }
+    },
+    {
+      "name": "lyx-recharts",
+      "type": "registry:component",
+      "title": "Gráficos do dia a dia (estilo shadcn)",
+      "description": "lume-custom: LyxAreaChart (degradê), LyxBarChart (arredondado, lado a lado ou empilhado), LyxLineChart (suave) e LyxDonutChart (total no meio) sobre o ChartContainer do ui/chart, com séries por token de cor.",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/chart#v0.1.1",
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/components/lyx-recharts.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "group": "charts",
+        "tier": "core"
+      }
+    },
+    {
       "name": "trend-charts",
       "type": "registry:component",
       "title": "Utilitários de gráficos de tendência",
@@ -2815,6 +2860,8 @@
         "RodrigoSilva1854/lume-custom/kanban-column#v0.1.1",
         "RodrigoSilva1854/lume-custom/link#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-charts#v0.1.1",
+        "RodrigoSilva1854/lume-custom/lyx-echarts#v0.1.1",
+        "RodrigoSilva1854/lume-custom/lyx-recharts#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1",
         "RodrigoSilva1854/lume-custom/notice#v0.1.1",
         "RodrigoSilva1854/lume-custom/page-header#v0.1.1",

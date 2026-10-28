@@ -28,7 +28,6 @@ import {
   prefixSections,
 } from "@/registry/base-vega/blocks/lyx-shell/lyx-shell";
 import { CardSparkline } from "@/registry/base-vega/components/card-sparkline";
-import * as AreaChart from "@/registry/base-vega/components/evilcharts/charts/area-chart";
 import * as BarChart from "@/registry/base-vega/components/evilcharts/charts/bar-chart";
 import type { ChartConfig } from "@/registry/base-vega/components/evilcharts/core/chart";
 import {
@@ -73,6 +72,13 @@ import {
   TableRow,
 } from "@/registry/base-vega/ui/table";
 
+import {
+  Avancados,
+  CalorChart,
+  DiaADia,
+  FunilChart,
+  SectionTitle,
+} from "./charts-demo";
 import {
   BLOCOS,
   COMISSOES,
@@ -388,12 +394,14 @@ function BoardPage({
   sub,
   stages,
   rows,
+  extra,
 }: {
   section?: Section;
   title: string;
   sub: string;
   stages: Stage[];
   rows: Row[];
+  extra?: React.ReactNode;
 }) {
   const [mode, setMode] = useState<Mode>("quadro");
   return (
@@ -406,6 +414,7 @@ function BoardPage({
           <ViewToggle value={mode} onValueChange={setMode} options={MODES} />
         }
       />
+      {extra}
       {mode === "lista" ? (
         <Table>
           <TableHeader>
@@ -531,11 +540,13 @@ function DistPage({
   title,
   sub,
   noun,
+  extra,
 }: {
   section?: Section;
   title: string;
   sub: string;
   noun: string;
+  extra?: React.ReactNode;
 }) {
   const total = DIST.reduce((a, d) => a + d.active, 0);
   return (
@@ -580,6 +591,7 @@ function DistPage({
           },
         ]}
       />
+      {extra}
       <Table>
         <TableHeader>
           <TableRow>
@@ -614,11 +626,6 @@ function DistPage({
 
 /* --------------------------------------------------------------- gráficos */
 
-const leadsConfig = {
-  leads: { label: "Leads", colors: themed("var(--nav-leads)") },
-  visitas: { label: "Visitas", colors: themed("var(--nav-pre-cadastros)") },
-} satisfies ChartConfig;
-
 const vendasConfig = {
   reservas: { label: "Reservas", colors: themed("var(--nav-reservas)") },
   vendas: { label: "Vendas", colors: themed("var(--nav-comissoes)") },
@@ -627,45 +634,6 @@ const vendasConfig = {
 function useMode() {
   const { resolvedTheme } = useTheme();
   return resolvedTheme === "dark" ? "dark" : "light";
-}
-
-function LeadsChart() {
-  const [sel, setSel] = useState<string | null>(null);
-  const mode = useMode();
-  return (
-    <Card size="sm">
-      <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-2">
-        <div>
-          <CardTitle>Leads e visitas por dia</CardTitle>
-          <CardDescription>Últimos 30 dias</CardDescription>
-        </div>
-        <ChartLegend
-          config={leadsConfig}
-          selected={sel}
-          onSelect={setSel}
-          mode={mode}
-        />
-      </CardHeader>
-      <CardContent className="mt-3">
-        <AreaChart.EvilAreaChart
-          config={leadsConfig}
-          data={LEADS_POR_DIA}
-          xDataKey="dia"
-          selectedDataKey={sel}
-          onSelectionChange={setSel}
-          className="h-56 w-full"
-          chartProps={{ margin: { top: 5, right: 5, bottom: 5, left: 2 } }}
-        >
-          <AreaChart.Grid />
-          <AreaChart.XAxis dataKey="dia" interval={4} />
-          <AreaChart.YAxis allowDecimals={false} />
-          <AreaChart.Tooltip />
-          <AreaChart.Area dataKey="leads" strokeVariant="solid" />
-          <AreaChart.Area dataKey="visitas" strokeVariant="solid" />
-        </AreaChart.EvilAreaChart>
-      </CardContent>
-    </Card>
-  );
 }
 
 function VendasChart() {
@@ -1588,13 +1556,25 @@ function Graficos({ section }: { section?: Section }) {
       <Title
         section={section}
         title="Gráficos"
-        sub="Os gráficos do lume com as cores de seção."
+        sub="Três estilos lado a lado: do dia a dia, avançados e os nossos feitos à mão."
+      />
+      <SectionTitle
+        title="Do dia a dia"
+        sub="lyx-recharts: estilo shadcn/ui Charts com as cores de seção."
+      />
+      <DiaADia />
+      <SectionTitle
+        title="Avançados"
+        sub="lyx-echarts: Apache ECharts com o tema LYX, para funil, mapa de calor, sankey e séries longas."
+      />
+      <Avancados />
+      <SectionTitle
+        title="Nossos"
+        sub="lyx-charts: barras em degradê e medidores feitos à mão."
       />
       <div className="grid gap-4 xl:grid-cols-2">
         <LeadsPorDia />
         <OrigemCard />
-        <LeadsChart />
-        <VendasChart />
       </div>
     </>
   );
@@ -1653,6 +1633,19 @@ export function CrmPage({ path }: { path: string }) {
         sub="Em que etapa está cada lead."
         stages={LEAD_STAGES}
         rows={LEADS}
+        extra={
+          <Card size="sm">
+            <CardHeader>
+              <CardTitle>Funil de conversão</CardTitle>
+              <CardDescription>
+                Do lead recebido à venda, no período.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="mt-2">
+              <FunilChart height={240} />
+            </CardContent>
+          </Card>
+        }
       />
     ),
     "leads/distribuicao": () => (
@@ -1661,6 +1654,19 @@ export function CrmPage({ path }: { path: string }) {
         title="Distribuição dos leads"
         sub="Quantos leads ativos cada corretor tem."
         noun="Leads"
+        extra={
+          <Card size="sm">
+            <CardHeader>
+              <CardTitle>Horários de atendimento</CardTitle>
+              <CardDescription>
+                Quando a equipe mais atende: bom para escalar plantões.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="mt-2">
+              <CalorChart height={260} />
+            </CardContent>
+          </Card>
+        }
       />
     ),
     "pre-cadastros": () => (

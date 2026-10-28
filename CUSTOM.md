@@ -45,6 +45,8 @@ As seções e rotas vêm de `lib/sections.ts`; edite ali para mudar o menu. A de
 | `view-toggle` | alternador Lista, Quadro, Compacto |
 | `kanban-column` | KanbanBoard, KanbanColumn, KanbanCard, KanbanEmpty |
 | `lyx-charts` | GradientBarChart e MeterRow |
+| `lyx-recharts` | LyxAreaChart, LyxBarChart, LyxLineChart, LyxDonutChart |
+| `lyx-echarts` | LyxEChart com o tema LYX e lyxToken |
 
 ## Tokens novos
 
@@ -117,6 +119,11 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 21. **Dark mais claro e azulado** (substitui o dark em cinza puro do Foglamp). No `.dark`, o lume-custom redefine `--background`, `--card`, `--popover`, `--muted`, `--accent`, `--foreground`, `--muted-foreground`, `--border` e `--sidebar` com chroma baixo no matiz 265: página `oklch(0.2)`, cartão `oklch(0.256)`, menu flutuante `oklch(0.288)`, canvas `oklch(0.155)`. É o dark do protótipo.
 
 22. **Gráficos do CRM** (`lyx-charts`): barras verticais em degradê (claro na base, cor cheia no topo) com grade tracejada e etiqueta no hover, e medidores em degradê horizontal para origem, funil e metas. Substituem o evilcharts nas telas do CRM; o evilcharts segue disponível para séries com mais de uma métrica.
+
+23. **ECharts para os gráficos pesados** (`lyx-echarts`): funil, mapa de calor, sankey e séries longas com zoom usam o Apache ECharts com o tema LYX, tirado dos tokens e refeito na troca de tema. Dependência nova aprovada pelo time: `echarts`.
+24. **Gráficos do dia a dia no estilo shadcn** (`lyx-recharts`): área com degradê, barras arredondadas, linhas suaves e rosca com total, sobre o `ui/chart`, com séries coloridas pelos tokens `--nav-*`.
+
+Qual usar: barras simples e medidores, `lyx-charts`; séries comuns com legenda e tooltip, `lyx-recharts`; funil, mapa de calor, sankey ou muitos pontos, `lyx-echarts`.
 
 ## Para agentes
 

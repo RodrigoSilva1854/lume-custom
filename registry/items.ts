@@ -856,6 +856,36 @@ const LANES: ItemMeta[] = [
     ],
   },
   {
+    name: "lyx-recharts",
+    title: "Gráficos do dia a dia (estilo shadcn)",
+    description:
+      "lume-custom: LyxAreaChart (degradê), LyxBarChart (arredondado, lado a lado ou empilhado), LyxLineChart (suave) e LyxDonutChart (total no meio) sobre o ChartContainer do ui/chart, com séries por token de cor.",
+    group: "charts",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/components/lyx-recharts.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
+    name: "lyx-echarts",
+    title: "ECharts com o tema LYX",
+    description:
+      "lume-custom: LyxEChart, um invólucro do Apache ECharts (SVG) com o tema LYX tirado dos tokens (texto, grade, popover, cores de seção), refeito na troca de tema; lyxToken resolve um token para RGB. Para funil, mapa de calor, sankey e séries longas com zoom.",
+    group: "charts",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/components/lyx-echarts.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
     name: "kanban-column",
     title: "Kanban",
     description:
@@ -1134,6 +1164,8 @@ const KITS: ItemMeta[] = [
       "view-toggle",
       "kanban-column",
       "lyx-charts",
+      "lyx-recharts",
+      "lyx-echarts",
       "page-header",
       "stat-card",
       "stat-grid",

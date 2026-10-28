@@ -2,7 +2,7 @@
 
 Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/RodrigoSilva1854/lume-custom; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
 
-114 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
+116 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
 
 ## Base (1)
 
@@ -98,7 +98,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `toggle-group` | Toggle group | Grupo de toggles com sombra compartilhada. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/toggle-group#v0.1.1` |
 | `tooltip` | Tooltip | Dica não invertida: mesma superfície dos popovers. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/tooltip#v0.1.1` |
 
-## Componentes (39)
+## Componentes (41)
 
 | Item | Título | Descrição | Comando |
 |---|---|---|---|
@@ -137,6 +137,8 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `donut-chart` | Donut chart | EvilDonutChart: rosca com rótulo central tabular. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/donut-chart#v0.1.1` |
 | `evilcharts` | Evil Charts (base) | Container, tooltip, legenda, brush, zoom, dots e background do fork do Evil Charts que o Foglamp usa, com cores light e dark por série. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/evilcharts#v0.1.1` |
 | `line-chart` | Line chart | EvilLineChart: linhas com dots e threshold. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/line-chart#v0.1.1` |
+| `lyx-echarts` | ECharts com o tema LYX | lume-custom: LyxEChart, um invólucro do Apache ECharts (SVG) com o tema LYX tirado dos tokens (texto, grade, popover, cores de seção), refeito na troca de tema; lyxToken resolve um token para RGB. Para funil, mapa de calor, sankey e séries longas com zoom. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/lyx-echarts#v0.1.1` |
+| `lyx-recharts` | Gráficos do dia a dia (estilo shadcn) | lume-custom: LyxAreaChart (degradê), LyxBarChart (arredondado, lado a lado ou empilhado), LyxLineChart (suave) e LyxDonutChart (total no meio) sobre o ChartContainer do ui/chart, com séries por token de cor. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/lyx-recharts#v0.1.1` |
 | `trend-charts` | Utilitários de gráficos de tendência | ChartLegend clicável (mode light\|dark por prop, swatch h-2 w-2, inativos opacity-30), rótulos e ticks do eixo de tempo (makeBucketLabel, formatBucketFull, dedupeTicks, thinTicks com ~8 ticks e gap mínimo de 1/14 do eixo, makeEdgeTick ancorado nas pontas), pickBucketMs espelho do servidor (~50 buckets, degraus de 1 min a 1 dia), fillBuckets com zero-fill até 1000 buckets, useFrozen e useZoomRange sobre o range-picker. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/trend-charts#v0.1.1` |
 | `border-beam-card` | Card com anel de luz | Card envolto por BorderBeam size pulse-inner, colorVariant colorful, strength 0.6 e borderRadius 16, com corner-round! rounded-2xl! para o anel circular casar com o canto; prop active desliga o anel com fade. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/border-beam-card#v0.1.1` |
 | `number-ticker` | Number ticker | Número que anima do valor antigo para o novo com animate() do motion (0.6 s, easeOut), formatando cada frame, em tabular-nums; sob prefers-reduced-motion pula direto para o valor final. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/number-ticker#v0.1.1` |
