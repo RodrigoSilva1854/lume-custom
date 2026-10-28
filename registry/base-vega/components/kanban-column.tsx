@@ -36,6 +36,7 @@ export function KanbanColumn({
 }) {
   return (
     <section
+      data-lyx-card
       aria-label={title}
       className={cn(
         "flex w-72 shrink-0 flex-col gap-2 rounded-2xl bg-kanban-col p-1.5 pb-2 squircle:rounded-3xl corner-squircle",

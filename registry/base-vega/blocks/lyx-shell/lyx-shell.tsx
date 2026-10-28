@@ -29,6 +29,7 @@ import {
   useCallback,
   useEffect,
   useId,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -322,7 +323,7 @@ function SideList({
               </Link>
             )}
             {open && (
-              <div className="relative mt-0.5 mb-1.5 ml-7 flex flex-col gap-0.5 pl-3 before:absolute before:top-1 before:bottom-1 before:left-0 before:w-px before:bg-border">
+              <div className="relative mt-0.5 mb-1.5 ml-7 flex flex-col gap-0.5 pl-3 duration-200 animate-in fade-in-0 slide-in-from-top-1 before:absolute before:top-1 before:bottom-1 before:left-0 before:w-px before:bg-border motion-reduce:animate-none">
                 {s.items.map((it) => {
                   const on = it.href === activeHref;
                   return (
@@ -820,6 +821,39 @@ function useScrollTopOnRoute(
   }, [pathname, ref, reduce]);
 }
 
+/* ------------------------------------------------- entrada dos cartões */
+
+// Ao abrir uma tela, os cartões entram um depois do outro (50ms de intervalo,
+// fade e subida de 6px em 0.5s com o EASE da casa), como no protótipo. Roda
+// antes da pintura, então nada aparece e some. Marque com data-lyx-card o que
+// deve entrar; cartões (data-slot=card) e tabelas entram sozinhos.
+const ENTER_SEL =
+  "[data-lyx-card],[data-slot=card],[data-slot=table-container]";
+const useIsoLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+function useCardsEnter(
+  ref: React.RefObject<HTMLElement | null>,
+  pathname: string,
+) {
+  const reduce = useReducedMotion();
+  useIsoLayoutEffect(() => {
+    const root = ref.current;
+    if (!root || reduce || !pathname) return;
+    const all = Array.from(root.querySelectorAll<HTMLElement>(ENTER_SEL));
+    const top = all
+      .filter((el) => !el.parentElement?.closest(ENTER_SEL))
+      .slice(0, 18);
+    for (const el of root.querySelectorAll(".lyx-in"))
+      el.classList.remove("lyx-in");
+    void root.offsetWidth;
+    top.forEach((el, i) => {
+      el.style.setProperty("--d", `${Math.min(i * 50, 400)}ms`);
+      el.classList.add("lyx-in");
+    });
+  }, [pathname, ref, reduce]);
+}
+
 /* ----------------------------------------------------------------- casca */
 
 export type LyxShellProps = {
@@ -889,6 +923,7 @@ export function LyxShell({
   const overflow = useNavOverflow(top);
   const main = useRef<HTMLElement>(null);
   useScrollTopOnRoute(main, pathname);
+  useCardsEnter(main, pathname);
 
   const [drawer, setDrawer] = useState(false);
   useEffect(() => {

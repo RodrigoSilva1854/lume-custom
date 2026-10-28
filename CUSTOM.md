@@ -128,6 +128,8 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 25. **Cartão de número empilhado** (`lyx-stat-card`, substitui o StatCard em linha nas telas do CRM): rótulo com ícone colorido, valor grande embaixo (24px, peso 500) e a linha de variação e contexto, como no protótipo.
 26. **Mapa de unidades** (`unit-map`): ladrilhos de 76 por 56px por andar, coloridos pela situação, com filtro e seleção.
 
+27. **Movimento de entrada** (no `lyx-shell` e no `globals.css`): ao abrir uma tela, cartões, colunas do kanban e tabelas entram em cascata (50ms de intervalo, fade e subida de 6px em 0.5s com o `EASE`); as barras do `lyx-charts` crescem da base e os medidores, da esquerda. Marque com `data-lyx-card` o que deve entrar. Respeita `prefers-reduced-motion`.
+
 Qual usar: barras simples e medidores, `lyx-charts`; séries comuns com legenda e tooltip, `lyx-recharts`; funil, mapa de calor, sankey ou muitos pontos, `lyx-echarts`.
 
 ## Para agentes

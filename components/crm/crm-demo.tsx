@@ -269,7 +269,7 @@ function ScoreBar({ score }: { score: number }) {
       <span className="h-1.5 w-14 overflow-hidden rounded-full bg-muted">
         <span
           className={cn(
-            "block h-full rounded-full",
+            "lyx-grow-x block h-full rounded-full",
             score >= 70
               ? "bg-emerald-500"
               : score >= 50
@@ -902,7 +902,7 @@ function RankingCard() {
                       %
                       <span className="h-1.5 w-20 overflow-hidden rounded-full bg-muted">
                         <span
-                          className="block h-full rounded-full bg-linear-to-r from-violet-300 to-violet-500"
+                          className="lyx-grow-x block h-full rounded-full bg-linear-to-r from-violet-300 to-violet-500"
                           style={{
                             width: `${Math.min(100, conv * 100 * 25)}%`,
                           }}

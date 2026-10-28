@@ -124,11 +124,16 @@ export function GradientBarChart({
               >
                 <span
                   className={cn(
-                    "block w-full rounded-t-[5px] rounded-b-[2px] bg-linear-to-b transition-opacity",
+                    "lyx-grow-y block w-full rounded-t-[5px] rounded-b-[2px] bg-linear-to-b transition-opacity",
                     LYX_TONES[tone].v,
                     hover !== null && hover !== i && "opacity-55",
                   )}
-                  style={{ height: `${(d.value / max) * 100}%` }}
+                  style={
+                    {
+                      height: `${(d.value / max) * 100}%`,
+                      "--d": `${Math.min(i * 18, 500)}ms`,
+                    } as React.CSSProperties
+                  }
                 />
               </div>
             ))}
@@ -184,7 +189,7 @@ export function MeterRow({
       <div className="h-1.5 overflow-hidden rounded-full bg-muted">
         <div
           className={cn(
-            "h-full rounded-full bg-linear-to-r",
+            "lyx-grow-x h-full rounded-full bg-linear-to-r",
             LYX_TONES[tone].h,
           )}
           style={{ width: `${pct}%` }}

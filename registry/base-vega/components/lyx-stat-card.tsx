@@ -33,6 +33,7 @@ export function LyxStatCard({
   const up = (delta ?? 0) >= 0;
   return (
     <div
+      data-lyx-card
       className={cn(
         "flex flex-col overflow-hidden rounded-2xl bg-card text-card-foreground shadow-(--custom-shadow) squircle:rounded-3xl corner-squircle",
         className,

@@ -400,3 +400,43 @@
     transition: background-color 999999s ease-in-out 0s !important;
   }
 }
+
+/* lume-custom: movimento do layout LYX (CUSTOM.md, item 27). Cartões entram
+   em cascata ao abrir a tela; barras e medidores crescem a partir da base. */
+@keyframes lyx-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes lyx-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes lyx-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+.lyx-in {
+  animation: lyx-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.lyx-grow-y {
+  transform-origin: bottom;
+  animation: lyx-grow-y 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.lyx-grow-x {
+  transform-origin: left;
+  animation: lyx-grow-x 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lyx-in,
+  .lyx-grow-y,
+  .lyx-grow-x {
+    animation: none;
+  }
+}
