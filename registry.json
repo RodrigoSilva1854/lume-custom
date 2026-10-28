@@ -2121,6 +2121,28 @@
       }
     },
     {
+      "name": "lyx-stat-card",
+      "type": "registry:component",
+      "title": "Cartão de número do CRM LYX",
+      "description": "lume-custom: rótulo com ícone colorido, valor grande embaixo (degradê no dark), linha de variação e contexto, e minigráfico opcional no pé do cartão.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/components/lyx-stat-card.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "group": "blocks",
+        "tier": "core"
+      }
+    },
+    {
       "name": "markdown-components",
       "type": "registry:component",
       "title": "Componentes de markdown",
@@ -2440,6 +2462,25 @@
       "files": [
         {
           "path": "registry/base-vega/components/theme-switcher.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "meta": {
+        "group": "blocks",
+        "tier": "core"
+      }
+    },
+    {
+      "name": "unit-map",
+      "type": "registry:component",
+      "title": "Mapa de unidades",
+      "description": "lume-custom: andares em linhas e unidades em ladrilhos coloridos pela situação (disponível, reservada, vendida, bloqueada), com filtro que apaga as demais e anel na unidade escolhida.",
+      "registryDependencies": [
+        "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+      ],
+      "files": [
+        {
+          "path": "registry/base-vega/components/unit-map.tsx",
           "type": "registry:component"
         }
       ],
@@ -2863,6 +2904,7 @@
         "RodrigoSilva1854/lume-custom/lyx-echarts#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-recharts#v0.1.1",
         "RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1",
+        "RodrigoSilva1854/lume-custom/lyx-stat-card#v0.1.1",
         "RodrigoSilva1854/lume-custom/notice#v0.1.1",
         "RodrigoSilva1854/lume-custom/page-header#v0.1.1",
         "RodrigoSilva1854/lume-custom/section#v0.1.1",
@@ -2872,6 +2914,7 @@
         "RodrigoSilva1854/lume-custom/stat-grid#v0.1.1",
         "RodrigoSilva1854/lume-custom/theme-provider#v0.1.1",
         "RodrigoSilva1854/lume-custom/theme-switcher#v0.1.1",
+        "RodrigoSilva1854/lume-custom/unit-map#v0.1.1",
         "RodrigoSilva1854/lume-custom/use-entrance-once#v0.1.1",
         "RodrigoSilva1854/lume-custom/view-toggle#v0.1.1"
       ],

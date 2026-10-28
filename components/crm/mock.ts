@@ -1,6 +1,11 @@
 // Dados fictícios da demo /crm (nomes, telefones, valores e empreendimentos
 // inventados). Arquivo do site, não entra na registry.
 
+import type {
+  Floor,
+  UnitStatus,
+} from "@/registry/base-vega/components/unit-map";
+
 export type Tone =
   | "secondary"
   | "amber"
@@ -265,37 +270,34 @@ export const DIST: Dist[] = [
 
 /* --------------------------------------------------------- disponibilidade */
 
-export type UnitStatus = "disponivel" | "reservada" | "vendida" | "bloqueada";
-
-export const UNIT_STATUS: Record<
-  UnitStatus,
-  { label: string; cls: string; dot: string }
-> = {
-  disponivel: {
-    label: "Disponível",
-    cls: "bg-emerald-500/12 text-emerald-700 dark:text-emerald-300",
-    dot: "bg-emerald-500",
-  },
-  reservada: {
-    label: "Reservada",
-    cls: "bg-amber-500/14 text-amber-700 dark:text-amber-300",
-    dot: "bg-amber-500",
-  },
-  vendida: {
-    label: "Vendida",
-    cls: "bg-muted text-muted-foreground",
-    dot: "bg-neutral-400",
-  },
-  bloqueada: {
-    label: "Bloqueada",
-    cls: "bg-red-500/10 text-red-700 dark:text-red-300",
-    dot: "bg-red-500",
-  },
-};
-
 export const BLOCOS = ["Bloco 1", "Bloco 2", "Bloco 3", "Bloco 4"];
 
-export function units(bloco: number) {
+export const EMPREENDIMENTOS_DISP = [
+  "Atlanta Condomínio Clube · Porto Alegre/RS",
+  "Blue Lake Fase II · Porto Alegre/RS",
+  "Hudson Condomínio Residencial · Curitiba/PR",
+  "Kentucky Fase III · Curitiba/PR",
+];
+
+export const ULTIMOS_ACESSOS = [
+  "Atlanta Condomínio Clube",
+  "Blue Lake Fase II",
+  "Hudson Condomínio Residencial",
+];
+
+/** Detalhe de exemplo de uma unidade (área, vagas e valor). */
+export function unitInfo(numero: string) {
+  const n = Number(numero);
+  const area = 52 + (n % 7) * 3;
+  return {
+    area: `${area} m²`,
+    dormitorios: area > 60 ? 3 : 2,
+    vagas: area > 60 ? 2 : 1,
+    valor: money(210000 + area * 2900),
+  };
+}
+
+export function units(bloco: number): Floor[] {
   return [5, 4, 3, 2, 1].map((andar) => ({
     andar,
     units: [1, 2, 3, 4].map((n) => {

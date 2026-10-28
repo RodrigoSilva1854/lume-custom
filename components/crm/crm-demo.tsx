@@ -5,7 +5,10 @@
 
 import {
   IconBookmark,
+  IconBox,
+  IconBuildingSkyscraper,
   IconCalendarEvent,
+  IconCheck,
   IconCoin,
   IconColumns3,
   IconDownload,
@@ -42,12 +45,18 @@ import {
   type LyxTone,
   MeterRow,
 } from "@/registry/base-vega/components/lyx-charts";
+import { LyxStatCard } from "@/registry/base-vega/components/lyx-stat-card";
 import { PillMeter } from "@/registry/base-vega/components/pill-meter";
-import { StatCard } from "@/registry/base-vega/components/stat-card";
 import {
   ChartLegend,
   themed,
 } from "@/registry/base-vega/components/trend-charts";
+import {
+  UNIT_STATUS,
+  type Unit,
+  UnitMap,
+  type UnitStatus,
+} from "@/registry/base-vega/components/unit-map";
 import { ViewToggle } from "@/registry/base-vega/components/view-toggle";
 import { SECTIONS, type Section } from "@/registry/base-vega/lib/sections";
 import { cn } from "@/registry/base-vega/lib/utils";
@@ -62,6 +71,10 @@ import {
 } from "@/registry/base-vega/ui/card";
 import { Input } from "@/registry/base-vega/ui/input";
 import { Label } from "@/registry/base-vega/ui/label";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/registry/base-vega/ui/native-select";
 import { Switch } from "@/registry/base-vega/ui/switch";
 import {
   Table,
@@ -84,6 +97,7 @@ import {
   COMISSOES,
   DIST,
   DOT,
+  EMPREENDIMENTOS_DISP,
   LEAD_STAGES,
   LEADS,
   LEADS_POR_DIA,
@@ -95,8 +109,8 @@ import {
   RESERVAS,
   type Row,
   type Stage,
-  UNIT_STATUS,
-  type UnitStatus,
+  ULTIMOS_ACESSOS,
+  unitInfo,
   units,
   VENDAS_POR_MES,
 } from "./mock";
@@ -508,13 +522,18 @@ function Stats({ items, charts }: { items: StatItem[]; charts?: boolean }) {
     <div className="@container">
       <div className="grid gap-4 @lg:grid-cols-2 @min-[62rem]:grid-cols-4">
         {items.map((c, i) => (
-          <StatCard
+          <LyxStatCard
             key={c.label}
-            size="sm"
             label={c.label}
             value={c.value}
             hint={c.hint}
-            delta={c.delta}
+            delta={
+              c.delta
+                ? c.delta.dir === "down"
+                  ? -c.delta.pct
+                  : c.delta.pct
+                : undefined
+            }
             icon={c.icon}
             iconClassName={c.tone}
             chart={
@@ -1142,35 +1161,89 @@ const UNIT_FILTERS = [
 ] as const;
 
 function Disponibilidade({ section }: { section?: Section }) {
+  const [emp, setEmp] = useState(EMPREENDIMENTOS_DISP[0]);
   const [bloco, setBloco] = useState(0);
   const [filtro, setFiltro] = useState<UnitStatus | "todas">("todas");
+  const [sel, setSel] = useState<Unit | undefined>();
   const andares = useMemo(() => units(bloco), [bloco]);
   const all = andares.flatMap((a) => a.units);
   const count = (s: UnitStatus) => all.filter((u) => u.status === s).length;
+  const livres = (b: number) =>
+    units(b)
+      .flatMap((a) => a.units)
+      .filter((u) => u.status === "disponivel").length;
+  const info = sel ? unitInfo(sel.numero) : undefined;
+
   return (
     <>
       <Title
         section={section}
         title="Mapa de disponibilidade"
         sub="Escolha um empreendimento e veja a situação de cada unidade."
-        actions={
-          <Badge variant="outline">
-            Atlanta Condomínio Clube · Porto Alegre/RS
-          </Badge>
-        }
       />
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="text-sm text-muted-foreground">Estado</span>
+        <NativeSelect className="w-28" aria-label="Estado">
+          <NativeSelectOption>Todos</NativeSelectOption>
+          <NativeSelectOption>RS</NativeSelectOption>
+          <NativeSelectOption>PR</NativeSelectOption>
+        </NativeSelect>
+        <span className="text-sm text-muted-foreground">Empreendimento</span>
+        <NativeSelect
+          className="w-[22rem] max-w-full"
+          aria-label="Empreendimento"
+          value={emp}
+          onChange={(e) => {
+            setEmp(e.target.value);
+            setSel(undefined);
+          }}
+        >
+          {EMPREENDIMENTOS_DISP.map((e) => (
+            <NativeSelectOption key={e}>{e}</NativeSelectOption>
+          ))}
+        </NativeSelect>
+        <Button
+          variant="outline"
+          className="ml-auto"
+          onClick={() => toast("Visão 3D: em breve")}
+        >
+          <IconBox />
+          Visão 3D
+          <Badge variant="outline" className="font-normal normal-case">
+            Em breve
+          </Badge>
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="mr-1 text-sm text-muted-foreground">
+          Últimos acessos
+        </span>
+        {ULTIMOS_ACESSOS.map((u) => (
+          <Button
+            key={u}
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const e = EMPREENDIMENTOS_DISP.find((x) => x.startsWith(u));
+              if (e) setEmp(e);
+            }}
+          >
+            {u}
+          </Button>
+        ))}
+      </div>
       <Stats
         items={[
           {
             label: "Unidades no empreendimento",
             value: "80",
-            icon: IconBookmark,
+            icon: IconBuildingSkyscraper,
             tone: "text-emerald-500",
           },
           {
             label: "Disponíveis",
             value: "23",
-            icon: IconUserCheck,
+            icon: IconCheck,
             tone: "text-emerald-500",
           },
           {
@@ -1187,77 +1260,118 @@ function Disponibilidade({ section }: { section?: Section }) {
           },
         ]}
       />
-      <Card size="sm">
-        <CardHeader className="flex flex-col gap-3">
-          <div className="flex flex-wrap gap-2">
-            {BLOCOS.map((b, i) => (
-              <Button
-                key={b}
-                variant="outline"
-                size="sm"
-                aria-pressed={bloco === i}
-                onClick={() => setBloco(i)}
-                className={cn("font-normal", bloco === i && CHIP_ON)}
-              >
-                {b}
-              </Button>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {UNIT_FILTERS.map((s) => (
-              <Button
-                key={s}
-                variant="outline"
-                size="sm"
-                aria-pressed={filtro === s}
-                onClick={() => setFiltro(s)}
-                className={cn("font-normal", filtro === s && CHIP_ON)}
-              >
-                {s !== "todas" && (
-                  <span
-                    className={cn("size-1.5 rounded-full", UNIT_STATUS[s].dot)}
-                  />
-                )}
-                {s === "todas" ? "Todas" : UNIT_STATUS[s].label}
-                <span className="text-muted-foreground tabular-nums">
-                  {s === "todas" ? all.length : count(s)}
-                </span>
-              </Button>
-            ))}
-          </div>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-2">
-          {andares.map((a) => (
-            <div key={a.andar} className="flex items-center gap-3">
-              <span className="w-16 shrink-0 text-xs text-muted-foreground">
-                {a.andar}º andar
+      <Card
+        size="sm"
+        className="gap-0 py-0 data-[size=sm]:gap-0 data-[size=sm]:py-0"
+      >
+        <div className="flex flex-wrap gap-2 border-b border-border/50 px-5 py-4">
+          {BLOCOS.map((b, i) => (
+            <Button
+              key={b}
+              variant="outline"
+              size="sm"
+              aria-pressed={bloco === i}
+              onClick={() => {
+                setBloco(i);
+                setSel(undefined);
+              }}
+              className={cn("font-normal", bloco === i && CHIP_ON)}
+            >
+              {b}
+              <span className="text-muted-foreground tabular-nums">
+                {livres(i)} livres
               </span>
-              <div className="grid flex-1 grid-cols-4 gap-2 sm:max-w-md">
-                {a.units.map((u) => {
-                  const st = UNIT_STATUS[u.status];
-                  const off = filtro !== "todas" && filtro !== u.status;
-                  return (
-                    <button
-                      key={u.numero}
-                      type="button"
-                      onClick={() => toast(`Unidade ${u.numero}: ${st.label}`)}
-                      className={cn(
-                        "flex cursor-pointer flex-col items-center rounded-lg py-2 text-xs transition-opacity",
-                        st.cls,
-                        off && "opacity-25",
-                      )}
-                    >
-                      <span className="text-sm font-medium tabular-nums">
-                        {u.numero}
-                      </span>
-                      {st.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+            </Button>
           ))}
-        </CardContent>
+        </div>
+        <div className="flex flex-wrap gap-2 border-b border-border/50 px-5 py-4">
+          {UNIT_FILTERS.map((s) => (
+            <Button
+              key={s}
+              variant="outline"
+              size="sm"
+              aria-pressed={filtro === s}
+              onClick={() => setFiltro(s)}
+              className={cn("font-normal", filtro === s && CHIP_ON)}
+            >
+              {s !== "todas" && (
+                <span
+                  className={cn("size-1.5 rounded-full", UNIT_STATUS[s].dot)}
+                />
+              )}
+              {s === "todas" ? "Todas" : UNIT_STATUS[s].label}
+              <span className="text-muted-foreground tabular-nums">
+                {s === "todas" ? all.length : count(s)}
+              </span>
+            </Button>
+          ))}
+        </div>
+        <div className="flex flex-col gap-6 p-5 lg:flex-row lg:items-start lg:justify-between">
+          <UnitMap
+            floors={andares}
+            filter={filtro}
+            selected={sel?.numero}
+            onSelect={setSel}
+          />
+          <div className="w-full shrink-0 rounded-2xl bg-card p-4 shadow-(--custom-shadow) lg:w-64 squircle:rounded-3xl corner-squircle">
+            {sel && info ? (
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-sm font-medium">
+                    Unidade {sel.numero}
+                  </span>
+                  <Badge
+                    variant={
+                      sel.status === "disponivel"
+                        ? "emerald"
+                        : sel.status === "reservada"
+                          ? "amber"
+                          : sel.status === "bloqueada"
+                            ? "red"
+                            : "secondary"
+                    }
+                    className="normal-case"
+                  >
+                    {UNIT_STATUS[sel.status].label}
+                  </Badge>
+                </div>
+                <dl className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+                  <dt className="text-muted-foreground">Bloco</dt>
+                  <dd className="text-right">{BLOCOS[bloco]}</dd>
+                  <dt className="text-muted-foreground">Área</dt>
+                  <dd className="text-right tabular-nums">{info.area}</dd>
+                  <dt className="text-muted-foreground">Dormitórios</dt>
+                  <dd className="text-right tabular-nums">
+                    {info.dormitorios}
+                  </dd>
+                  <dt className="text-muted-foreground">Vagas</dt>
+                  <dd className="text-right tabular-nums">{info.vagas}</dd>
+                  <dt className="text-muted-foreground">Valor</dt>
+                  <dd className="text-right font-medium tabular-nums">
+                    {info.valor}
+                  </dd>
+                </dl>
+                <Button
+                  disabled={sel.status !== "disponivel"}
+                  onClick={() =>
+                    toast(`Reserva da unidade ${sel.numero}: tela de exemplo`)
+                  }
+                >
+                  Reservar unidade
+                </Button>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2">
+                <span className="text-sm font-medium">
+                  Nenhuma unidade selecionada
+                </span>
+                <span className="text-sm text-muted-foreground text-pretty">
+                  Clique em um apartamento para ver área, valor e situação.
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
       </Card>
     </>
   );

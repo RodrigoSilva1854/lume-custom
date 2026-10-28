@@ -47,6 +47,8 @@ As seções e rotas vêm de `lib/sections.ts`; edite ali para mudar o menu. A de
 | `lyx-charts` | GradientBarChart e MeterRow |
 | `lyx-recharts` | LyxAreaChart, LyxBarChart, LyxLineChart, LyxDonutChart |
 | `lyx-echarts` | LyxEChart com o tema LYX e lyxToken |
+| `lyx-stat-card` | LyxStatCard |
+| `unit-map` | UnitMap e UNIT_STATUS |
 
 ## Tokens novos
 
@@ -122,6 +124,9 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 
 23. **ECharts para os gráficos pesados** (`lyx-echarts`): funil, mapa de calor, sankey e séries longas com zoom usam o Apache ECharts com o tema LYX, tirado dos tokens e refeito na troca de tema. Dependência nova aprovada pelo time: `echarts`.
 24. **Gráficos do dia a dia no estilo shadcn** (`lyx-recharts`): área com degradê, barras arredondadas, linhas suaves e rosca com total, sobre o `ui/chart`, com séries coloridas pelos tokens `--nav-*`.
+
+25. **Cartão de número empilhado** (`lyx-stat-card`, substitui o StatCard em linha nas telas do CRM): rótulo com ícone colorido, valor grande embaixo (24px, peso 500) e a linha de variação e contexto, como no protótipo.
+26. **Mapa de unidades** (`unit-map`): ladrilhos de 76 por 56px por andar, coloridos pela situação, com filtro e seleção.
 
 Qual usar: barras simples e medidores, `lyx-charts`; séries comuns com legenda e tooltip, `lyx-recharts`; funil, mapa de calor, sankey ou muitos pontos, `lyx-echarts`.
 

@@ -886,6 +886,36 @@ const LANES: ItemMeta[] = [
     ],
   },
   {
+    name: "lyx-stat-card",
+    title: "Cartão de número do CRM LYX",
+    description:
+      "lume-custom: rótulo com ícone colorido, valor grande embaixo (degradê no dark), linha de variação e contexto, e minigráfico opcional no pé do cartão.",
+    group: "blocks",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/components/lyx-stat-card.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
+    name: "unit-map",
+    title: "Mapa de unidades",
+    description:
+      "lume-custom: andares em linhas e unidades em ladrilhos coloridos pela situação (disponível, reservada, vendida, bloqueada), com filtro que apaga as demais e anel na unidade escolhida.",
+    group: "blocks",
+    tier: "core",
+    type: "registry:component",
+    files: [
+      {
+        path: "registry/base-vega/components/unit-map.tsx",
+        type: "registry:component",
+      },
+    ],
+  },
+  {
     name: "kanban-column",
     title: "Kanban",
     description:
@@ -1166,6 +1196,8 @@ const KITS: ItemMeta[] = [
       "lyx-charts",
       "lyx-recharts",
       "lyx-echarts",
+      "lyx-stat-card",
+      "unit-map",
       "page-header",
       "stat-card",
       "stat-grid",

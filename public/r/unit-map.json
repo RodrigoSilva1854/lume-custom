@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "unit-map",
+  "title": "Mapa de unidades",
+  "description": "lume-custom: andares em linhas e unidades em ladrilhos coloridos pela situação (disponível, reservada, vendida, bloqueada), com filtro que apaga as demais e anel na unidade escolhida.",
+  "registryDependencies": [
+    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+  ],
+  "files": [
+    {
+      "path": "registry/base-vega/components/unit-map.tsx",
+      "content": "// lume-custom: mapa de unidades do empreendimento (Disponibilidade). Andares em\n// linhas, unidades em ladrilhos coloridos pela situação; um filtro apaga as\n// outras e a unidade escolhida ganha anel (CUSTOM.md, item 26).\n\"use client\";\n\nimport { cn } from \"@/registry/base-vega/lib/utils\";\n\nexport type UnitStatus = \"disponivel\" | \"reservada\" | \"vendida\" | \"bloqueada\";\n\nexport const UNIT_STATUS: Record<\n  UnitStatus,\n  { label: string; tile: string; dot: string }\n> = {\n  disponivel: {\n    label: \"Disponível\",\n    tile: \"bg-emerald-500/12 text-emerald-800 dark:text-emerald-300\",\n    dot: \"bg-emerald-500\",\n  },\n  reservada: {\n    label: \"Reservada\",\n    tile: \"bg-amber-500/14 text-amber-800 dark:text-amber-300\",\n    dot: \"bg-amber-500\",\n  },\n  vendida: {\n    label: \"Vendida\",\n    tile: \"bg-muted text-foreground/80\",\n    dot: \"bg-neutral-400\",\n  },\n  bloqueada: {\n    label: \"Bloqueada\",\n    tile: \"bg-red-500/10 text-red-800 dark:text-red-300\",\n    dot: \"bg-red-500\",\n  },\n};\n\nexport type Unit = { numero: string; status: UnitStatus };\nexport type Floor = { andar: number; units: Unit[] };\n\nexport function UnitMap({\n  floors,\n  filter = \"todas\",\n  selected,\n  onSelect,\n  className,\n}: {\n  floors: Floor[];\n  /** Situação em destaque; as outras ficam apagadas. */\n  filter?: UnitStatus | \"todas\";\n  selected?: string;\n  onSelect?: (unit: Unit) => void;\n  className?: string;\n}) {\n  return (\n    <div className={cn(\"flex flex-col gap-2\", className)}>\n      {floors.map((f) => (\n        <div key={f.andar} className=\"flex items-center gap-4\">\n          <span className=\"w-16 shrink-0 text-sm whitespace-nowrap text-muted-foreground\">\n            {f.andar}º andar\n          </span>\n          <div className=\"flex flex-wrap gap-2\">\n            {f.units.map((u) => {\n              const st = UNIT_STATUS[u.status];\n              const off = filter !== \"todas\" && filter !== u.status;\n              const on = selected === u.numero;\n              return (\n                <button\n                  key={u.numero}\n                  type=\"button\"\n                  aria-pressed={on}\n                  aria-label={`Unidade ${u.numero}: ${st.label}`}\n                  onClick={() => onSelect?.(u)}\n                  className={cn(\n                    \"flex h-14 w-19 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-lg outline-none transition-[opacity,box-shadow] focus-visible:ring-[1.5px] focus-visible:ring-ring/50\",\n                    st.tile,\n                    off && \"opacity-25\",\n                    on &&\n                      \"ring-2 ring-foreground ring-offset-2 ring-offset-card\",\n                  )}\n                >\n                  <span className=\"text-sm font-medium tabular-nums\">\n                    {u.numero}\n                  </span>\n                  <span className=\"text-[11px]\">{st.label}</span>\n                </button>\n              );\n            })}\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "meta": {
+    "group": "blocks",
+    "tier": "core"
+  },
+  "type": "registry:component"
+}

@@ -2,7 +2,7 @@
 
 Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite à mão. Caminhos sem prefixo são relativos à raiz de https://github.com/RodrigoSilva1854/lume-custom; `apps/web/` e `packages/ui/` são do Foglamp (commit `2bc3bb5`).
 
-116 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
+118 itens na versão `v0.1.1`. Vários itens vão num comando só; `--diff` mostra o que mudaria e `--overwrite` aplica. Alias opcional em `components.json`: `"registries": { "@lume": "https://lume-ashmont.vercel.app/r/{name}.json" }`.
 
 ## Base (1)
 
@@ -98,7 +98,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `toggle-group` | Toggle group | Grupo de toggles com sombra compartilhada. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/toggle-group#v0.1.1` |
 | `tooltip` | Tooltip | Dica não invertida: mesma superfície dos popovers. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/tooltip#v0.1.1` |
 
-## Componentes (41)
+## Componentes (43)
 
 | Item | Título | Descrição | Comando |
 |---|---|---|---|
@@ -117,6 +117,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `login-form` | Formulário de login | Login presentacional do Foglamp: coluna de max-w-lg p-6 sem card, tile da marca de 40px em bg-muted com sombra, senha, link mágico e Google com separador h-px bg-border/50, validação zod no submit e erros em FieldError text-xs; quem autentica é o app pelos callbacks. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/login-form#v0.1.1` |
 | `lyx-charts` | Gráficos do CRM LYX | lume-custom: GradientBarChart (barras verticais em degradê, grade tracejada, coluna realçada e etiqueta no hover) e MeterRow (medidor em degradê horizontal para origem, funil e metas), com tons por cor. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/lyx-charts#v0.1.1` |
 | `lyx-shell` | Casca do CRM LYX | lume-custom: trilho de ícones que encolhe com a altura da tela, ativo na cor da seção, submenu flutuante no hover, menu expandido em pílulas, botão Layout (expandir, menu horizontal, modo foco), chip do usuário em degradê, migalha com ícones, busca de telas (Ctrl K), gaveta no celular e subida ao topo ao trocar de página. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1` |
+| `lyx-stat-card` | Cartão de número do CRM LYX | lume-custom: rótulo com ícone colorido, valor grande embaixo (degradê no dark), linha de variação e contexto, e minigráfico opcional no pé do cartão. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/lyx-stat-card#v0.1.1` |
 | `markdown-components` | Componentes de markdown | Overrides de a, table, thead, tr, th, td, img e hr para react-markdown ou Streamdown: links internos (href com /) pelo Link da indireção, externos em nova aba, tabelas planas text-xs tabular-nums com linhas border-border/40, img cru sem next/image. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/markdown-components#v0.1.1` |
 | `notice` | Notice | Faixa de aviso com tone warning, error ou info: fundo da cor a 10%, texto escuro/claro conforme o tema, ícone Tabler filled e a sombra colorida do token (shadow-(--custom-shadow-amber), -rose, -blue) no lugar de borda, com o gutter PX. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/notice#v0.1.1` |
 | `page-header` | Cabeçalho de página | Título h1 text-base em linha de h-8 com ícone size-4.5, breadcrumb de volta via Link, descrição e slot de ações sempre renderizado (translate-y-1) para a Toolbar portalar; exporta o gutter PX (px-4 md:px-8). | `npx shadcn@latest add RodrigoSilva1854/lume-custom/page-header#v0.1.1` |
@@ -131,6 +132,7 @@ Gerado por `bun scripts/build-skill.ts` a partir de `registry.json`; não edite 
 | `theme-provider` | Theme provider | ThemeProvider do next-themes com o aviso falso do React 19 silenciado em dev. Use attribute=class, defaultTheme=dark, enableSystem. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/theme-provider#v0.1.1` |
 | `theme-provider-csp` | Theme provider (CSP) | Tema sem next-themes e sem script inline, para apps com CSP estrita (como o painel do lyx-pr-agent). Mesma API de useTheme. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/theme-provider-csp#v0.1.1` |
 | `theme-switcher` | Theme switcher | Pílula segmentada sistema / claro / escuro com spring MORPH, e ThemeSubmenu para menus. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/theme-switcher#v0.1.1` |
+| `unit-map` | Mapa de unidades | lume-custom: andares em linhas e unidades em ladrilhos coloridos pela situação (disponível, reservada, vendida, bloqueada), com filtro que apaga as demais e anel na unidade escolhida. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/unit-map#v0.1.1` |
 | `view-toggle` | Alternador de visualização | lume-custom: grupo Lista, Quadro, Compacto; ativo com anel inset de 1.5px, ícone na cor do texto e fundo a 7%, cantos só nas pontas. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/view-toggle#v0.1.1` |
 | `area-chart` | Area chart | EvilAreaChart: área com gradiente, grid, threshold e legenda. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/area-chart#v0.1.1` |
 | `bar-chart` | Bar chart | EvilBarChart: barras com brush, zoom e tooltip. | `npx shadcn@latest add RodrigoSilva1854/lume-custom/bar-chart#v0.1.1` |
