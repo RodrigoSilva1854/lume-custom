@@ -10,8 +10,7 @@ skill de agente, distribuídos como registry do shadcn.
 - Demo ao vivo do layout: rota `/crm` do site (`bun run dev` e abra http://localhost:3000/crm).
 - Protótipo de referência: [docs/referencia/crm-prototipo.html](docs/referencia/crm-prototipo.html) (abra no navegador).
 
-Repositório privado: para instalar por `npx shadcn`, a máquina precisa de acesso ao
-GitHub com um token que leia este repositório (variável `GITHUB_TOKEN`).
+Repositório público: os comandos `npx shadcn` abaixo funcionam sem token.
 
 Site do lume original, para consultar os componentes: https://lume-ashmont.vercel.app
 
