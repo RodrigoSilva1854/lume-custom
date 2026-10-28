@@ -4,8 +4,8 @@
   "title": "Seleção LYX",
   "description": "lume-custom: LyxSelect, seleção por lista de textos sobre o Select do lume (popover com a cara do design system), com opção \"Todos\". Substitui o <select> nativo no CRM.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/select#v0.1.2",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
+    "RodrigoSilva1854/lume-custom/select#v0.1.3",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.3"
   ],
   "files": [
     {

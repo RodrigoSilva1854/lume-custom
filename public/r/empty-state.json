@@ -4,8 +4,8 @@
   "title": "Empty state",
   "description": "Estado vazio das páginas sobre o Empty da registry: caixa tracejada, EmptyMedia variant icon com o ícone em opacity-40, título e descrição opcionais e filhos para a ação.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/empty#v0.1.2",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
+    "RodrigoSilva1854/lume-custom/empty#v0.1.3",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.3"
   ],
   "files": [
     {

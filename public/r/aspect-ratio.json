@@ -4,7 +4,7 @@
   "title": "Aspect ratio",
   "description": "Caixa com proporção fixa.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
+    "RodrigoSilva1854/lume-custom/utils#v0.1.3"
   ],
   "files": [
     {

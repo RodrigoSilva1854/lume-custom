@@ -18,6 +18,12 @@ para aplicar. Quando um item muda de API, a seção traz "Como migrar".
 - `number-flow`, `model-chip` e logos de marcas.
 - Migração efetiva dos fronts da Lyx (trabalho da camada `lyx-ds`, com o guia de adoção).
 
+## [0.1.3] - 2026-10-28
+
+### Mudado
+
+- `lyx-shell`: sai o botão de menu lateral do canto esquerdo do menu horizontal.
+
 ## [0.1.2] - 2026-10-28
 
 ### Adicionado

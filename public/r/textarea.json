@@ -4,7 +4,7 @@
   "title": "Textarea",
   "description": "Área de texto com a mesma receita do Input.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
+    "RodrigoSilva1854/lume-custom/utils#v0.1.3"
   ],
   "files": [
     {

@@ -4,9 +4,9 @@
   "title": "Botão de copiar",
   "description": "Botão nu com CopyIcon, text-muted-foreground/60, hover text-foreground, iconSize size-4, stopPropagation para linhas clicáveis e estado copiado por 1,5 s.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/copy-icon#v0.1.2",
-    "RodrigoSilva1854/lume-custom/use-copied#v0.1.2",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
+    "RodrigoSilva1854/lume-custom/copy-icon#v0.1.3",
+    "RodrigoSilva1854/lume-custom/use-copied#v0.1.3",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.3"
   ],
   "files": [
     {

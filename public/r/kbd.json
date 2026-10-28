@@ -4,7 +4,7 @@
   "title": "Kbd",
   "description": "Tecla de atalho em squircle pequeno.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
+    "RodrigoSilva1854/lume-custom/utils#v0.1.3"
   ],
   "files": [
     {

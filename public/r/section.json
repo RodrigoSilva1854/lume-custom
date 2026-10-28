@@ -4,8 +4,8 @@
   "title": "Section",
   "description": "Bloco de seção da página: cabeçalho com h2 text-sm font-medium, descrição text-xs muted e ações à direita (flex-wrap items-end, gutter PX) e os filhos abaixo em coluna gap-3.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/page-header#v0.1.2",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
+    "RodrigoSilva1854/lume-custom/page-header#v0.1.3",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.3"
   ],
   "files": [
     {

@@ -8,9 +8,9 @@
     "cmdk"
   ],
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/dialog#v0.1.2",
-    "RodrigoSilva1854/lume-custom/input-group#v0.1.2",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
+    "RodrigoSilva1854/lume-custom/dialog#v0.1.3",
+    "RodrigoSilva1854/lume-custom/input-group#v0.1.3",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.3"
   ],
   "files": [
     {

@@ -7,8 +7,8 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/page-header#v0.1.2",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
+    "RodrigoSilva1854/lume-custom/page-header#v0.1.3",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.3"
   ],
   "files": [
     {
