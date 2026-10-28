@@ -39,22 +39,24 @@ function write(key: string, value: string) {
 }
 
 /**
- * Nasce no padrão (lateral, recolhido) para o HTML do servidor e o primeiro
- * render do cliente coincidirem; a escolha salva entra antes da primeira
- * pintura, então o menu não pisca.
+ * Nasce no padrão (menu na horizontal; se trocar para o lateral, ele vem
+ * recolhido) para o HTML do servidor e o primeiro render do cliente
+ * coincidirem; a escolha salva entra antes da primeira pintura, então o menu
+ * não pisca.
  */
-export function useLyxLayout() {
+export function useLyxLayout(defaultNav: LyxNav = "top") {
   const [layout, setLayout] = useState<LyxLayout>({
-    nav: "side",
+    nav: defaultNav,
     rail: true,
     focus: false,
   });
 
   useIsoLayoutEffect(() => {
-    const nav = read(KEY_NAV) === "top" ? "top" : "side";
+    const saved = read(KEY_NAV);
+    const nav = saved === "top" || saved === "side" ? saved : defaultNav;
     const rail = read(KEY_RAIL) !== "0";
     setLayout((l) => ({ ...l, nav, rail }));
-  }, []);
+  }, [defaultNav]);
 
   const setNav = useCallback((nav: LyxNav) => {
     write(KEY_NAV, nav);

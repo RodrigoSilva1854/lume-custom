@@ -87,13 +87,13 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 
 ### Shell e menu
 
-1. **Trilho de ícones como padrão** (substitui "Sidebar variant inset, 14rem"). O menu nasce recolhido, com 88px: itens em círculo de 44px (`bg-rail-item`, hover `bg-rail-item-hover`), espaço de 12px. Os círculos encolhem com a altura da tela, até 28px, para o trilho nunca ter barra de rolagem.
+1. **Trilho de ícones no menu lateral** (substitui "Sidebar variant inset, 14rem"). Quando a pessoa escolhe o menu lateral, ele vem recolhido, com 88px: itens em círculo de 44px (`bg-rail-item`, hover `bg-rail-item-hover`), espaço de 12px. Os círculos encolhem com a altura da tela, até 28px, para o trilho nunca ter barra de rolagem.
 2. **Item ativo no trilho com a cor da seção** (substitui "ativo só com fundo e ícone filled"). Anel de 1.5px na cor da seção, fundo da mesma cor a 12% e ícone filled colorido (`tone.ring`, `tone.soft`, `tone.text` de `sections.ts`). O indicador desliza entre os itens com o `EASE` de `lib/motion.ts`.
 3. **Submenu flutuante no trilho.** Passar o mouse num grupo com submenu abre um painel `bg-popover` ao lado (raio 16, `shadow-(--custom-shadow)`), com o nome do grupo e os itens. Item sem submenu mostra só o Tooltip, com o mesmo raio do painel.
 4. **Menu expandido de 248px** (substitui 14rem). Linhas em pílula de 40px; ativo com `bg-nav-active`, texto `text-foreground` e só o ícone na cor da seção.
 5. **App dentro de um cartão** sobre `bg-app-canvas`: margem 12px e raio 28px (`rounded-[28px] corner-round`), o menu fica dentro do cartão. É o "inset" do Foglamp com o menu do lado de dentro.
 6. **Rodapé do menu**: um único botão "Layout" que abre um DropdownMenu com Expandir ou Recolher menu, Menu na horizontal e Modo foco. Abaixo, o seletor Claro e Escuro e o chip do usuário.
-7. **Menu horizontal opcional.** Mesmo conteúdo no cabeçalho, com submenus ao passar o mouse e a busca no cabeçalho. Quando os itens não cabem, a busca vira só a lupa (`Button size="icon-sm"`) e abre por cima ao clicar.
+7. **Menu horizontal como padrão.** O CRM abre com o menu no cabeçalho (`defaultNav="top"` no `LyxShell`); o lateral fica a um clique, no botão do canto. Mesmo conteúdo, com submenus ao passar o mouse e a busca no cabeçalho. Quando os itens não cabem, a busca vira só a lupa (`Button size="icon-sm"`) e abre por cima ao clicar.
 8. **Modo foco.** Esconde menus, migalha e busca; mostra uma pílula flutuante "Sair do modo foco" com `Kbd` Esc.
 9. **Mobile em 860px** (substitui `md`, 768px). Abaixo disso, a gaveta (Sheet) tem o mesmo visual do menu expandido, e tocar num grupo abre os subitens em vez de navegar.
 

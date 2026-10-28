@@ -67,7 +67,7 @@ import {
   LyxAvatar,
   type LyxUser,
 } from "./lyx-account";
-import { useLyxLayout } from "./use-lyx-layout";
+import { type LyxNav, useLyxLayout } from "./use-lyx-layout";
 
 /* ------------------------------------------------------------------ rotas */
 
@@ -877,6 +877,8 @@ export type LyxShellProps = {
   onAccountSelect?: (id: string) => void;
   /** Navegação da busca de telas (router.push no Next). */
   navigate?: (href: string) => void;
+  /** Menu com que o CRM abre quando a pessoa ainda não escolheu (padrão: horizontal). */
+  defaultNav?: LyxNav;
   children: React.ReactNode;
 };
 
@@ -889,9 +891,10 @@ export function LyxShell({
   accountItems = LYX_ACCOUNT_ITEMS,
   onAccountSelect,
   navigate,
+  defaultNav = "top",
   children,
 }: LyxShellProps) {
-  const layout = useLyxLayout();
+  const layout = useLyxLayout(defaultNav);
   const { nav, rail, focus, setNav, toggleRail, setFocus } = layout;
   const { href: activeHref, section: activeSection } = useMemo(
     () => findActive(sections, pathname),
