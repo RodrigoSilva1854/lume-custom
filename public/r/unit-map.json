@@ -4,7 +4,7 @@
   "title": "Mapa de unidades",
   "description": "lume-custom: andares em linhas e unidades em ladrilhos coloridos pela situação (disponível, reservada, vendida, bloqueada), com filtro que apaga as demais e anel na unidade escolhida.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
   ],
   "files": [
     {

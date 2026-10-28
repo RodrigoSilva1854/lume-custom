@@ -18,6 +18,23 @@ para aplicar. Quando um item muda de API, a seção traz "Como migrar".
 - `number-flow`, `model-chip` e logos de marcas.
 - Migração efetiva dos fronts da Lyx (trabalho da camada `lyx-ds`, com o guia de adoção).
 
+## [0.1.2] - 2026-10-28
+
+### Adicionado
+
+- `lyx-stat-card`: cartão de número do CRM LYX (valor grande embaixo do rótulo, variação e contexto, degradê no dark).
+- `unit-map`: mapa de unidades por andar da Disponibilidade, com filtro por situação e unidade escolhida.
+- `filter-drawer`: filtros laterais (gaveta à direita) com visões salvas, "Limpar tudo", "Ver resultados (n)", botão "Mais filtros" com contagem e linha de filtros ativos.
+- `lyx-select`: seleção sobre o Select do lume; o `<select>` nativo não entra mais em tela do CRM.
+- Movimento de entrada nos cards, tabelas e gráficos (`lyx-in`, `lyx-grow-y`, `lyx-grow-x`), respeitando o movimento reduzido.
+
+### Mudado
+
+- Fonte: a Inter oficial (`inter-ui`) no lugar da Inter do Fontsource, com `cv11` e `ss01` ligados (o "a" de um andar e algarismos abertos, iguais ao protótipo).
+- `lyx-shell`: o menu horizontal no topo é o padrão.
+- `theme-provider` e `theme-provider-csp`: o tema abre no claro por padrão.
+- Disponibilidade da demo igual ao protótipo.
+
 ## [0.1.1] - 2026-10-16
 
 ### Corrigido

@@ -18,10 +18,10 @@ Site do lume original, para consultar os componentes: https://lume-ashmont.verce
 
 ```bash
 # 1. base: components.json (style base-vega, ícones tabler), globals.css com os tokens, lib/utils.ts
-npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.2 -y
 
 # 2. um kit (ou qualquer item): primitivos em components/ui, blocos em components, lib e hooks
-npx shadcn@latest add RodrigoSilva1854/lume-custom/kit-shell#v0.1.0
+npx shadcn@latest add RodrigoSilva1854/lume-custom/kit-shell#v0.1.2
 
 # 3. a skill para Claude Code e Codex
 npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering
@@ -29,7 +29,7 @@ npx skills add RodrigoSilva1854/lume-custom --skill lume-design-engineering
 
 Nunca use `init -d`: o `-d` ignora o `base` e instala o style padrão por cima.
 Em projeto Next, instale também `link-next` depois dos blocos
-(`npx shadcn@latest add RodrigoSilva1854/lume-custom/link-next#v0.1.0`), que troca o `Link`
+(`npx shadcn@latest add RodrigoSilva1854/lume-custom/link-next#v0.1.2`), que troca o `Link`
 da indireção por `next/link`. Em Vite, o `Link` padrão (um `<a>`) já serve.
 
 ### Alias `@lume`
@@ -50,7 +50,7 @@ npx shadcn@latest add @lume/button @lume/stat-card
 ```
 
 Para fixar a versão sem depender do site, aponte para a tag no GitHub:
-`"@lume": "https://raw.githubusercontent.com/RodrigoSilva1854/lume-custom/v0.1.0/public/r/{name}.json"`.
+`"@lume": "https://raw.githubusercontent.com/RodrigoSilva1854/lume-custom/v0.1.2/public/r/{name}.json"`.
 
 ## O que vem em cada kit
 
@@ -63,8 +63,8 @@ Para fixar a versão sem depender do site, aponte para a tag no GitHub:
 | `kit-dados` | badge, context-chip, span-type, card-sparkline, pill-meter, number-ticker, copy-button, code-block |
 | `kit-graficos` | evilcharts, area-chart, bar-chart, line-chart, donut-chart, trend-charts, range-picker |
 
-Qualquer item também instala sozinho: `npx shadcn@latest add RodrigoSilva1854/lume-custom/<item>#v0.1.0`.
-A lista completa está em `registry.json` ou em `npx shadcn@latest list RodrigoSilva1854/lume-custom#v0.1.0`.
+Qualquer item também instala sozinho: `npx shadcn@latest add RodrigoSilva1854/lume-custom/<item>#v0.1.2`.
+A lista completa está em `registry.json` ou em `npx shadcn@latest list RodrigoSilva1854/lume-custom#v0.1.2`.
 O item `guia` instala o guia inteiro em `docs/lume/` do seu projeto.
 
 ## Guia

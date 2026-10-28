@@ -4,7 +4,7 @@
   "title": "Skeleton",
   "description": "Placeholder de carregamento em squircle.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
   ],
   "files": [
     {

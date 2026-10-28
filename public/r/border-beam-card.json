@@ -7,8 +7,8 @@
     "border-beam"
   ],
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/card#v0.1.1",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/card#v0.1.2",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
   ],
   "files": [
     {

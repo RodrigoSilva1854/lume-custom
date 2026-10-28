@@ -7,10 +7,10 @@
     "recharts"
   ],
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/evilcharts#v0.1.1",
-    "RodrigoSilva1854/lume-custom/range#v0.1.1",
-    "RodrigoSilva1854/lume-custom/range-picker#v0.1.1",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/evilcharts#v0.1.2",
+    "RodrigoSilva1854/lume-custom/range#v0.1.2",
+    "RodrigoSilva1854/lume-custom/range-picker#v0.1.2",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
   ],
   "files": [
     {

@@ -4,14 +4,14 @@
   "title": "Kit dados",
   "description": "Badge, context-chip, span-type, card-sparkline, pill-meter, number-ticker, copy-button e code-block.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/badge#v0.1.1",
-    "RodrigoSilva1854/lume-custom/card-sparkline#v0.1.1",
-    "RodrigoSilva1854/lume-custom/code-block#v0.1.1",
-    "RodrigoSilva1854/lume-custom/context-chip#v0.1.1",
-    "RodrigoSilva1854/lume-custom/copy-button#v0.1.1",
-    "RodrigoSilva1854/lume-custom/number-ticker#v0.1.1",
-    "RodrigoSilva1854/lume-custom/pill-meter#v0.1.1",
-    "RodrigoSilva1854/lume-custom/span-type#v0.1.1"
+    "RodrigoSilva1854/lume-custom/badge#v0.1.2",
+    "RodrigoSilva1854/lume-custom/card-sparkline#v0.1.2",
+    "RodrigoSilva1854/lume-custom/code-block#v0.1.2",
+    "RodrigoSilva1854/lume-custom/context-chip#v0.1.2",
+    "RodrigoSilva1854/lume-custom/copy-button#v0.1.2",
+    "RodrigoSilva1854/lume-custom/number-ticker#v0.1.2",
+    "RodrigoSilva1854/lume-custom/pill-meter#v0.1.2",
+    "RodrigoSilva1854/lume-custom/span-type#v0.1.2"
   ],
   "meta": {
     "group": "kits",

@@ -4,7 +4,7 @@
   "title": "Kanban",
   "description": "lume-custom: KanbanBoard, KanbanColumn (bg-kanban-col, sem borda, bolinha da etapa), KanbanCard (bg-card com a sombra da casa) e KanbanEmpty.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
   ],
   "files": [
     {

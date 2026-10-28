@@ -4,7 +4,7 @@
   "title": "Card",
   "description": "Superfície padrão: bg-card, sombra hairline, squircle; size sm é o card do dashboard.",
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
   ],
   "files": [
     {

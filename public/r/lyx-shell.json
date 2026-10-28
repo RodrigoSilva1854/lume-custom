@@ -8,17 +8,17 @@
     "motion"
   ],
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/badge#v0.1.1",
-    "RodrigoSilva1854/lume-custom/button#v0.1.1",
-    "RodrigoSilva1854/lume-custom/dropdown-menu#v0.1.1",
-    "RodrigoSilva1854/lume-custom/kbd#v0.1.1",
-    "RodrigoSilva1854/lume-custom/link#v0.1.1",
-    "RodrigoSilva1854/lume-custom/motion#v0.1.1",
-    "RodrigoSilva1854/lume-custom/sections#v0.1.1",
-    "RodrigoSilva1854/lume-custom/sheet#v0.1.1",
-    "RodrigoSilva1854/lume-custom/theme-switcher#v0.1.1",
-    "RodrigoSilva1854/lume-custom/tooltip#v0.1.1",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/badge#v0.1.2",
+    "RodrigoSilva1854/lume-custom/button#v0.1.2",
+    "RodrigoSilva1854/lume-custom/dropdown-menu#v0.1.2",
+    "RodrigoSilva1854/lume-custom/kbd#v0.1.2",
+    "RodrigoSilva1854/lume-custom/link#v0.1.2",
+    "RodrigoSilva1854/lume-custom/motion#v0.1.2",
+    "RodrigoSilva1854/lume-custom/sections#v0.1.2",
+    "RodrigoSilva1854/lume-custom/sheet#v0.1.2",
+    "RodrigoSilva1854/lume-custom/theme-switcher#v0.1.2",
+    "RodrigoSilva1854/lume-custom/tooltip#v0.1.2",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
   ],
   "files": [
     {

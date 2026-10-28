@@ -7,12 +7,12 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "RodrigoSilva1854/lume-custom/card#v0.1.1",
-    "RodrigoSilva1854/lume-custom/format#v0.1.1",
-    "RodrigoSilva1854/lume-custom/link#v0.1.1",
-    "RodrigoSilva1854/lume-custom/number-ticker#v0.1.1",
-    "RodrigoSilva1854/lume-custom/skeleton#v0.1.1",
-    "RodrigoSilva1854/lume-custom/utils#v0.1.1"
+    "RodrigoSilva1854/lume-custom/card#v0.1.2",
+    "RodrigoSilva1854/lume-custom/format#v0.1.2",
+    "RodrigoSilva1854/lume-custom/link#v0.1.2",
+    "RodrigoSilva1854/lume-custom/number-ticker#v0.1.2",
+    "RodrigoSilva1854/lume-custom/skeleton#v0.1.2",
+    "RodrigoSilva1854/lume-custom/utils#v0.1.2"
   ],
   "files": [
     {
