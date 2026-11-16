@@ -27,6 +27,7 @@ para aplicar. Quando um item muda de API, a seção traz "Como migrar".
 ### Mudado
 
 - `lyx-shell`: `brandName` aceita elemento, para a marca em SVG.
+- `lyx-shell`: menu horizontal com 80 px de altura (era 56).
 - Demo com o logo HUB CRM.
 
 ## [0.1.3] - 2026-10-28

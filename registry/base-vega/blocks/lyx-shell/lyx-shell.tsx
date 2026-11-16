@@ -1171,7 +1171,7 @@ export function LyxShell({
         <div className="flex min-h-0 min-w-0 flex-1 flex-col">
           {/* Menu horizontal (só no computador). */}
           {top && (
-            <header className="hidden h-14 shrink-0 items-center gap-1 border-b border-border/40 px-4 min-[861px]:flex">
+            <header className="hidden h-20 shrink-0 items-center gap-1 border-b border-border/40 px-4 min-[861px]:flex">
               <div className="mr-3 ml-1 shrink-0">{brand}</div>
               <nav
                 ref={overflow.ref}
