@@ -9,8 +9,8 @@ Referência visual exata: [docs/referencia/crm-prototipo.html](docs/referencia/c
 ## Como usar
 
 ```bash
-npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.0 -y
-npx shadcn@latest add RodrigoSilva1854/lume-custom/lyx-shell#v0.1.1 RodrigoSilva1854/lume-custom/view-toggle#v0.1.1 RodrigoSilva1854/lume-custom/kanban-column#v0.1.1
+npx shadcn@latest init RodrigoSilva1854/lume-custom/base#v0.1.3 -y
+npx shadcn@latest add RodrigoSilva1854/lume-custom/kit-shell#v0.1.3
 ```
 
 ```tsx
@@ -137,6 +137,8 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 29. **Nada de `<select>` nativo** (substitui o uso do `native-select` no CRM): toda escolha numa lista usa o `LyxSelect` (`lyx-select`), sobre o Select do lume, para a lista abrir num popover com a cara do sistema e igual em todo navegador.
 
 30. **Inter oficial com "a" de um andar e algarismos abertos**: a fonte vem do pacote `inter-ui` (a Inter do autor, rsms), porque a da Fontsource é um recorte do Google Fonts sem as alternativas. O `globals.css` liga `font-feature-settings: "cv11", "ss01"` no html, body e campos. É a cara da fonte no protótipo; números tabulares continuam com `tabular-nums`.
+31. **"Mais" no menu horizontal**: quando as seções não cabem na largura, as do fim saem da linha e entram num item "Mais", com o ícone colorido de cada seção; seção com submenu abre o submenu ao lado. Se a seção atual está dentro de "Mais", ele fica marcado. A largura de cada item é medida numa cópia invisível, então nada some nem quebra linha.
+32. **Marca em SVG no `brandName`**: o `LyxShell` aceita o nome da marca como elemento (por exemplo "HUB CRM" em curvas, com o HUB em negrito), além de texto.
 
 Qual usar: barras simples e medidores, `lyx-charts`; séries comuns com legenda e tooltip, `lyx-recharts`; funil, mapa de calor, sankey ou muitos pontos, `lyx-echarts`.
 

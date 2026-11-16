@@ -18,6 +18,17 @@ para aplicar. Quando um item muda de API, a seção traz "Como migrar".
 - `number-flow`, `model-chip` e logos de marcas.
 - Migração efetiva dos fronts da Lyx (trabalho da camada `lyx-ds`, com o guia de adoção).
 
+## [Próxima]
+
+### Adicionado
+
+- `lyx-shell`: item "Mais" no menu horizontal com as seções que não cabem na largura, com submenu ao lado.
+
+### Mudado
+
+- `lyx-shell`: `brandName` aceita elemento, para a marca em SVG.
+- Demo com o logo HUB CRM.
+
 ## [0.1.3] - 2026-10-28
 
 ### Mudado

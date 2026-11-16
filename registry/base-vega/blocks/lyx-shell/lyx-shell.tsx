@@ -49,6 +49,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/registry/base-vega/ui/dropdown-menu";
 import { Kbd } from "@/registry/base-vega/ui/kbd";
@@ -687,22 +690,49 @@ function Crumbs({
 
 /* ------------------------------------------------------ menu horizontal */
 
+const TOP_PILL =
+  "flex h-8 shrink-0 cursor-pointer items-center gap-1 rounded-full px-3 text-sm whitespace-nowrap text-muted-foreground outline-none transition-colors hover:bg-rail-item hover:text-foreground focus-visible:ring-[1.5px] focus-visible:ring-ring/50 data-popup-open:bg-rail-item data-popup-open:text-foreground";
+
+// Os itens que não cabem na largura vão para "Mais", no fim da linha; quem
+// tem submenu abre o submenu ao lado (CUSTOM.md, item 31).
 function TopNav({
   sections,
   activeHref,
   activeSection,
+  visible,
+  measureRef,
 }: {
   sections: Section[];
   activeHref?: string;
   activeSection?: Section;
+  /** Quantas seções cabem na linha; as outras vão para "Mais". */
+  visible: number;
+  measureRef: React.RefObject<HTMLDivElement | null>;
 }) {
-  const pill =
-    "flex h-8 shrink-0 cursor-pointer items-center gap-1 rounded-full px-3 text-sm text-muted-foreground outline-none transition-colors hover:bg-rail-item hover:text-foreground focus-visible:ring-[1.5px] focus-visible:ring-ring/50 data-popup-open:bg-rail-item data-popup-open:text-foreground";
+  const shown = sections.slice(0, visible);
+  const rest = sections.slice(visible);
+  const restOn = rest.some((s) => s.id === activeSection?.id);
   return (
     <>
-      {sections.map((s) => {
+      {/* Cópia invisível para medir a largura de cada item. */}
+      <div
+        ref={measureRef}
+        aria-hidden
+        className="pointer-events-none invisible absolute top-0 left-0 flex w-max items-center gap-0.5"
+      >
+        {sections.map((s) => (
+          <span key={s.id} className={cn(TOP_PILL, "font-medium")}>
+            {s.label}
+            {hasSubmenu(s) && <IconChevronDown className="size-3.5" />}
+          </span>
+        ))}
+      </div>
+      {shown.map((s) => {
         const on = activeSection?.id === s.id;
-        const cls = cn(pill, on && "bg-rail-item font-medium text-foreground");
+        const cls = cn(
+          TOP_PILL,
+          on && "bg-rail-item font-medium text-foreground",
+        );
         if (!hasSubmenu(s)) {
           return (
             <Link
@@ -747,31 +777,130 @@ function TopNav({
           </DropdownMenu>
         );
       })}
+      {rest.length > 0 && (
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            openOnHover
+            delay={60}
+            closeDelay={150}
+            className={cn(
+              TOP_PILL,
+              restOn && "bg-rail-item font-medium text-foreground",
+            )}
+          >
+            Mais
+            <IconChevronDown className="size-3.5 opacity-50" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="end"
+            sideOffset={8}
+            className="w-auto min-w-52 rounded-2xl p-1.5 squircle:rounded-3xl"
+          >
+            {rest.map((s) => {
+              const on = activeSection?.id === s.id;
+              const Icon = on ? s.iconActive : s.icon;
+              const head = (
+                <>
+                  <Icon className={cn("size-4", s.tone.text)} />
+                  {s.label}
+                </>
+              );
+              if (!hasSubmenu(s)) {
+                return (
+                  <DropdownMenuItem
+                    key={s.id}
+                    render={<Link href={s.items[0]?.href ?? "/"} />}
+                    className={cn(
+                      "h-9 gap-2.5 rounded-lg px-2.5",
+                      on && "bg-accent font-medium",
+                    )}
+                  >
+                    {head}
+                  </DropdownMenuItem>
+                );
+              }
+              return (
+                <DropdownMenuSub key={s.id}>
+                  <DropdownMenuSubTrigger
+                    openOnHover
+                    delay={60}
+                    className={cn(
+                      "h-9 gap-2.5 rounded-lg px-2.5",
+                      on && "font-medium",
+                    )}
+                  >
+                    {head}
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent
+                    sideOffset={6}
+                    className="min-w-48 rounded-2xl p-1.5 squircle:rounded-3xl"
+                  >
+                    {s.items.map((it) => (
+                      <DropdownMenuItem
+                        key={it.href}
+                        render={<Link href={it.href} />}
+                        className={cn(
+                          "h-9 rounded-lg px-2.5",
+                          it.href === activeHref && "bg-accent font-medium",
+                        )}
+                      >
+                        {it.label}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+              );
+            })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
     </>
   );
 }
 
-// Quando os itens do menu horizontal não cabem, a busca vira só a lupa. A
-// folga de 230px evita piscar: só volta a abrir quando sobra o tamanho dela.
-function useNavOverflow(enabled: boolean) {
+// Mede os itens do menu horizontal pela cópia invisível e decide quantos
+// cabem; o resto vai para "Mais". Se nem todos cabem, a busca vira só a lupa.
+// A folga de 230px evita piscar: a busca só volta a abrir quando sobra o
+// tamanho dela.
+const MORE_W = 84;
+const TOP_GAP = 2;
+
+function useNavOverflow(enabled: boolean, count: number) {
   const ref = useRef<HTMLElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
   const [compact, setCompact] = useState(false);
-  useEffect(() => {
+  const [visible, setVisible] = useState(count);
+  useLayoutEffect(() => {
     const el = ref.current;
-    if (!el || !enabled) return;
+    const m = measureRef.current;
+    if (!el || !m || !enabled) return;
     const check = () => {
-      setCompact((c) =>
-        c
-          ? el.scrollWidth + 230 > el.clientWidth + 1
-          : el.scrollWidth > el.clientWidth + 1,
+      const widths = Array.from(
+        m.children,
+        (c) => (c as HTMLElement).offsetWidth,
       );
+      const total = widths.reduce((a, w) => a + w + TOP_GAP, 0);
+      const avail = el.clientWidth;
+      setCompact((c) => (c ? total + 230 > avail : total > avail));
+      let n = widths.length;
+      if (total > avail) {
+        let acc = MORE_W;
+        n = 0;
+        for (const w of widths) {
+          if (acc + w + TOP_GAP > avail) break;
+          acc += w + TOP_GAP;
+          n++;
+        }
+      }
+      setVisible(n);
     };
     check();
     const ro = new ResizeObserver(check);
     ro.observe(el);
+    ro.observe(m);
     return () => ro.disconnect();
   }, [enabled]);
-  return { ref, compact };
+  return { ref, measureRef, compact, visible };
 }
 
 /* ------------------------------------------------------- subir ao topo */
@@ -932,7 +1061,7 @@ export function LyxShell({
   const side = nav === "side" && !focus;
   const top = nav === "top" && !focus;
   const railFit = useRailFit(sections.length, side && rail);
-  const overflow = useNavOverflow(top);
+  const overflow = useNavOverflow(top, sections.length);
   const main = useRef<HTMLElement>(null);
   useScrollTopOnRoute(main, pathname);
   useCardsEnter(main, pathname);
@@ -1047,12 +1176,14 @@ export function LyxShell({
               <nav
                 ref={overflow.ref}
                 aria-label="Navegação principal"
-                className="flex min-w-0 flex-1 items-center gap-0.5 overflow-hidden"
+                className="relative flex min-w-0 flex-1 items-center gap-0.5 overflow-hidden"
               >
                 <TopNav
                   sections={sections}
                   activeHref={activeHref}
                   activeSection={activeSection}
+                  visible={overflow.visible}
+                  measureRef={overflow.measureRef}
                 />
               </nav>
               <ScreenSearch
