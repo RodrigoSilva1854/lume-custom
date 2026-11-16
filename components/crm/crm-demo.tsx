@@ -97,6 +97,7 @@ import {
   FunilChart,
   SectionTitle,
 } from "./charts-demo";
+import { HubCrmWordmark, HubSymbol } from "./hub-logo";
 import {
   BLOCOS,
   COMISSOES,
@@ -122,38 +123,6 @@ import {
 
 export const CRM_BASE = "/crm";
 const SECTIONS_CRM = prefixSections(SECTIONS, CRM_BASE);
-
-/** Logo LYX: casa em traço com as letras, na cor do texto. */
-function LyxMark() {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" aria-label="LYX" role="img">
-      <path
-        d="M5 14.5 16 5l11 9.5"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M7.5 13v6M24.5 13v6"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      />
-      <text
-        x="16"
-        y="27.5"
-        textAnchor="middle"
-        fontSize="9"
-        fontWeight="700"
-        fill="currentColor"
-        fontFamily="inherit"
-      >
-        LYX
-      </text>
-    </svg>
-  );
-}
 
 /* ---------------------------------------------------------------- peças */
 
@@ -2024,8 +1993,8 @@ export function CrmShell({ children }: { children: React.ReactNode }) {
   return (
     <LyxShell
       pathname={pathname}
-      brandMark={<LyxMark />}
-      brandName="CRM Comercial"
+      brandMark={<HubSymbol className="size-7" />}
+      brandName={<HubCrmWordmark className="h-3 w-auto" />}
       user={{ name: "Rafael Souza", email: "rafael.souza@exemplo.com" }}
       sections={SECTIONS_CRM}
       navigate={(href) => router.push(href)}

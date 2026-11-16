@@ -868,8 +868,9 @@ export type LyxShellProps = {
   pathname: string;
   /** Logo sozinho, para o trilho. */
   brandMark: React.ReactNode;
-  /** Nome ao lado do logo no menu expandido, no horizontal e no celular. */
-  brandName: string;
+  /** Nome ao lado do logo no menu expandido, no horizontal e no celular.
+   * Texto ou o nome da marca em SVG (como "HUB CRM" com o HUB em negrito). */
+  brandName: React.ReactNode;
   user: LyxUser;
   sections?: Section[];
   accountItems?: LyxAccountItem[];
@@ -960,7 +961,7 @@ export function LyxShell({
       <span className="grid shrink-0 place-items-center [&_svg]:size-7">
         {brandMark}
       </span>
-      <span className="truncate">{brandName}</span>
+      <span className="min-w-0 truncate [&_svg]:block">{brandName}</span>
     </span>
   );
 
