@@ -93,12 +93,7 @@ import {
   TableRow,
 } from "@/registry/base-vega/ui/table";
 
-import {
-  Avancados,
-  CalorChart,
-  DiaADia,
-  SectionTitle,
-} from "./charts-demo";
+import { Avancados, CalorChart, DiaADia, SectionTitle } from "./charts-demo";
 import { HubCrmWordmark, HubSymbol } from "./hub-logo";
 import {
   BLOCOS,
