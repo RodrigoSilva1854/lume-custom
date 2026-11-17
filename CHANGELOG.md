@@ -29,6 +29,8 @@ para aplicar. Quando um item muda de API, a seção traz "Como migrar".
 - `lyx-shell`: `brandName` aceita elemento, para a marca em SVG.
 - `lyx-shell`: menu horizontal com 80 px de altura (era 56).
 - `lyx-shell`: a trilha de navegação passa a usar o `Breadcrumb` do lume, com os níveis anteriores clicáveis.
+- `lyx-shell`: a busca de telas aberta ocupa só a caixa dela e não cobre mais o último item do menu horizontal.
+- Demo: Andamento dos leads igual ao protótipo (indicadores, chips de prazo, filtros, "Mostrar mais informações" e kanban com selo de prazo e botão de avançar etapa).
 - Demo com o logo HUB CRM.
 
 ## [0.1.3] - 2026-10-28

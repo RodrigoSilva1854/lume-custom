@@ -552,8 +552,10 @@ function ScreenSearch({
         className={cn(
           "absolute top-1/2 right-0 flex h-8 -translate-y-1/2 cursor-text items-center gap-2 overflow-hidden rounded-full text-sm text-muted-foreground transition-[width,background-color,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]",
           wide
-            ? "w-72 bg-muted px-3 focus-within:bg-popover focus-within:shadow-(--custom-shadow)"
+            ? "bg-muted px-3 focus-within:bg-popover focus-within:shadow-(--custom-shadow)"
             : "w-8 justify-center hover:bg-muted",
+          // Aberta, ocupa a caixa dela; na lupa, cresce para a esquerda.
+          wide && (compact ? "w-72" : "w-full"),
           compact && open && "z-30 bg-popover shadow-(--custom-shadow)",
         )}
       >

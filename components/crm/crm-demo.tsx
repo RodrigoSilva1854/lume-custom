@@ -4,6 +4,8 @@
 "use client";
 
 import {
+  IconAlertTriangle,
+  IconArrowRight,
   IconBookmark,
   IconBox,
   IconBuildingSkyscraper,
@@ -78,6 +80,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/base-vega/ui/card";
+import { Checkbox } from "@/registry/base-vega/ui/checkbox";
 import { Input } from "@/registry/base-vega/ui/input";
 import { Label } from "@/registry/base-vega/ui/label";
 import { Switch } from "@/registry/base-vega/ui/switch";
@@ -94,7 +97,6 @@ import {
   Avancados,
   CalorChart,
   DiaADia,
-  FunilChart,
   SectionTitle,
 } from "./charts-demo";
 import { HubCrmWordmark, HubSymbol } from "./hub-logo";
@@ -104,6 +106,8 @@ import {
   DIST,
   DOT,
   EMPREENDIMENTOS_DISP,
+  FUNIL_LEADS,
+  FUNIL_STAGES,
   LEAD_STAGES,
   LEADS,
   LEADS_POR_DIA,
@@ -114,6 +118,8 @@ import {
   RES_STAGES,
   RESERVAS,
   type Row,
+  SLA,
+  type Sla,
   type Stage,
   ULTIMOS_ACESSOS,
   unitInfo,
@@ -1819,6 +1825,265 @@ function Graficos({ section }: { section?: Section }) {
 
 /* ---------------------------------------------------------------- rotas */
 
+/* ------------------------------------------- andamento dos leads */
+
+const SLA_KEYS = Object.keys(SLA) as Sla[];
+
+/** Andamento dos leads, igual ao protótipo: indicadores, busca, chips de
+ * prazo, filtros, "Mostrar mais informações" e o kanban com selo de prazo e
+ * botão de avançar etapa. */
+function LeadsAndamento({ section }: { section?: Section }) {
+  const [leads, setLeads] = useState(FUNIL_LEADS);
+  const [query, setQuery] = useState("");
+  const [sla, setSla] = useState<"todos" | Sla>("todos");
+  const [detail, setDetail] = useState(false);
+  const [filters, setFilters] = useState<FilterValues>({});
+  const [drawer, setDrawer] = useState(false);
+
+  const groups: FilterGroup[] = useMemo(() => {
+    const uniq = (k: "corretor" | "emp" | "origem") =>
+      [...new Set(FUNIL_LEADS.map((l) => l[k]))].sort();
+    return [
+      {
+        title: "Quem atende",
+        fields: [
+          {
+            id: "corretor",
+            label: "Corretor",
+            type: "select",
+            options: uniq("corretor"),
+          },
+        ],
+      },
+      {
+        title: "O que procura",
+        fields: [
+          {
+            id: "emp",
+            label: "Empreendimento",
+            type: "select",
+            options: uniq("emp"),
+          },
+          {
+            id: "origem",
+            label: "Origem",
+            type: "chips",
+            options: uniq("origem"),
+          },
+        ],
+      },
+    ];
+  }, []);
+
+  const t = query.trim().toLowerCase();
+  const base = leads.filter((l) => {
+    if (
+      t &&
+      !`${l.name} ${l.code} ${l.corretor} ${l.emp}`.toLowerCase().includes(t)
+    )
+      return false;
+    for (const [k, v] of Object.entries(filters)) {
+      const val = l[k as keyof typeof l];
+      if (Array.isArray(v) && v.length && !v.includes(String(val)))
+        return false;
+      if (typeof v === "string" && v && v !== "Todos" && val !== v)
+        return false;
+    }
+    return true;
+  });
+  const vis = sla === "todos" ? base : base.filter((l) => l.sla === sla);
+
+  const advance = (code: number) =>
+    setLeads((all) =>
+      all.map((l) => {
+        if (l.code !== code) return l;
+        const i = FUNIL_STAGES.findIndex((s) => s.key === l.stage);
+        return i < FUNIL_STAGES.length - 1
+          ? { ...l, stage: FUNIL_STAGES[i + 1].key }
+          : l;
+      }),
+    );
+
+  const chip = (key: "todos" | Sla, label: string, n: number, dot?: string) => (
+    <Button
+      key={key}
+      variant="outline"
+      size="sm"
+      aria-pressed={sla === key}
+      onClick={() => setSla(key)}
+      className={cn("font-normal", sla === key && CHIP_ON)}
+    >
+      {dot && <span className={cn("size-1.5 rounded-full", dot)} />}
+      {label}
+      <span className="text-muted-foreground tabular-nums">{n}</span>
+    </Button>
+  );
+
+  return (
+    <>
+      <Title
+        section={section}
+        title="Andamento dos leads"
+        sub="Veja em que etapa do funil está cada lead e avance quem está pronto."
+        actions={
+          <>
+            <Button variant="outline">
+              <IconCalendarEvent />
+              Minha agenda
+            </Button>
+            <Button variant="outline" className="max-sm:hidden">
+              Agenda completa
+            </Button>
+            <Button onClick={() => toast("Novo lead: tela de exemplo")}>
+              <IconPlus />
+              Novo lead
+            </Button>
+          </>
+        }
+      />
+      <Stats
+        items={[
+          {
+            label: "Mês de competência",
+            value: "Outubro / 2026",
+            icon: IconCalendarEvent,
+            tone: "text-emerald-500",
+          },
+          {
+            label: "Leads no funil",
+            value: String(leads.length),
+            icon: IconUsers,
+            tone: "text-rose-500",
+          },
+          {
+            label: "Valor em negociação",
+            value: money(leads.reduce((a, l) => a + l.valor, 0)),
+            icon: IconCoin,
+            tone: "text-amber-500",
+          },
+          {
+            label: "Com prazo vencido",
+            value: String(leads.filter((l) => l.sla === "late").length),
+            icon: IconAlertTriangle,
+            tone: "text-red-500",
+          },
+        ]}
+      />
+      <div className="flex flex-wrap items-center gap-2">
+        <div className="relative w-full max-w-[420px] min-w-0 flex-[1_1_260px]">
+          <IconSearch className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Buscar por nome, código ou corretor…"
+            className="pl-9"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+        {/* biome-ignore lint/a11y/useSemanticElements: grupo de chips de filtro */}
+        <div
+          role="group"
+          aria-label="Filtrar por prazo"
+          className="flex flex-wrap gap-2"
+        >
+          {chip("todos", "Todos", base.length)}
+          {SLA_KEYS.map((k) =>
+            chip(
+              k,
+              SLA[k].label,
+              base.filter((l) => l.sla === k).length,
+              SLA[k].dot,
+            ),
+          )}
+        </div>
+        <FilterButton
+          count={countFilters(filters)}
+          onClick={() => setDrawer(true)}
+        />
+        <span className="flex-1" />
+        {/* biome-ignore lint/a11y/noLabelWithoutControl: a Checkbox do Base UI fica dentro do rótulo */}
+        <label className="flex h-9 cursor-pointer items-center gap-2 text-sm">
+          <Checkbox
+            checked={detail}
+            onCheckedChange={(c) => setDetail(c === true)}
+          />
+          Mostrar mais informações
+        </label>
+      </div>
+      <ActiveFilters groups={groups} value={filters} onChange={setFilters} />
+      <FilterDrawer
+        open={drawer}
+        onOpenChange={setDrawer}
+        groups={groups}
+        value={filters}
+        onChange={setFilters}
+        resultCount={vis.length}
+      />
+      <KanbanBoard>
+        {FUNIL_STAGES.map((s, i) => {
+          const items = vis.filter((l) => l.stage === s.key);
+          const next = FUNIL_STAGES[i + 1];
+          return (
+            <KanbanColumn key={s.key} title={s.label} dotClassName={s.dot}>
+              {items.length ? (
+                items.map((l) => (
+                  <KanbanCard key={l.code}>
+                    <div className="flex items-center justify-between gap-2">
+                      <Code n={l.code} />
+                      <Badge variant={SLA[l.sla].badge} className="normal-case">
+                        {SLA[l.sla].label}
+                      </Badge>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium tracking-tight">
+                        {l.name}
+                      </span>
+                      <span className="text-xs text-muted-foreground tabular-nums">
+                        {l.phone}
+                      </span>
+                    </div>
+                    {detail && (
+                      <div className="flex flex-col gap-0.5 text-xs">
+                        <span>{l.emp}</span>
+                        <span className="text-muted-foreground">
+                          {l.corretor} · {l.origem}
+                        </span>
+                        <span className="text-muted-foreground tabular-nums">
+                          {l.valor
+                            ? `Negócio de ${money(l.valor)}`
+                            : "Sem valor de negócio"}
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-1.5 pt-1 text-xs text-muted-foreground">
+                      <span className="mr-auto">{l.tempo}</span>
+                      <Button variant="outline" size="xs">
+                        Abrir
+                      </Button>
+                      {next && (
+                        <Button
+                          variant="outline"
+                          size="icon-xs"
+                          aria-label={`Avançar ${l.name} para ${next.label}`}
+                          title={`Avançar para ${next.label}`}
+                          onClick={() => advance(l.code)}
+                        >
+                          <IconArrowRight />
+                        </Button>
+                      )}
+                    </div>
+                  </KanbanCard>
+                ))
+              ) : (
+                <KanbanEmpty>Nenhum lead nesta etapa</KanbanEmpty>
+              )}
+            </KanbanColumn>
+          );
+        })}
+      </KanbanBoard>
+    </>
+  );
+}
+
 const LEAD_COLS: Col[] = [
   { key: "score", label: "Score" },
   { key: "origem", label: "Origem" },
@@ -1863,28 +2128,7 @@ export function CrmPage({ path }: { path: string }) {
         cols={LEAD_COLS}
       />
     ),
-    "leads/andamento": () => (
-      <BoardPage
-        section={section}
-        title="Andamento dos leads"
-        sub="Em que etapa está cada lead."
-        stages={LEAD_STAGES}
-        rows={LEADS}
-        extra={
-          <Card size="sm">
-            <CardHeader>
-              <CardTitle>Funil de conversão</CardTitle>
-              <CardDescription>
-                Do lead recebido à venda, no período.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="mt-2">
-              <FunilChart height={240} />
-            </CardContent>
-          </Card>
-        }
-      />
-    ),
+    "leads/andamento": () => <LeadsAndamento section={section} />,
     "leads/distribuicao": () => (
       <DistPage
         section={section}
