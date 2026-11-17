@@ -25,6 +25,7 @@ import {
 import { motion, useReducedMotion } from "motion/react";
 import type * as React from "react";
 import {
+  Fragment,
   useCallback,
   useEffect,
   useId,
@@ -43,6 +44,14 @@ import {
   type Section,
 } from "@/registry/base-vega/lib/sections";
 import { cn } from "@/registry/base-vega/lib/utils";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/registry/base-vega/ui/breadcrumb";
 import { Button } from "@/registry/base-vega/ui/button";
 import {
   DropdownMenu,
@@ -638,53 +647,76 @@ function ScreenSearch({
 /* --------------------------------------------------------------- migalha */
 
 function Crumbs({
+  sections,
   section,
   activeHref,
 }: {
+  sections: Section[];
   section?: Section;
   activeHref?: string;
 }) {
   if (!section) return <span />;
   const item = section.items.find((it) => it.href === activeHref);
+  const firstOfGroup = sections.find((s) => s.group === section.group);
   const levels: {
     label: string;
     icon?: React.ElementType;
-    current?: boolean;
+    href?: string;
   }[] =
     section.group === "home"
       ? [
-          { label: "Início", icon: section.icon },
-          { label: item?.label ?? section.label, current: true },
+          {
+            label: "Início",
+            icon: section.icon,
+            href: firstOfGroup?.items[0]?.href,
+          },
+          { label: item?.label ?? section.label },
         ]
       : [
           {
             label: GROUP_LABEL[section.group],
             icon: GROUP_ICON[section.group],
+            href: firstOfGroup?.items[0]?.href,
           },
-          { label: section.label, icon: section.icon },
-          ...(item ? [{ label: item.label, current: true }] : []),
+          {
+            label: section.label,
+            icon: section.icon,
+            href: item ? section.items[0]?.href : undefined,
+          },
+          ...(item ? [{ label: item.label }] : []),
         ];
+  const last = levels.length - 1;
   return (
-    <nav
-      aria-label="Você está em"
-      className="flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground/70"
-    >
-      {levels.map((l, i) => (
-        <span key={l.label} className="flex min-w-0 items-center gap-1.5">
-          {i > 0 && <IconChevronRight className="size-3 shrink-0 opacity-50" />}
-          {l.icon && <l.icon className="size-3.5 shrink-0" />}
-          <span
-            aria-current={l.current ? "page" : undefined}
-            className={cn(
-              "truncate",
-              l.current && "font-medium text-foreground/80",
-            )}
-          >
-            {l.label}
-          </span>
-        </span>
-      ))}
-    </nav>
+    <Breadcrumb aria-label="Você está em" className="min-w-0">
+      <BreadcrumbList>
+        {levels.map((l, i) => (
+          <Fragment key={l.label}>
+            {i > 0 && <BreadcrumbSeparator />}
+            <BreadcrumbItem className="min-w-0">
+              {i === last || !l.href || l.href === activeHref ? (
+                <BreadcrumbPage
+                  className={cn(
+                    "flex min-w-0 items-center gap-1.5",
+                    i !== last && "text-muted-foreground",
+                  )}
+                >
+                  {l.icon && <l.icon className="size-4 shrink-0" />}
+                  <span className="truncate">{l.label}</span>
+                </BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink
+                  render={<Link href={l.href} />}
+                  className="flex min-w-0 items-center gap-1.5"
+                >
+                  {l.icon && <l.icon className="size-4 shrink-0" />}
+                  <span className="truncate">{l.label}</span>
+                </BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
+          </Fragment>
+        ))}
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 }
 
@@ -1235,7 +1267,11 @@ export function LyxShell({
             <div className="flex flex-col gap-4 px-8 pt-6 pb-16 max-[860px]:px-4">
               {!focus && (
                 <div className="flex min-h-9 items-center justify-between gap-4">
-                  <Crumbs section={activeSection} activeHref={activeHref} />
+                  <Crumbs
+                    sections={sections}
+                    section={activeSection}
+                    activeHref={activeHref}
+                  />
                   {side && (
                     <ScreenSearch
                       sections={sections}

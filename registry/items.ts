@@ -830,7 +830,7 @@ const LANES: ItemMeta[] = [
     name: "lyx-shell",
     title: "Casca do CRM LYX",
     description:
-      "lume-custom: trilho de ícones que encolhe com a altura da tela, ativo na cor da seção, submenu flutuante no hover, menu expandido em pílulas, botão Layout (expandir, menu horizontal, modo foco), chip do usuário em degradê, migalha com ícones, busca de telas (Ctrl K), gaveta no celular e subida ao topo ao trocar de página.",
+      "lume-custom: trilho de ícones que encolhe com a altura da tela, ativo na cor da seção, submenu flutuante no hover, menu expandido em pílulas, botão Layout (expandir, menu horizontal, modo foco), chip do usuário em degradê, trilha de navegação sobre o Breadcrumb do lume, com ícones e níveis clicáveis, busca de telas (Ctrl K), gaveta no celular e subida ao topo ao trocar de página.",
     group: "blocks",
     tier: "core",
     type: "registry:component",

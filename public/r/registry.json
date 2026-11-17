@@ -2165,13 +2165,14 @@
       "name": "lyx-shell",
       "type": "registry:component",
       "title": "Casca do CRM LYX",
-      "description": "lume-custom: trilho de ícones que encolhe com a altura da tela, ativo na cor da seção, submenu flutuante no hover, menu expandido em pílulas, botão Layout (expandir, menu horizontal, modo foco), chip do usuário em degradê, migalha com ícones, busca de telas (Ctrl K), gaveta no celular e subida ao topo ao trocar de página.",
+      "description": "lume-custom: trilho de ícones que encolhe com a altura da tela, ativo na cor da seção, submenu flutuante no hover, menu expandido em pílulas, botão Layout (expandir, menu horizontal, modo foco), chip do usuário em degradê, trilha de navegação sobre o Breadcrumb do lume, com ícones e níveis clicáveis, busca de telas (Ctrl K), gaveta no celular e subida ao topo ao trocar de página.",
       "dependencies": [
         "@tabler/icons-react",
         "motion"
       ],
       "registryDependencies": [
         "RodrigoSilva1854/lume-custom/badge#v0.1.3",
+        "RodrigoSilva1854/lume-custom/breadcrumb#v0.1.3",
         "RodrigoSilva1854/lume-custom/button#v0.1.3",
         "RodrigoSilva1854/lume-custom/dropdown-menu#v0.1.3",
         "RodrigoSilva1854/lume-custom/kbd#v0.1.3",

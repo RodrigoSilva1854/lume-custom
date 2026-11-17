@@ -40,7 +40,7 @@ As seções e rotas vêm de `lib/sections.ts`; edite ali para mudar o menu. A de
 
 | Item | O que traz |
 |---|---|
-| `lyx-shell` | trilho, menu expandido, submenu flutuante, botão Layout, menu horizontal, modo foco, chip do usuário, migalha, busca de telas, gaveta no celular, subida ao topo |
+| `lyx-shell` | trilho, menu expandido, submenu flutuante, botão Layout, menu horizontal, modo foco, chip do usuário, trilha de navegação, busca de telas, gaveta no celular, subida ao topo |
 | `sections` | as seções do CRM (rótulo, ícones, cor, rotas) |
 | `view-toggle` | alternador Lista, Quadro, Compacto |
 | `kanban-column` | KanbanBoard, KanbanColumn, KanbanCard, KanbanEmpty |
@@ -99,7 +99,7 @@ Cada item cita a regra do `FRONTEND.md` que ele substitui.
 
 ### Cabeçalho e navegação
 
-10. **Migalha de pão com ícones** (substitui "nunca o primitivo Breadcrumb"). Acima do título, `text-xs text-muted-foreground/70`, com o ícone de cada nível. Na mesma linha, à direita, a busca de telas (`Command`, atalho Ctrl ou Cmd K), sem mostrar o atalho escrito.
+10. **Trilha de navegação sobre o `Breadcrumb` do lume, com ícones.** Acima do título, no tamanho e cores do `Breadcrumb` padrão, com o ícone de cada nível. Os níveis anteriores são links: o grupo leva à primeira tela do grupo e a seção à tela principal dela; a tela atual fica em `BreadcrumbPage`. Na mesma linha, à direita, a busca de telas (`Command`, atalho Ctrl ou Cmd K), sem mostrar o atalho escrito.
 11. **Ao trocar de página com a tela rolada**, sobe ao topo animado com `EASE` (rápido e depois suave), em 380 a 700ms conforme a distância. Rolagem do usuário cancela.
 
 ### Usuário
